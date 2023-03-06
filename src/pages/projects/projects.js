@@ -1,3 +1,5 @@
+import './projects.css'
+
 function Projects(props) {
     return ( 
 

@@ -1,12 +1,14 @@
-function Reports(props) {
+import "./teams.css"
+
+function Teams(props) {
     return ( 
 
         <div>
             <h1>
-                Reports
+                Teams
             </h1>
         </div>
      );
 }
 
-export default Reports;
+export default Teams;

@@ -1,3 +1,5 @@
+import "./employees.css"
+
 function Employees(props) {
     return ( 
 
