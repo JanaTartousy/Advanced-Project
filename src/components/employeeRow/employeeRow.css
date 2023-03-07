@@ -1,0 +1,14 @@
+.contain {
+  display: flex;
+  height: 150px;
+}
+.row {
+  
+  display: flex;
+  flex-direction: row;
+  margin: auto;
+  justify-content: space-around;
+}
+.employee-name {
+  color: #f6f8fa;
+}
