@@ -1,7 +1,7 @@
 import "./sidebar.css"
 import {NavLink} from "react-router-dom";
 import {RiTeamLine, CgHomeAlt, MdOutlineAnalytics, BsFileEarmarkText, HiOutlineBriefcase} from "react-icons";
-
+import { useState } from "react";
 
 function Sidebar() {
     const [isSidebarOpen, setIsSidebarOpen] = useState(true);
