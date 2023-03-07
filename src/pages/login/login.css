@@ -1,0 +1,9 @@
+.login-container {
+  padding: 20px;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(45deg, red 30%,white 30%,white 70%,red 70%,red 100%);
+}

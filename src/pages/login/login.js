@@ -1,21 +1,14 @@
-import "./login.css";
-function handleLogin(event){
-    event.preventDefault();
-}
-function Login(props) {
-  return <>
-  
-  <form onSubmit={handleLogin}>
-    <h1 >
+import LoginForm from "../../components/loginForm/loginForm";
+import "./login.css"
 
-    </h1>
-    <label for="email">Email</label>
-    <input type="email" name="email" id="email"/>
-    <label for="password">Password</label>
-    <input type="password" name="password" id="password"/>
-    <button type="submit" name="login" id="login">Login</button>
-  </form>
-  </>;
+function Login() {
+  return (
+    <main>
+      <div className="login-container">
+        <LoginForm />
+      </div>
+    </main>
+  );
 }
 
 export default Login;
