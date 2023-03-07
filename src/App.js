@@ -6,10 +6,12 @@ import Teams from "./pages/teams/teams";
 import Reports from "./pages/reports/reports";
 import Login from "./pages/login/login";
 import Home from "./pages/home/home";
+import Sidebar from "./components/sidebar";
 
 function App() {
   return (
     <div className="App">
+      <Sidebar />
       <Routes>
         <Route path="/" element={<Home />}>
           <Route path="/employees" element={<Employees />} />
@@ -19,6 +21,7 @@ function App() {
         </Route>
         <Route path="/login" element={<Login />} />
       </Routes>
+
     </div>
   );
 }
