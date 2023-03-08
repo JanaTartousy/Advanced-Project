@@ -14,7 +14,6 @@ const cookie = new Cookies();
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState(null);
-
   useEffect(() => {
     const authToken = cookie.get("auth-token");
     if (authToken) {
@@ -22,6 +21,7 @@ function App() {
       setIsLoggedIn(true);
     }
   }, []);
+  console.log(token)
   return (
     <div className="App">
       <UserContext.Provider

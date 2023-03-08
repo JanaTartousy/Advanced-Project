@@ -36,11 +36,7 @@ function LoginForm(props) {
         setToken(authToken);
         setIsLoggedIn(true);
         setErrorMessage("");
-        cookies.set("auth-token", authToken, {
-          httpOnly: true,
-          secure: true,
-          sameSite: "strict",
-        });
+        cookies.set("auth-token", authToken);
         navigate("/");
       })
       .catch((error) => {
