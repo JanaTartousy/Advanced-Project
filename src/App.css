@@ -28,6 +28,7 @@ h4 , p {
 }
 
 :root {
+    /* Colors */
     --main: #E4E9F7;
     --accent: #369fff;
     --black: #333;
