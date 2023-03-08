@@ -28,9 +28,15 @@ h4 , p {
 }
 
 :root {
-    --main: #d8ecff;
+    --main: #F6F8FA;
     --accent: #369fff;
     --black: #333;
     --accent-derv: #69B7FF;
     --gray: #707070;
+    
+    /* Transition */
+    --tran-03: all 0.2s ease;
+    --tran-03: all 0.3s ease;
+    --tran-04: all 0.3s ease;
+    --tran-05: all 0.3s ease;
 }
