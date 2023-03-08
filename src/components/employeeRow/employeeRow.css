@@ -1,14 +1,34 @@
 .contain {
   display: flex;
   height: 150px;
+  width: 90vw;
+  margin: 0 auto;
+  margin-left: 110px;
 }
+
 .row {
-  
-  display: flex;
-  flex-direction: row;
   margin: auto;
-  justify-content: space-around;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  justify-content: flex-end;
+  width: 70vw;
+  height: 80px;
+  background-color:#707070;
+  border-radius: 10px;
 }
+
 .employee-name {
   color: #f6f8fa;
+  margin-top: 63px;
+  /* margin-left: 70px; */
+}
+.edit-button{
+    margin: 10px;
+    padding: 20px
+}
+.delete-button{
+    margin-right: 40px;
+    margin-left: 30px;
 }

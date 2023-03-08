@@ -1,8 +1,10 @@
 import "./employeeRow.css";
+import React from "react";
 import { Button } from "@mui/material";
-import { ButtonGroup } from "@mui/material";
+import DeleteIcon from "@mui/icons-material/Delete";
+import CreateIcon from "@mui/icons-material/Create";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import  DeleteIcon from "@mui/icons-material/Delete";
+
 
 const theme = createTheme({
   palette: {
@@ -16,13 +18,13 @@ const theme = createTheme({
 
 function EmployeeRow() {
   return (
-    <div className="contain"> 
+    <div className="contain">
       <div className="employee-name">
         <h4>Employee Name</h4>
       </div>
       <div className="row">
-        <div className="buttons">
-          <ButtonGroup
+        <div className="edit-button">
+          <Button
             variant="contained"
             style={{
               fontSize: 15,
@@ -30,16 +32,26 @@ function EmployeeRow() {
               color: "white",
             }}
             size="large"
+            startIcon={<CreateIcon />}
+            onClick={() => alert("You can now edit employee profile")}
           >
-            <Button onClick={() => alert("You can now edit employee profile")}>
-              Edit
-            </Button>
-            <Button 
-            startIcon={<DeleteIcon/>}
-            onClick={() => alert("Employee has been removed")}>
-              Delete
-            </Button>
-          </ButtonGroup>
+            Edit
+          </Button>
+        </div>
+        <div className="delete-button">
+          <Button
+            variant="contained"
+            style={{
+              fontSize: 15,
+              backgroundColor: "accent",
+              color: "white",
+            }}
+            size="large"
+            startIcon={<DeleteIcon />}
+            onClick={() => alert("Employee has been removed")}
+          >
+            Delete
+          </Button>
           <ThemeProvider theme={theme}></ThemeProvider>
         </div>
       </div>

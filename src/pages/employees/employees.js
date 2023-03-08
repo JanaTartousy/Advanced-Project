@@ -1,7 +1,9 @@
 import "./employees.css";
+import React from "react";
 import { Button } from "@mui/material";
 import EmployeeRow from "./../../components/employeeRow/employeeRow";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 
 const theme = createTheme({
   palette: {
@@ -20,6 +22,7 @@ function Employees() {
         <h2>Employees</h2>
         <div style={{ position: 'relative' }}/>
         <Button 
+        startIcon={<AddCircleIcon/>}
          style={{
             fontSize: 12,
             backgroundColor: "white",
@@ -29,7 +32,8 @@ function Employees() {
          
          size="large"
          onClick={()=>alert('You can now add an employee')}
-         variant="contained">
+         variant="contained"
+        >
             Add
         </Button>
         <ThemeProvider theme={theme}></ThemeProvider>
