@@ -11,11 +11,13 @@ const cookies = new Cookies();
 function LoginForm(props) {
   const navigate = useNavigate();
 
-  const { setToken, setIsLoggedIn } = useContext(UserContext);
+  const { isLoggedIn, setToken, setIsLoggedIn } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
+  if (isLoggedIn) {
+    navigate("/");
+  }
   function handleEmailChange(event) {
     setEmail(event.target.value);
   }
