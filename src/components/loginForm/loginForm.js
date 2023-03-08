@@ -6,20 +6,25 @@ function handleLogin(event) {
 function LoginForm(props) {
   return (
     <>
-      <form onSubmit={handleLogin} className="login-form">
-        <h1>Login</h1>
-        <label htmlFor="email" className="login-input-labels">
-          Email:
-          <input type="email" name="email" id="email" placeholder="email"/>
-        </label>
+<form onSubmit={handleLogin} className="login-form">
+  <h1>Login</h1>
+  <label  htmlFor="email" className="login-input-labels">
+    <input type="text" name="email" id="email" required />
+    <span className="label-name">
+      Email
+    </span>
+  </label>
 
-        <label htmlFor="password" className="login-input-labels">
-          Password:
-          <input type="password" name="password" id="password" placeholder="password"/>
-        </label>
+  <label htmlFor="password" className="login-input-labels">
+    <input type="password" name="password" id="password" required />
+    <span className="label-name">
+      Password
+    </span>
+  </label>
 
-        <LoginButton/>
-      </form>
+  <LoginButton />
+</form>
+
     </>
   );
 }

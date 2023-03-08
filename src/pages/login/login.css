@@ -26,5 +26,11 @@
   border-bottom-left-radius: 35px;
   border-top-left-radius: 35px;
   background: linear-gradient(30deg, rgba(0,88,170,1) 0%, rgb(1, 93, 180) 60% ,rgb(41, 143, 239) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
+}
+.login-logo-image{
+  width: 80%;
 }
