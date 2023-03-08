@@ -6,7 +6,7 @@ import Teams from "./pages/teams/teams";
 import Reports from "./pages/reports/reports";
 import Login from "./pages/login/login";
 import Home from "./pages/home/home";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { UserContext } from "./userContext";
 import Cookies from "universal-cookie";
 const cookie = new Cookies();
@@ -14,6 +14,14 @@ const cookie = new Cookies();
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState(null);
+
+  useEffect(() => {
+    const authToken = cookie.get("auth-token");
+    if (authToken) {
+      setToken(authToken);
+      setIsLoggedIn(true);
+    }
+  }, []);
   return (
     <div className="App">
       <UserContext.Provider
