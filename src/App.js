@@ -6,19 +6,29 @@ import Teams from "./pages/teams/teams";
 import Reports from "./pages/reports/reports";
 import Login from "./pages/login/login";
 import Home from "./pages/home/home";
+import { useState } from "react";
+import { UserContext } from "./userContext";
+import Cookies from "universal-cookie";
+const cookie = new Cookies();
 
 function App() {
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState(null);
   return (
     <div className="App">
-      <Routes>
-        <Route path="/" element={<Home />}>
-          <Route path="/employees" element={<Employees />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/teams" element={<Teams />} />
-          <Route path="/reports" element={<Reports />} />
-        </Route>
-        <Route path="/login" element={<Login />} />
-      </Routes>
+      <UserContext.Provider
+        value={{ token, isLoggedIn, setToken, setIsLoggedIn }}
+      >
+        <Routes>
+          <Route path="/" element={<Home />}>
+            <Route path="/employees" element={<Employees />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/teams" element={<Teams />} />
+            <Route path="/reports" element={<Reports />} />
+          </Route>
+          <Route path="/login" element={<Login />} />
+        </Routes>
+      </UserContext.Provider>
     </div>
   );
 }
