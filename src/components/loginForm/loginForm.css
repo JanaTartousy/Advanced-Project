@@ -13,18 +13,14 @@
 }
 
 .login-input-labels {
-  display: flex;
-  flex-direction: column;
-  width: calc(100% - 200px);
+  width:50%;
   position: relative;
-  height: 60px;
-  overflow: hidden;
 }
 
 .login-input-labels > input {
   margin-top: 3px;
   font-size: 1rem;
-  padding: 20px 20px 5px 20px;
+  padding: 10px 10px 5px 10px;
   border: none;
   background-color: transparent;
   width: 100%;
@@ -50,7 +46,7 @@
 
 .login-input-labels > input:focus + .label-name,
 .login-input-labels > input:valid + .label-name {
-  transform: translateY(-150%);
+  transform: translateY(-130%);
   font-size: 14px;
   left: 0px;
   color: #333;
@@ -70,4 +66,13 @@
   height: 2px;
   background-color: #333;
   transform: scaleX(0);
+}
+@media screen and (max-width:500px){
+.login-form {
+  width: 95%;
+}
+  .login-input-labels {
+
+  width: 90%;
+  }
 }
