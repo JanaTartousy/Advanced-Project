@@ -21,7 +21,6 @@ function App() {
       setIsLoggedIn(true);
     }
   }, []);
-  console.log(token)
   return (
     <div className="App">
       <UserContext.Provider

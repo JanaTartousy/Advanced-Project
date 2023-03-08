@@ -4,20 +4,16 @@ import { useContext, useState } from "react";
 import "./loginForm.css";
 import Cookies from "universal-cookie";
 import { UserContext } from "../../userContext";
-import { useNavigate } from "react-router";
 
 const cookies = new Cookies();
 
 function LoginForm(props) {
-  const navigate = useNavigate();
 
-  const { isLoggedIn, setToken, setIsLoggedIn } = useContext(UserContext);
+  const {  setToken, setIsLoggedIn } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-  if (isLoggedIn) {
-    navigate("/");
-  }
+
   function handleEmailChange(event) {
     setEmail(event.target.value);
   }
@@ -37,7 +33,6 @@ function LoginForm(props) {
         setIsLoggedIn(true);
         setErrorMessage("");
         cookies.set("auth-token", authToken);
-        navigate("/");
       })
       .catch((error) => {
         if (error.response && error.response.status === 401) {
