@@ -1,120 +1,94 @@
 import "./sidebar.css"
+import { useState } from "react";
 import {NavLink} from "react-router-dom";
-import {RiTeamLine, CgHomeAlt, MdOutlineAnalytics, BsFileEarmarkText, HiOutlineBriefcase} from "react-icons";
-
-
-function Sidebar() {
-    const [isSidebarOpen, setIsSidebarOpen] = useState(true);
-    const [isDarkMode, setIsDarkMode] = useState(false);
+import {BiHomeAlt,BiLogOut,BiChevronRight, BiBarChartSquare, BiGroup, BiBriefcase, BiFile} from "react-icons/bi";
+import {MdOutlinePersonPin} from "react-icons/md";
+import logo from "../images/logo.svg";
+const Sidebar = () => {
+ 
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   
-    const toggleSidebar = () => {
+    const handleToggleSidebar = () => {
       setIsSidebarOpen(!isSidebarOpen);
     };
-  
-    const toggleDarkMode = () => {
-      setIsDarkMode(!isDarkMode);
-    };
+    
     return (
         <>
-        <nav className={`sidebar ${isSidebarOpen ? "" : "close"}`}>
-        <header>
-            <div class="image-text">
-                <span class="image">
-                    {/* <!--<img src="logo.png" alt="">--> */}
+        <div className={`sidebar ${isSidebarOpen ? "close" : ""}`}>
+        <div className="head">
+            <div className="image-text">
+                <span className="image">
+                    <img src={logo} alt="logo" />
                 </span>
 
-                <div class="text logo-text">
-                    <span class="name">Codinglab</span>
-                    <span class="profession">Web developer</span>
+                <div className="text logo-text">
+                    <span className="name">Welcome</span>
+                    <span className="profession">CEO</span>
                 </div>
-            </div>
+            </div>  
+            <BiChevronRight className="toggle" onClick={handleToggleSidebar} />
+        </div>
 
-            <i class='bx bx-chevron-right toggle'></i>
-        </header>
+        <div className="menu-bar">
+            <div className="menu">
 
-        <div class="menu-bar">
-            <div class="menu">
-
-                <li class="search-box">
-                    <i class='bx bx-search icon'></i>
-                    {/* <input type="text" placeholder="Search..."> */}
-                </li>
-
-                <ul class="menu-links">
-                    <li class="nav-link">
-                        <a href="">
-                            <CgHomeAlt/>
-                            <span class="text nav-text">Dashboard</span>
-                        </a>
+                <ul className="menu-links">
+                    <li className="nav-link">
+                       <NavLink to="/">
+                            <BiHomeAlt className="icon"/>
+                            <span className="text nav-text">Dashboard</span>
+                        </NavLink>
                     </li>
 
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-bar-chart-alt-2 icon' ></i>
-                            <span class="text nav-text">Revenue</span>
-                        </a>
+                    <li className="nav-link">
+                        <NavLink to="/employees">
+                            <MdOutlinePersonPin className="icon"/>
+                            <span className="text nav-text">Employees</span>
+                        </NavLink>
                     </li>
 
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-bell icon'></i>
-                            <span class="text nav-text">Notifications</span>
-                        </a>
+                    <li className="nav-link">
+                        <NavLink to="/teams">
+                            <BiGroup className="icon"/>
+                            <span className="text nav-text">Teams</span>
+                        </NavLink>
                     </li>
 
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-pie-chart-alt icon' ></i>
-                            <span class="text nav-text">Analytics</span>
-                        </a>
+                    <li className="nav-link">
+                        <NavLink to="/projects">
+                            <BiBriefcase className="icon"/>
+                            <span className="text nav-text">Projects</span>
+                        </NavLink>
                     </li>
 
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-heart icon' ></i>
-                            <span class="text nav-text">Likes</span>
-                        </a>
+                    <li className="nav-link">
+                        <NavLink to="/evaluations">
+                            <BiBarChartSquare className="icon"/>
+                            <span className="text nav-text">Evaluations</span>
+                        </NavLink>
                     </li>
 
-                    <li class="nav-link">
-                        <a href="#">
-                            <i class='bx bx-wallet icon' ></i>
-                            <span class="text nav-text">Wallets</span>
-                        </a>
+                    <li className="nav-link">
+                        <NavLink to="/reports">
+                            <BiFile className="icon" />
+                            <span className="text nav-text">Reports</span>
+                        </NavLink>
                     </li>
 
                 </ul>
             </div>
 
-            <div class="bottom-content">
-                <li class="">
-                    <a href="#">
-                        <i class='bx bx-log-out icon' ></i>
-                        <span class="text nav-text">Logout</span>
-                    </a>
+            <div className="bottom-content">
+                <li className="">
+                    <NavLink to="/logout">
+                        <BiLogOut className="icon"/>
+                        <span className="text nav-text">Logout</span>
+                    </NavLink>
                 </li>
-
-                <li class="mode">
-                    <div class="sun-moon">
-                        <i class='bx bx-moon icon moon'></i>
-                        <i class='bx bx-sun icon sun'></i>
-                    </div>
-                    <span class="mode-text text">Dark mode</span>
-
-                    <div class="toggle-switch">
-                        <span class="switch"></span>
-                    </div>
-                </li>
-                
             </div>
         </div>
 
-    </nav>
-
-    <section class="home">
-        <div class="text">Dashboard Sidebar</div>
-    </section>
-        
+    </div>
         </>
      );
 }
