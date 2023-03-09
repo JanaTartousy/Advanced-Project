@@ -13,7 +13,7 @@ import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
 import CategoryIcon from "@material-ui/icons/Category";
 import { Box } from "@mui/system";
-import AddIcon from "@material-ui/icons/Add";
+// import Add from "@mui/icons-material/Add";
 
 const useStyles = makeStyles({
   table: {
@@ -60,7 +60,7 @@ function Projects() {
             <h2>Projects</h2>
           </Box>
         </Box>
-        
+
         <Table className={classes.table} aria-label="projects table">
           <TableHead>
             <TableRow>
@@ -68,6 +68,7 @@ function Projects() {
               <TableCell align="center" className="MuiTableCell-head">
                 Description
               </TableCell>
+
               <TableCell align="center" className="MuiTableCell-head">
                 Finished
               </TableCell>
