@@ -19,7 +19,7 @@ body{
     position: fixed;
     top: 0;
     left: 0;
-    height: 100%;
+    height: 100vh;
     width: 250px;
     padding: 10px 14px;
     background: var(--sidebar-color);
@@ -206,5 +206,13 @@ body{
     width: calc(100% - 78px);
 }
 @media (max-width: 428px) {
-
+ .sidebar.close {
+    width: 0%;
+ }
+ .sidebar.close img {
+    display: none;
+ }
+ .sidebar{
+    width: 90%;
+ }
 }

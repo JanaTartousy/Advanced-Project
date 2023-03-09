@@ -3,7 +3,8 @@ import { useState } from "react";
 import {NavLink} from "react-router-dom";
 import {BiHomeAlt,BiLogOut,BiChevronRight, BiBarChartSquare, BiGroup, BiBriefcase, BiFile} from "react-icons/bi";
 import {MdOutlinePersonPin} from "react-icons/md";
-import logo from "../images/logo.svg";
+import erp from "./erplogo.svg";
+
 const Sidebar = () => {
  
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
@@ -18,7 +19,7 @@ const Sidebar = () => {
         <div className="head">
             <div className="image-text">
                 <span className="image">
-                    <img src={logo} alt="logo" />
+                    <img src={erp} alt="logo" />
                 </span>
 
                 <div className="text logo-text">
