@@ -1,7 +1,9 @@
 .container{
-    background-color: #333;
+    /* background-color: #daf1fc; */
     height: 100vh;
-
+    position: absolute;
+    z-index: 1;
+    margin: 5% 30% 30% 30%;
 
 }
 .employee-header{

@@ -1,62 +1,98 @@
-import "./employeeRow.css";
-import React from "react";
+import * as React from "react";
+import { DataGrid } from "@mui/x-data-grid";
 import { Button } from "@mui/material";
-import DeleteIcon from "@mui/icons-material/Delete";
-import CreateIcon from "@mui/icons-material/Create";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import Edit from "@mui/icons-material/Edit";
+import Delete from "@mui/icons-material/Delete";
 
 
-const theme = createTheme({
-  palette: {
-    white: { main: "#F6F8FA" },
-    accent: { main: "#369fff" },
-    accentderv: { main: "#69B7FF" },
-    gray: { main: "#707070" },
-    black: { main: "#333" },
+const columns = [
+   { field: 'id', headerName: 'ID', width: 90 },
+  {
+    field: "employeeName",
+    headerName: "Employee name",
+    width: 610,
+    editable: true,
   },
-});
+  {
+    field: "edit",
+    headerName: "Edit",
+    width: 150,
+    renderCell: () => (
+      <Button
+        name="edit employee"
+        variant="contained"
+        onClick={()=>alert('You can now edit an employee')}
+        sx={{
+          
+          backgroundColor: "#369fff",
+          color: "#F6F8FA",
+          "&:hover": {
+            backgroundColor: "#369fff",
+            color: "#333",
+          },
+        }}
+      >
+        {" "}
+        <Edit />
+      </Button>
+    ),
+  },
+  {
+    field: "delete",
+    headerName: "Delete",
+    width: 200,
+    renderCell: () => (
+      <Button
+        name="delete employee"
+        variant="contained"
+        onClick={()=>alert('Employee deleted successfully')}
+       sx={{
+         
+          backgroundColor: "#369fff",
+          color: "#F6F8FA",
+          "&:hover": {
+            backgroundColor: "#369fff",
+            color: "#333",
+          },
+        }}
+      >
+        {" "}
+        <Delete />
+      </Button>
+    ),
+  },
+];
 
-function EmployeeRow() {
+const rows = [
+  { id: 1, employeeName: "Jon"},
+  { id: 2, employeeName: "Cersei"},
+  { id: 3, employeeName: "Jaime"},
+  { id: 4, employeeName: "Arya"},
+  { id: 5, employeeName: "Daenerys" },
+  { id: 6, employeeName: "Bella" },
+  { id: 7, employeeName: "Ferrara" },
+  { id: 8, employeeName: "Rossini" },
+  { id: 9, employeeName: "Harvey"},
+];
+
+export default function DataGridDemo() {
   return (
-    <div className="contain">
-      <div className="employee-name">
-        <h4>Employee Name</h4>
-      </div>
-      <div className="row">
-        <div className="edit-button">
-          <Button
-            variant="contained"
-            style={{
-              fontSize: 15,
-              backgroundColor: "accent",
-              color: "white",
-            }}
-            size="large"
-            startIcon={<CreateIcon />}
-            onClick={() => alert("You can now edit employee profile")}
-          >
-            Edit
-          </Button>
-        </div>
-        <div className="delete-button">
-          <Button
-            variant="contained"
-            style={{
-              fontSize: 15,
-              backgroundColor: "accent",
-              color: "white",
-            }}
-            size="large"
-            startIcon={<DeleteIcon />}
-            onClick={() => alert("Employee has been removed")}
-          >
-            Delete
-          </Button>
-          <ThemeProvider theme={theme}></ThemeProvider>
-        </div>
-      </div>
-    </div>
+    <DataGrid
+      rows={rows}
+      columns={columns}
+      initialState={{
+        pagination: {
+          paginationModel: {
+            pageSize: 20,
+          },
+        },
+      }}
+      pageSizeOptions={[20]}
+      disableRowSelectionOnClick
+      sx={{
+        width: 1000,
+        backgroundColor: '#daf1fc',
+      }}
+    />
   );
-}
-
-export default EmployeeRow;
+};

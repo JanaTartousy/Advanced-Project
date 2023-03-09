@@ -18,16 +18,13 @@ const theme = createTheme({
 function Employees() {
   return (
     <div className="container">
-      <div className="employee-header">
-        <h2>Employees</h2>
-        <div style={{ position: 'relative' }}/>
-        <Button 
+       <Button 
         startIcon={<AddCircleIcon/>}
          style={{
             fontSize: 12,
-            backgroundColor: "white",
-            color: "black",
-             position: 'absolute',right: 71, top: 18,
+            backgroundColor: "#369fff",
+            color: "white",
+             left: 846, bottom: 12,
          }}
          
          size="large"
@@ -36,6 +33,10 @@ function Employees() {
         >
             Add
         </Button>
+      <div className="employee-header">
+        <h2>Employees</h2>
+        <div style={{ position: 'relative' }}/>
+       
         <ThemeProvider theme={theme}></ThemeProvider>
       </div>
       <EmployeeRow/>
