@@ -1,0 +1,33 @@
+.contain {
+  display: flex;
+  height: 150px;
+  width: 90vh;
+
+}
+
+/* .row {
+  margin: auto;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  justify-content: flex-end;
+  width: 70vw;
+  height: 80px;
+  background-color: #f6f8fa;
+  border-radius: 10px;
+} */
+
+.employee-name {
+  color: #f6f8fa;
+  margin-top: 63px;
+ 
+}
+/* .edit-button{
+    margin: 10px;
+    padding: 20px
+}
+.delete-button{
+    margin-right: 40px;
+    margin-left: 30px;
+} */

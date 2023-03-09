@@ -1,0 +1,27 @@
+.container{
+    /* background-color: #daf1fc; */
+    height: 100vh;
+    position: absolute;
+    z-index: 1;
+    margin: 5% 30% 30% 30%;
+
+}
+.employee-header{
+    background-color: #369fff;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+
+}
+h2{
+    color: white;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+   
+    
+}
+
+
