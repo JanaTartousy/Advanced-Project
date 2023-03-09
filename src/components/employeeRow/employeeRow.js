@@ -1,12 +1,10 @@
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import { Button } from "@mui/material";
 import Edit from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
 
-
 const columns = [
-   { field: 'id', headerName: 'ID', width: 90 },
+  { field: "id", headerName: "ID", width: 90 },
   {
     field: "employeeName",
     headerName: "Employee name",
@@ -18,22 +16,14 @@ const columns = [
     headerName: "Edit",
     width: 150,
     renderCell: () => (
-      <Button
+      <Edit
         name="edit employee"
         variant="contained"
-        
         sx={{
-          
-        
           color: "#333",
-          "&:hover": {
-        
-          },
+          "&:hover": {},
         }}
-      >
-        {" "}
-        <Edit />
-      </Button>
+      ></Edit>
     ),
   },
   {
@@ -41,36 +31,28 @@ const columns = [
     headerName: "Delete",
     width: 200,
     renderCell: () => (
-      <Button
+      <Delete
         name="delete employee"
         variant="contained"
-        
-       sx={{
-         
-        
-          color: "",
-          "&:hover": {
-           
-          },
+        sx={{
+          color: "rgb(219 28 28)",
+          "&:hover": {},
         }}
-      >
-        {" "}
-        <Delete />
-      </Button>
+      ></Delete>
     ),
   },
 ];
 
 const rows = [
-  { id: 1, employeeName: "Jon"},
-  { id: 2, employeeName: "Cersei"},
-  { id: 3, employeeName: "Jaime"},
-  { id: 4, employeeName: "Arya"},
+  { id: 1, employeeName: "Jon" },
+  { id: 2, employeeName: "Cersei" },
+  { id: 3, employeeName: "Jaime" },
+  { id: 4, employeeName: "Arya" },
   { id: 5, employeeName: "Daenerys" },
   { id: 6, employeeName: "Bella" },
   { id: 7, employeeName: "Ferrara" },
   { id: 8, employeeName: "Rossini" },
-  { id: 9, employeeName: "Harvey"},
+  { id: 9, employeeName: "Harvey" },
 ];
 
 export default function DataGridDemo() {
@@ -85,11 +67,11 @@ export default function DataGridDemo() {
           },
         },
       }}
-      pageSizeOptions={[20]}
+      pageSizeOptions={[10]}
       disableRowSelectionOnClick
       sx={{
         backgroundColor: '#f4f9fc',
       }}
     />
   );
-};
+}
