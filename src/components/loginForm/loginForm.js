@@ -8,23 +8,41 @@ import { UserContext } from "../../userContext";
 const cookies = new Cookies();
 
 function LoginForm(props) {
-
-  const {  setToken, setIsLoggedIn } = useContext(UserContext);
+  const { setToken, setIsLoggedIn } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
 
-  function handleEmailChange(event) {
+  const handleEmailChange = (event) => {
     setEmail(event.target.value);
-  }
+  };
 
-  function handlePasswordChange(event) {
+  const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+  };
+  // Function to validate email format
+  function isValidEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
   }
 
-  function handleLogin(event) {
+  // Function to check password length
+  function isValidPassword(password) {
+    return password.length >= 6;
+  }
+
+  const handleLogin = (event) => {
     event.preventDefault();
 
+    if (!isValidEmail(email)) {
+      setErrorMessage("Please enter a valid email");
+      return;
+    }
+
+    if (!isValidPassword(password)) {
+      setErrorMessage("Password must be at least 6 characters long");
+      return;
+    }
     axios
       .post(`${process.env.REACT_APP_API_URL}/login`, { email, password })
       .then((response) => {
@@ -41,7 +59,7 @@ function LoginForm(props) {
           setErrorMessage("An error occurred, please try again");
         }
       });
-  }
+  };
 
   return (
     <>

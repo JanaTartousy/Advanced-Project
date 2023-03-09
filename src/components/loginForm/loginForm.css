@@ -6,6 +6,7 @@
   justify-content: space-around;
   height: 80%;
   width: 50%;
+  position: relative;
 }
 
 .login-form > * {
@@ -75,4 +76,9 @@
 
   width: 90%;
   }
+}
+.error-message{
+  position: absolute;
+  bottom:100px;
+  color: rgb(192, 8, 8)
 }
