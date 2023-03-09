@@ -1,0 +1,4 @@
+.dashboard--main_content{
+    margin-left:255px;
+    width: calc(100vw - 255px);
+}

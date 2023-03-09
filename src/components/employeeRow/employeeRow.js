@@ -81,14 +81,13 @@ export default function DataGridDemo() {
       initialState={{
         pagination: {
           paginationModel: {
-            pageSize: 20,
+            pageSize: 10,
           },
         },
       }}
       pageSizeOptions={[20]}
       disableRowSelectionOnClick
       sx={{
-        width: 1000,
         backgroundColor: '#f4f9fc',
       }}
     />

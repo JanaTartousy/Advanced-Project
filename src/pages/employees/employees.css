@@ -1,9 +1,9 @@
 .container{
     /* background-color: #daf1fc; */
     height: 100vh;
-    position: absolute;
     z-index: 1;
-    margin: 5% 30% 30% 30%;
+    margin: 3%;
+    width:90%;
 
 }
 .employee-header{

@@ -37,7 +37,6 @@ function Employees() {
         <h2>Employees</h2>
         <div style={{ position: 'relative' }}/>
        
-        <ThemeProvider theme={theme}></ThemeProvider>
       </div>
       <EmployeeRow/>
     </div>
