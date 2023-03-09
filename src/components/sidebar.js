@@ -3,7 +3,7 @@ import { useState } from "react";
 import {NavLink} from "react-router-dom";
 import {BiHomeAlt,BiLogOut,BiChevronRight, BiBarChartSquare, BiGroup, BiBriefcase, BiFile} from "react-icons/bi";
 import {MdOutlinePersonPin} from "react-icons/md";
-import logo from "../images/logo.svg";
+import logo from "../images/sidebarlogo.svg";
 const Sidebar = () => {
  
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
