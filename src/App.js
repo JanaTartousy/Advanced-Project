@@ -5,10 +5,11 @@ import Projects from "./pages/projects/projects";
 import Teams from "./pages/teams/teams";
 import Reports from "./pages/reports/reports";
 import Login from "./pages/login/login";
-import Home from "./pages/home/home";
 import { useEffect, useState } from "react";
 import { UserContext } from "./userContext";
 import Cookies from "universal-cookie";
+import Dashboard from "./pages/dashboard/dashboard";
+import Home from "./pages/home/home";
 const cookie = new Cookies();
 
 function App() {
@@ -27,7 +28,8 @@ function App() {
         value={{ token, isLoggedIn, setToken, setIsLoggedIn }}
       >
         <Routes>
-          <Route path="/" element={<Home />}>
+          <Route path="/" element={<Dashboard />}>
+            <Route path="/" element={<Home />} />
             <Route path="/employees" element={<Employees />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/teams" element={<Teams />} />

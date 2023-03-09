@@ -1,16 +1,14 @@
-import { Outlet, Navigate } from "react-router-dom";
-import Sidebar from "../../components/sidebar";
-import "./home.css";
+import './home.css'
 
-function Home() {
+function Home(props) {
+    return ( 
 
-  return (
-    <>
-    <Sidebar/>
-      <h1>home</h1>
-      <Outlet />
-    </>
-  );
+        <div>
+            <h1>
+                this is the Home page
+            </h1>
+        </div>
+     );
 }
 
 export default Home;
