@@ -21,14 +21,13 @@ const columns = [
       <Button
         name="edit employee"
         variant="contained"
-        onClick={()=>alert('You can now edit an employee')}
+        
         sx={{
           
-          backgroundColor: "#369fff",
-          color: "#F6F8FA",
+        
+          color: "#333",
           "&:hover": {
-            backgroundColor: "#369fff",
-            color: "#333",
+        
           },
         }}
       >
@@ -45,14 +44,13 @@ const columns = [
       <Button
         name="delete employee"
         variant="contained"
-        onClick={()=>alert('Employee deleted successfully')}
+        
        sx={{
          
-          backgroundColor: "#369fff",
-          color: "#F6F8FA",
+        
+          color: "",
           "&:hover": {
-            backgroundColor: "#369fff",
-            color: "#333",
+           
           },
         }}
       >
@@ -91,7 +89,7 @@ export default function DataGridDemo() {
       disableRowSelectionOnClick
       sx={{
         width: 1000,
-        backgroundColor: '#daf1fc',
+        backgroundColor: '#f4f9fc',
       }}
     />
   );
