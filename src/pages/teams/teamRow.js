@@ -60,7 +60,7 @@ function TeamRow({ team, onDelete ,onEdit}) {
         </td>
       </tr>
       <Dialog open={openDelete} onClose={handleCloseDelete}>
-        <DialogTitle>Delete Confirmation</DialogTitle>
+        <DialogTitle sx={{color:"#f44336"}}>Delete Confirmation</DialogTitle>
         <DialogContent>
           Are you sure you want to delete this team?
         </DialogContent>
@@ -72,7 +72,7 @@ function TeamRow({ team, onDelete ,onEdit}) {
         </DialogActions>
       </Dialog>
       <Dialog open={openEdit} onClose={handleCloseEdit}>
-        <DialogTitle>Edit Team</DialogTitle>
+        <DialogTitle sx={{color:"#2196f3"}}>Edit Team</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
