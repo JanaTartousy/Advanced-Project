@@ -1,4 +1,10 @@
-.dashboard--main_content{
+.sidebar-open-content{
     margin-left:255px;
     width: calc(100vw - 255px);
+    transition: var(--tran-05);
+}
+.sidebar-closed-content{
+    margin-left:50px;
+    width: calc(100vw - 50px);
+    transition: var(--tran-05);
 }

@@ -1,12 +1,15 @@
-import { Outlet, Navigate } from "react-router-dom";
-import "./dashboard.css";
+import { Outlet, useNavigate} from "react-router-dom";
 import Sidebar from "./../../components/Sidebar/sidebar";
+import { useState } from "react";
+import "./dashboard.css";
 
 function Dashboard() {
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   return (
+
     <>
-      <Sidebar />
-      <div className="dashboard--main_content">
+      <Sidebar setIsSidebarOpen={setIsSidebarOpen} />
+      <div className={isSidebarOpen ? 'sidebar-open-content' : 'sidebar-closed-content'}>
         <Outlet />
       </div>
     </>

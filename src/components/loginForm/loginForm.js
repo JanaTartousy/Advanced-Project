@@ -46,11 +46,10 @@ function LoginForm(props) {
       .post(`${process.env.REACT_APP_API_URL}/login`, { email, password })
       .then((response) => {
         const authToken = response.data.access_token;
-        console.log(authToken)
         setToken(authToken);
         setIsLoggedIn(true);
         setErrorMessage("");
-        Cookies.set("auth-token", authToken, { expires: 7 });
+        Cookies.set("auth-token", authToken, { expires: 1 });
 
       })
       .catch((error) => {
