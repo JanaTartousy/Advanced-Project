@@ -29,7 +29,22 @@ function Teams(props) {
   const [lastPage, setLastPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState(""); // new state variable for search query
   const [teamAdded, setTeamAdded] = useState(false);
-
+  
+  function handleDelete(id) {
+    axios
+      .delete(`${process.env.REACT_APP_API_URL}/teams/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        setTeamAdded(!teamAdded); // force re-fetch of teams data by toggling state
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
+  
   useEffect(() => {
     token &&
       axios
@@ -84,7 +99,21 @@ function Teams(props) {
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
-
+    
+  const handleEdit=(id,name)=> {
+    axios
+      .post(`${process.env.REACT_APP_API_URL}/teams/${id}`,{name,_method:"patch"}, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        setTeamAdded(!teamAdded); // force re-fetch of teams data by toggling state
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
   return (
     <div>
       <div className="team-container">
@@ -103,7 +132,7 @@ function Teams(props) {
             onAddTeam={handleAddTeam}
           />
         </div>
-        <TeamTable teams={teams} />
+        <TeamTable teams={teams} onDelete={handleDelete} onEdit={handleEdit}/>
         <PaginationContainer
           currentPage={currentPage}
           lastPage={lastPage}
