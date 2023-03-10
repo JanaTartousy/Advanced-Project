@@ -7,6 +7,8 @@ import TeamTable from "./teamTable";
 import "./teams.css";
 import "./pagination.css";
 import AddTeamPopup from "./addTeamPopup.js";
+import { toast } from "react-toastify";
+import { FaPlus } from "react-icons/fa";
 
 function SearchBar(props) {
   return (
@@ -38,10 +40,11 @@ function Teams(props) {
         },
       })
       .then(() => {
-        setTeamAdded(!teamAdded); // force re-fetch of teams data by toggling state
+        setTeamAdded(!teamAdded); 
+        toast.error("Team deleted successfully!");
       })
       .catch((error) => {
-        console.log(error);
+        toast.error(error.response.data.message)
       });
   }
   
@@ -49,7 +52,7 @@ function Teams(props) {
     token &&
       axios
         .get(
-          `${process.env.REACT_APP_API_URL}/teams?per_page=10&page=${currentPage}&search=${searchQuery}`, // include search query in API request
+          `${process.env.REACT_APP_API_URL}/teams?per_page=12&page=${currentPage}&search=${searchQuery}`, // include search query in API request
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -79,7 +82,7 @@ function Teams(props) {
     setAddTeamOpen(false);
   };
 
-  const handleAddTeam = (name) => {
+  function handleAddTeam(name) {
     axios
       .post(
         `${process.env.REACT_APP_API_URL}/teams`,
@@ -92,9 +95,12 @@ function Teams(props) {
       )
       .then((response) => {
         setTeamAdded(true);
+        toast.success("Team added successfully!");
       })
-      .catch((e) => console.error(e));
-  };
+      .catch((e) => {
+        toast.error(e.response.data.message)
+      });
+    }
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -109,9 +115,10 @@ function Teams(props) {
       })
       .then(() => {
         setTeamAdded(!teamAdded); // force re-fetch of teams data by toggling state
+        toast.success("Team edited successfully!");
       })
       .catch((error) => {
-        console.log(error);
+        toast.error(error.response.data.message);
       });
   }
   return (
@@ -123,9 +130,7 @@ function Teams(props) {
             searchQuery={searchQuery}
             handleSearchChange={handleSearchChange}
           ></SearchBar>
-          <button className="add-team-button" onClick={handleAddTeamOpen}>
-            Add Team
-          </button>
+          <FaPlus className="add-team-button action-icon" title="Add Team" onClick={handleAddTeamOpen}/>
           <AddTeamPopup
             open={addTeamOpen}
             onClose={handleAddTeamClose}

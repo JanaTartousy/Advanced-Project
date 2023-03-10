@@ -1,9 +1,17 @@
-import React, { useState } from 'react';
-import { FaTrash, FaEdit, FaEye } from 'react-icons/fa';
-import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, TextField } from '@mui/material';
-import './teamRow.css';
+import React, { useState } from "react";
+import { FaTrash, FaEdit, FaEye } from "react-icons/fa";
+import {
+  IconButton,
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+  TextField,
+} from "@mui/material";
+import "./teamRow.css";
 
-function TeamRow({ team, onDelete ,onEdit}) {
+function TeamRow({ team, onDelete, onEdit }) {
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [teamName, setTeamName] = useState(team.name);
@@ -30,7 +38,7 @@ function TeamRow({ team, onDelete ,onEdit}) {
   };
 
   const handleEdit = () => {
-    onEdit(team.id,teamName)
+    onEdit(team.id, teamName);
     setOpenEdit(false);
   };
 
@@ -44,23 +52,31 @@ function TeamRow({ team, onDelete ,onEdit}) {
   return (
     <>
       <tr>
-        <td>{teamName}</td>
+        <td>
+          <IconButton onClick={handleClickOpenEdit}>
+            <FaEdit className="action-icon edit-team-icon" title="Edit Team Name" />
+          </IconButton>
+          {team.name}{" "}
+        </td>
         <td>{projects}</td>
         <td>{members}</td>
         <td>
           <IconButton onClick={() => {}}>
-            <FaEye className="action-icon view-icon" title="View Team" />
+            <FaEye className="action-icon view-team-icon" title="View Team" />
           </IconButton>
-          <IconButton onClick={handleClickOpenEdit}>
-            <FaEdit className="action-icon edit-icon" title="Edit Team" />
+          <IconButton >
+            <FaEdit className="action-icon edit-team-members-icon" title="Edit Team Members and Projects" />
           </IconButton>
           <IconButton onClick={handleClickOpenDelete}>
-            <FaTrash className="action-icon delete-icon" title="Delete Team" />
+            <FaTrash
+              className="action-icon delete-team-icon"
+              title="Delete Team"
+            />
           </IconButton>
         </td>
       </tr>
       <Dialog open={openDelete} onClose={handleCloseDelete}>
-        <DialogTitle sx={{color:"#f44336"}}>Delete Confirmation</DialogTitle>
+        <DialogTitle sx={{ color: "#f44336" }}>Delete Confirmation</DialogTitle>
         <DialogContent>
           Are you sure you want to delete this team?
         </DialogContent>
@@ -72,7 +88,7 @@ function TeamRow({ team, onDelete ,onEdit}) {
         </DialogActions>
       </Dialog>
       <Dialog open={openEdit} onClose={handleCloseEdit}>
-        <DialogTitle sx={{color:"#2196f3"}}>Edit Team</DialogTitle>
+        <DialogTitle sx={{ color: "#2196f3" }}>Edit Team</DialogTitle>
         <DialogContent>
           <TextField
             autoFocus

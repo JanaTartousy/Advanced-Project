@@ -10,6 +10,7 @@ import { UserContext } from "./userContext";
 import Cookies from "universal-cookie";
 import Dashboard from "./pages/dashboard/dashboard";
 import Home from "./pages/home/home";
+import { ToastContainer } from "react-toastify";
 const cookie = new Cookies();
 
 function App() {
@@ -39,6 +40,7 @@ function App() {
         </Routes>
       </UserContext.Provider>
 
+      <ToastContainer/>
     </div>
   );
 }

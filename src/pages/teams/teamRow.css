@@ -5,15 +5,17 @@
     transition: all 0.3s ease;
   }
   
-  .view-icon {
+  .view-team-icon {
     color: #4caf50;
   }
-  
-  .edit-icon {
-    color: #2196f3;
+  .edit-team-members-icon{
+    color: #1976d2;
+  }
+  .edit-team-icon {
+    color: var(--gray);
   }
   
-  .delete-icon {
+  .delete-team-icon {
     color: #f44336;
   }
   
@@ -21,15 +23,16 @@
     transform: scale(1.2);
   }
   
-  .view-icon:hover {
+  .view-team-icon:hover {
     color: #388e3c;
   }
+
   
-  .edit-icon:hover {
-    color: #1976d2;
+  .edit-team-icon:hover {
+    color: var(--gray);
   }
   
-  .delete-icon:hover {
+  .delete-team-icon:hover {
     color: #c62828;
   }
   
