@@ -1,5 +1,5 @@
 import "./projects.css";
-import React from "react";
+import React, { useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -11,15 +11,13 @@ import TableContainer from "@mui/material/TableContainer";
 import { makeStyles } from "@mui/styles";
 import DeleteIcon from "@material-ui/icons/Delete";
 import EditIcon from "@material-ui/icons/Edit";
-import CategoryIcon from "@material-ui/icons/Category";
-import { Box } from "@mui/system";
-// import Add from "@mui/icons-material/Add";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 const useStyles = makeStyles({
   table: {
-    maxWidth: "40%",
-    backgroundColor: "#f4f9fc",
+    height: "70vh",
     margin: "0 auto",
+    width: "90%",
   },
 });
 
@@ -36,30 +34,44 @@ function Projects() {
     { id: 1, name: "Project A", description: "2023-03-15", finished: "no" },
     { id: 2, name: "Project B", description: "2023-03-20", finished: "yes" },
     { id: 3, name: "Project C", description: "2023-03-25", finished: "yes" },
-    { id: 1, name: "Project A", description: "2023-03-15", finished: "no" },
-    { id: 2, name: "Project B", description: "2023-03-20", finished: "no" },
-    { id: 3, name: "Project C", description: "2023-03-25", finished: "yes" },
+    
   ];
 
   return (
     <div className="container">
       <TableContainer component={Paper}>
-        <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Box
-            sx={{
-              width: "40%",
-              height: "56px",
-              backgroundColor: "blue",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              borderBottom: " 1px solid #E0E0E0",
-              color: "white",
-            }}
-          >
-            <h2>Projects</h2>
-          </Box>
-        </Box>
+        <Button
+          startIcon={<AddCircleIcon />}
+          style={{
+            fontSize: 12,
+            backgroundColor: "#369fff",
+            color: "white",
+            marginLeft: "55%",
+            marginBottom: "0.5%",
+          }}
+          size="large"
+          onClick={() => alert("You can now add a project")}
+          variant="contained"
+        >
+          Add
+        </Button>
+        <div
+          className="project-header"
+          style={{
+            position: "relative",
+            width: "100%",
+            height: "80px",
+            backgroundColor: "#369FFF",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            borderBottom: " 1px solid #E0E0E0",
+            color: "white",
+          }}
+        >
+          <h2>Projects</h2>
+          <div />
+        </div>
 
         <Table className={classes.table} aria-label="projects table">
           <TableHead>
@@ -91,7 +103,6 @@ function Projects() {
                   scope="row"
                   className="MuiTableCell-root"
                 >
-                  {<CategoryIcon />}
                   {project.name}
                 </TableCell>
                 <TableCell align="center" className="MuiTableCell-root">
@@ -101,17 +112,30 @@ function Projects() {
                   {project.finished}
                 </TableCell>
                 <TableCell align="center" className="MuiTableCell-root">
-                  <Button variant="contained" color="secondary">
+                  <Button
+                    sx={{
+                      color: "#333",
+                      "&:hover": { color: "darkblue" },
+                    }}
+                  >
                     Team
                   </Button>
                 </TableCell>
                 <TableCell align="center" className="MuiTableCell-root">
-                  <Button variant="contained" color="primary">
+                  <Button
+                    sx={{
+                      color: "#1976d2",
+                    }}
+                  >
                     {<EditIcon />}
                   </Button>
                 </TableCell>
                 <TableCell align="center" className="MuiTableCell-root">
-                  <Button variant="contained" color="secondary">
+                  <Button
+                    sx={{
+                      color: "red"
+                    }}
+                  >
                     {<DeleteIcon />}
                   </Button>
                 </TableCell>
