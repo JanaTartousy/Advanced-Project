@@ -9,20 +9,7 @@ import "./pagination.css";
 import AddTeamPopup from "./addTeamPopup.js";
 import { toast } from "react-toastify";
 import { FaPlus } from "react-icons/fa";
-
-function SearchBar(props) {
-  return (
-    <div className="search-bar">
-      <input
-        type="text"
-        placeholder="Search..."
-        value={props.searchQuery}
-        onChange={props.handleSearchChange}
-      />
-      <Search/>
-    </div>
-  );
-}
+import SearchBar from "./search";
 
 function Teams(props) {
   const { token } = useContext(UserContext);
@@ -122,15 +109,17 @@ function Teams(props) {
       });
   }
   return (
-    <div>
+    <div className="team-parent">
       <div className="team-container">
+        <div>
         <div className="team-header">
-          <h2>Team Table</h2>
-          <SearchBar
+        <SearchBar
             searchQuery={searchQuery}
             handleSearchChange={handleSearchChange}
           ></SearchBar>
-          <FaPlus className="add-team-button action-icon" title="Add Team" onClick={handleAddTeamOpen}/>
+          <h2>Team Table</h2>
+          
+          <div className="add-button-parent"><FaPlus className="add-team-button action-icon" title="Add Team" onClick={handleAddTeamOpen}/></div>
           <AddTeamPopup
             open={addTeamOpen}
             onClose={handleAddTeamClose}
@@ -142,7 +131,7 @@ function Teams(props) {
           currentPage={currentPage}
           lastPage={lastPage}
           onPageChange={handlePageChange}
-        />
+        /></div>
       </div>
     </div>
   );
