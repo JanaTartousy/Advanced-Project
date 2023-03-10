@@ -1,0 +1,35 @@
+.action-icon {
+    font-size: 24px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .view-icon {
+    color: #4caf50;
+  }
+  
+  .edit-icon {
+    color: #2196f3;
+  }
+  
+  .delete-icon {
+    color: #f44336;
+  }
+  
+  .action-icon:hover {
+    transform: scale(1.2);
+  }
+  
+  .view-icon:hover {
+    color: #388e3c;
+  }
+  
+  .edit-icon:hover {
+    color: #1976d2;
+  }
+  
+  .delete-icon:hover {
+    color: #c62828;
+  }
+  

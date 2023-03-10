@@ -2,10 +2,9 @@ import LoginButton from "./loginButton";
 import axios from "axios";
 import { useContext, useState } from "react";
 import "./loginForm.css";
-import Cookies from "universal-cookie";
 import { UserContext } from "../../userContext";
+import Cookies from "js-cookie";
 
-const cookies = new Cookies();
 
 function LoginForm(props) {
   const { setToken, setIsLoggedIn } = useContext(UserContext);
@@ -47,10 +46,12 @@ function LoginForm(props) {
       .post(`${process.env.REACT_APP_API_URL}/login`, { email, password })
       .then((response) => {
         const authToken = response.data.access_token;
+        console.log(authToken)
         setToken(authToken);
         setIsLoggedIn(true);
         setErrorMessage("");
-        cookies.set("auth-token", authToken);
+        Cookies.set("auth-token", authToken, { expires: 7 });
+
       })
       .catch((error) => {
         if (error.response && error.response.status === 401) {
