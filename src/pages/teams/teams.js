@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
+import { Search } from "@mui/icons-material";
 import { UserContext } from "../../userContext";
 import PaginationContainer from "./pagination";
 import TeamTable from "./teamTable";
@@ -7,18 +8,33 @@ import "./teams.css";
 import "./pagination.css";
 import AddTeamPopup from "./addTeamPopup.js";
 
+function SearchBar(props) {
+  return (
+    <div className="search-bar">
+      <input
+        type="text"
+        placeholder="Search..."
+        value={props.searchQuery}
+        onChange={props.handleSearchChange}
+      />
+      <Search/>
+    </div>
+  );
+}
+
 function Teams(props) {
   const { token } = useContext(UserContext);
   const [teams, setTeams] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
-  const [teamAdded, setTeamAdded] = useState(false); // new state variable
+  const [searchQuery, setSearchQuery] = useState(""); // new state variable for search query
+  const [teamAdded, setTeamAdded] = useState(false);
 
   useEffect(() => {
     token &&
       axios
         .get(
-          `${process.env.REACT_APP_API_URL}/teams?per_page=10&page=${currentPage}`,
+          `${process.env.REACT_APP_API_URL}/teams?per_page=10&page=${currentPage}&search=${searchQuery}`, // include search query in API request
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -32,7 +48,7 @@ function Teams(props) {
         .catch((error) => {
           console.log(error);
         });
-  }, [currentPage, token, teamAdded]); // include teamAdded in dependencies array
+  }, [currentPage, token, teamAdded, searchQuery]);
 
   function handlePageChange(event, value) {
     setCurrentPage(value);
@@ -49,13 +65,24 @@ function Teams(props) {
   };
 
   const handleAddTeam = (name) => {
-    axios.post(`${process.env.REACT_APP_API_URL}/teams`,{name}, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    }).then(response =>{
-      setTeamAdded(true); // set teamAdded state variable to true
-    }).catch(e=>console.error(e));
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}/teams`,
+        { name },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then((response) => {
+        setTeamAdded(true);
+      })
+      .catch((e) => console.error(e));
+  };
+
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
   };
 
   return (
@@ -63,6 +90,10 @@ function Teams(props) {
       <div className="team-container">
         <div className="team-header">
           <h2>Team Table</h2>
+          <SearchBar
+            searchQuery={searchQuery}
+            handleSearchChange={handleSearchChange}
+          ></SearchBar>
           <button className="add-team-button" onClick={handleAddTeamOpen}>
             Add Team
           </button>
