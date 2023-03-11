@@ -22,9 +22,23 @@
 
 .team-table th,
 .team-table td {
-  padding: 8px;
+  padding: 6px;
   text-align: left;
   border-bottom: 1px solid #ddd;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.team-table th:nth-child(1),
+.team-table td:nth-child(1) {
+  width: 40%;
+}
+
+.team-table th:nth-child(2),
+.team-table td:nth-child(2),
+.team-table th:nth-child(3),
+.team-table td:nth-child(3) {
+  width: 20%;
 }
 
 .team-table th {

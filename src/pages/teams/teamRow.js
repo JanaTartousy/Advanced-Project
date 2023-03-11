@@ -10,8 +10,10 @@ import {
   TextField,
 } from "@mui/material";
 import "./teamRow.css";
+import { useNavigate } from "react-router-dom";
 
 function TeamRow({ team, onDelete, onEdit }) {
+  const navigate = useNavigate();
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [teamName, setTeamName] = useState(team.name);
@@ -45,7 +47,9 @@ function TeamRow({ team, onDelete, onEdit }) {
   const handleTeamNameChange = (event) => {
     setTeamName(event.target.value);
   };
-
+  function viewTeam() {
+    navigate(`/teams/${team.id}`);
+  }
   const members = team.employees.length;
   const projects = team.projects.length;
 
@@ -54,7 +58,10 @@ function TeamRow({ team, onDelete, onEdit }) {
       <tr>
         <td>
           <IconButton onClick={handleClickOpenEdit}>
-            <FaEdit className="action-icon edit-team-icon" title="Edit Team Name" />
+            <FaEdit
+              className="action-icon edit-team-icon-name"
+              title="Edit Team Name"
+            />
           </IconButton>
           {team.name}{" "}
         </td>
@@ -62,10 +69,17 @@ function TeamRow({ team, onDelete, onEdit }) {
         <td>{members}</td>
         <td>
           <IconButton onClick={() => {}}>
-            <FaEye className="action-icon view-team-icon" title="View Team" />
+            <FaEye
+              className="action-icon view-team-icon"
+              title="View Team"
+              onClick={viewTeam}
+            />
           </IconButton>
-          <IconButton >
-            <FaEdit className="action-icon edit-team-members-icon" title="Edit Team Members and Projects" />
+          <IconButton>
+            <FaEdit
+              className="action-icon edit-team-members-icon"
+              title="Edit Team Members and Projects"
+            />
           </IconButton>
           <IconButton onClick={handleClickOpenDelete}>
             <FaTrash
