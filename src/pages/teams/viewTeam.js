@@ -44,11 +44,11 @@ function ViewTeam() {
   };
 
   const handleAddEmployeeClick = () => {
-    // Implement your add employee functionality here
+    //  employee functionality here
   };
 
   const handleAddProjectClick = () => {
-    // Implement your add project functionality here
+    //  project functionality here
   };
 
   return (
