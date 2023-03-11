@@ -1,0 +1,127 @@
+.view-team-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem auto;
+    max-width: 90%;
+    position: relative;
+  }
+  
+  .error-container {
+    background-color: #ffe4e4;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  
+  .error-message {
+    margin: 0;
+    color: #ff4d4f;
+    font-size: 1.25rem;
+    font-weight: bold;
+  }
+  
+  .view-team-container h2 {
+    margin: 0 0 1rem;
+    font-size: 2rem;
+    color:var(--accent)
+  }
+  
+  .view-team-container h3 {
+    margin: 2rem 0 1rem;
+    font-size: 1.5rem;
+  }
+  
+  .employees-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+  }
+  
+  @media (max-width: 768px) {
+    .employees-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  
+  .back-button {
+    background-color: var(--accent);
+    color: white;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 0.5rem;
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    cursor: pointer;
+  }
+  
+  .back-button:hover {
+    background-color: var(--accent);
+  }
+  .add-employee-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 250px;
+    margin: 10px;
+    background-color: #f5f5f5;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .add-employee-icon {
+    font-size: 5rem;
+    color: var(--accent);
+  }
+
+  
+  .add-employee-text {
+    font-size: 1.2rem;
+    margin-top: 10px;
+    color: #333;
+  }
+  .add-employee-card:hover {
+    transform: scale(1.05);
+  }
+  /* Table styles */
+
+  .projects-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .projects-table-header {
+    background-color: #f0f0f0;
+  }
+  
+  .projects-table-header th {
+    background-color: var(--accent);
+    padding: 10px;
+
+    text-align: left;
+    font-weight: bold;
+    color: var(--main);
+    border-bottom: 2px solid #999;
+  }
+  
+  .projects-table tbody tr {
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .projects-table tbody td {
+    padding: 10px;
+    color: #333;
+  }
+  .add-project{
+    display: flex;
+    justify-content: flex-end;
+  }

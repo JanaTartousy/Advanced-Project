@@ -10,6 +10,8 @@ import { UserContext } from "./userContext";
 import Cookies from "universal-cookie";
 import Dashboard from "./pages/dashboard/dashboard";
 import Home from "./pages/home/home";
+import { ToastContainer } from "react-toastify";
+import ViewTeam from "./pages/teams/viewTeam";
 const cookie = new Cookies();
 
 function App() {
@@ -33,12 +35,14 @@ function App() {
             <Route path="/employees" element={<Employees />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/teams" element={<Teams />} />
+            <Route path="/teams/:teamId" element={<ViewTeam />} />
             <Route path="/reports" element={<Reports />} />
           </Route>
           <Route path="/login" element={<Login />} />
         </Routes>
       </UserContext.Provider>
 
+      <ToastContainer />
     </div>
   );
 }

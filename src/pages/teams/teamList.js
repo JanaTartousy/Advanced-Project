@@ -1,10 +1,10 @@
 import TeamRow from "./teamRow";
 
-function TeamList({ teams }) {
+function TeamList({ teams ,onDelete,onEdit}) {
     return (
       <tbody>
         {teams.map((team, index) => (
-          <TeamRow key={index} team={team} />
+          <TeamRow key={index} team={team} onDelete={onDelete} onEdit={onEdit} />
         ))}
       </tbody>
     );

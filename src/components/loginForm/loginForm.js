@@ -4,7 +4,8 @@ import { useContext, useState } from "react";
 import "./loginForm.css";
 import { UserContext } from "../../userContext";
 import Cookies from "js-cookie";
-
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function LoginForm(props) {
   const { setToken, setIsLoggedIn } = useContext(UserContext);
@@ -49,8 +50,9 @@ function LoginForm(props) {
         setToken(authToken);
         setIsLoggedIn(true);
         setErrorMessage("");
-        Cookies.set("auth-token", authToken, { expires: 1 });
-
+        toast.success("Login successful!");
+        // Set the 'auth-token' cookie with an expiration of 1 hour
+        Cookies.set("auth-token", authToken, { expires: 1 / 24 }); // 1 hour = 1/24 day
       })
       .catch((error) => {
         if (error.response && error.response.status === 401) {

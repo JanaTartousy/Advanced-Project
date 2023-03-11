@@ -1,11 +1,12 @@
 import TeamList from "./teamList";
 import TeamTableHeader from "./teamTableHeader";
 
-function TeamTable({ teams }) {
+function TeamTable({ teams, onDelete ,onEdit}) {
+  
     return (
       <table className="team-table">
         <TeamTableHeader />
-        <TeamList teams={teams} />
+        <TeamList teams={teams} onDelete={onDelete} onEdit={onEdit} />
       </table>
     );
   }

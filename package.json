@@ -6,6 +6,8 @@
     "@emotion/react": "^11.10.6",
     "@emotion/styled": "^11.10.6",
     "@flaticon/flaticon-uicons": "^2.0.1",
+    "@fortawesome/free-solid-svg-icons": "^6.3.0",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "@mui/icons-material": "^5.11.11",
     "@mui/material": "^5.11.11",
     "@mui/system": "^5.11.12",
@@ -25,6 +27,7 @@
     "react-scripts": "5.0.1",
     "react-toastify": "^9.1.1",
     "terminalgpt": "^1.5.0",
+    "toast": "^0.5.4",
     "universal-cookie": "^4.0.4",
     "web-vitals": "^2.1.4"
   },

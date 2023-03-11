@@ -1,26 +1,14 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
-import { Search } from "@mui/icons-material";
 import { UserContext } from "../../userContext";
 import PaginationContainer from "./pagination";
 import TeamTable from "./teamTable";
 import "./teams.css";
 import "./pagination.css";
 import AddTeamPopup from "./addTeamPopup.js";
-
-function SearchBar(props) {
-  return (
-    <div className="search-bar">
-      <input
-        type="text"
-        placeholder="Search..."
-        value={props.searchQuery}
-        onChange={props.handleSearchChange}
-      />
-      <Search/>
-    </div>
-  );
-}
+import { toast } from "react-toastify";
+import { FaPlus } from "react-icons/fa";
+import SearchBar from "./search";
 
 function Teams(props) {
   const { token } = useContext(UserContext);
@@ -30,11 +18,27 @@ function Teams(props) {
   const [searchQuery, setSearchQuery] = useState(""); // new state variable for search query
   const [teamAdded, setTeamAdded] = useState(false);
 
+  function handleDelete(id) {
+    axios
+      .delete(`${process.env.REACT_APP_API_URL}/teams/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        setTeamAdded(!teamAdded);
+        toast.error("Team deleted successfully!");
+      })
+      .catch((error) => {
+        toast.error(error.response.data.error);
+      });
+  }
+
   useEffect(() => {
     token &&
       axios
         .get(
-          `${process.env.REACT_APP_API_URL}/teams?per_page=10&page=${currentPage}&search=${searchQuery}`, // include search query in API request
+          `${process.env.REACT_APP_API_URL}/teams?per_page=12&page=${currentPage}&search=${searchQuery}`, // include search query in API request
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -42,6 +46,7 @@ function Teams(props) {
           }
         )
         .then((response) => {
+          console.log(response);
           setTeams(response.data.teams.data);
           setLastPage(response.data.teams.last_page);
         })
@@ -64,7 +69,7 @@ function Teams(props) {
     setAddTeamOpen(false);
   };
 
-  const handleAddTeam = (name) => {
+  function handleAddTeam(name) {
     axios
       .post(
         `${process.env.REACT_APP_API_URL}/teams`,
@@ -77,38 +82,71 @@ function Teams(props) {
       )
       .then((response) => {
         setTeamAdded(true);
+        toast.success("Team added successfully!");
       })
-      .catch((e) => console.error(e));
-  };
+      .catch((e) => {
+        toast.error(e.response.data.message);
+      });
+  }
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
 
+  const handleEdit = (id, name) => {
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}/teams/${id}`,
+        { name, _method: "patch" },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
+      .then(() => {
+        setTeamAdded(!teamAdded); // force re-fetch of teams data by toggling state
+        toast.success("Team edited successfully!");
+      })
+      .catch((error) => {
+        toast.error(error.response.data.message);
+      });
+  };
   return (
-    <div>
+    <div className="team-parent">
       <div className="team-container">
-        <div className="team-header">
-          <h2>Team Table</h2>
-          <SearchBar
-            searchQuery={searchQuery}
-            handleSearchChange={handleSearchChange}
-          ></SearchBar>
-          <button className="add-team-button" onClick={handleAddTeamOpen}>
-            Add Team
-          </button>
-          <AddTeamPopup
-            open={addTeamOpen}
-            onClose={handleAddTeamClose}
-            onAddTeam={handleAddTeam}
+        <div>
+          <div className="team-header">
+            <SearchBar
+              searchQuery={searchQuery}
+              handleSearchChange={handleSearchChange}
+            ></SearchBar>
+            <h2>Team Table</h2>
+
+            <div className="add-button-parent">
+              <FaPlus
+                className="add-team-button action-icon"
+                title="Add Team"
+                onClick={handleAddTeamOpen}
+              />
+            </div>
+            <AddTeamPopup
+              open={addTeamOpen}
+              onClose={handleAddTeamClose}
+              onAddTeam={handleAddTeam}
+            />
+          </div>
+          <TeamTable
+            teams={teams}
+            onDelete={handleDelete}
+            onEdit={handleEdit}
+          />
+          <PaginationContainer
+            currentPage={currentPage}
+            lastPage={lastPage}
+            onPageChange={handlePageChange}
           />
         </div>
-        <TeamTable teams={teams} />
-        <PaginationContainer
-          currentPage={currentPage}
-          lastPage={lastPage}
-          onPageChange={handlePageChange}
-        />
       </div>
     </div>
   );
