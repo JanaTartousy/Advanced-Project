@@ -5,7 +5,7 @@ function Projects(props) {
 
         <div>
             <h1>
-                Projects
+                projects
             </h1>
         </div>
      );
