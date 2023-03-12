@@ -1,4 +1,4 @@
-
+import { Link } from "react-router-dom";
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import Edit from "@mui/icons-material/Edit";
@@ -20,18 +20,21 @@ const columns = [
     field: "edit",
     headerName: "Edit",
     width: 100,
-    renderCell: () => (
-      <Edit
-        name="edit employee"
-        variant="contained"
-        sx={{
-          color: "#333",
-          "&:hover": {
-            transform: "scale(1.3)",
-            transition: "0.2s ease-out",
-          },
-        }}
-      ></Edit>
+    renderCell: (params) => (
+      <Link to={`/profile/${params.row.id}`}>
+        <Edit
+          name="edit employee"
+          variant="contained"
+          sx={{
+            color: "#333",
+            "&:hover": {
+              transform: "scale(1.4)",
+              transition: "0.3s ease-out",
+              color: "#369fff",
+            },
+          }}
+        ></Edit>
+      </Link>
     ),
   },
   {
@@ -45,28 +48,28 @@ const columns = [
         sx={{
           color: "rgb(219 28 28)",
           "&:hover": {
-            transform: "scale(1.3)",
-            transition: "0.2s ease-out",
+            transform: "scale(1.4)",
+            transition: "0.3s ease-out",
           },
         }}
       ></Delete>
     ),
   },
 ];
+export default function DataGridDemo({ firstName, lastName }) {
+  const rows = [
+    // { id: 1, firstName: firstName, lastName: lastName },
+    { id: 1, firstName: "Jon", lastName: "Snow" },
+    { id: 2, firstName: "Cersei", lastName: "Lannister" },
+    { id: 3, firstName: "Jaime", lastName: "Lannister" },
+    { id: 4, firstName: "Arya", lastName: "Stark" },
+    { id: 5, firstName: "Daenerys", lastName: "Targaryen" },
+    { id: 6, firstName: "Bella", lastName: "Melisandre" },
+    { id: 7, firstName: "Ferrara", lastName: "Clifford" },
+    { id: 8, firstName: "Rossini", lastName: "Frances" },
+    { id: 9, firstName: "Harvey", lastName: "Roxie" },
+  ];
 
-const rows = [
-  { id: 1, firstName: "Jon", lastName: "Snow" },
-  { id: 2, firstName: "Cersei", lastName: "Lannister" },
-  { id: 3, firstName: "Jaime", lastName: "Lannister" },
-  { id: 4, firstName: "Arya", lastName: "Stark" },
-  { id: 5, firstName: "Daenerys", lastName: "Targaryen" },
-  { id: 6, firstName: "Bella", lastName: "Melisandre" },
-  { id: 7, firstName: "Ferrara", lastName: "Clifford" },
-  { id: 8, firstName: "Rossini", lastName: "Frances" },
-  { id: 9, firstName: "Harvey", lastName: "Roxie" },
-];
-
-export default function DataGridDemo() {
   return (
     <DataGrid
       rows={rows}
