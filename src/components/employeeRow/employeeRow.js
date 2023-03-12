@@ -70,7 +70,7 @@ export default function DataGridDemo() {
   return (
     <DataGrid
       rows={rows}
-      columns={columns}
+      columns={columns.filter((column) => column.field !== "id")}
       initialState={{
         pagination: {
           paginationModel: {
