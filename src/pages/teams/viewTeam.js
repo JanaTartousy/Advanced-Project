@@ -20,7 +20,7 @@ function ViewTeam() {
   const history = useNavigate();
 
   useEffect(() => {
-    axios
+   token&&axios
       .get(`${process.env.REACT_APP_API_URL}/teams/${teamId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -107,6 +107,9 @@ function ViewTeam() {
 
         </>
       )}
+      <div>
+        <AddTeamMember/>
+      </div>
     </div>
   );
 }
