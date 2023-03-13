@@ -2,6 +2,7 @@
   width: 90%;
   display: flex;
   justify-content: center;
+
   height: 100ch;
   margin-top: 20px;
 }
@@ -59,12 +60,15 @@
   align-items: center;
   padding: 0 10px;
 }
-.team-header>*{
-  flex: 33%;
+.team-header h2{
+  text-align: start;
 }
+/* .team-header>*{
+  flex: 33%;
+} */
 .add-button-parent{
   display: flex;
-  justify-content: flex-end;
+
 }
 
 .add-team-button {

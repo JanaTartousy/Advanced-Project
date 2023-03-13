@@ -9,6 +9,8 @@ import AddTeamPopup from "./addTeamPopup.js";
 import { toast } from "react-toastify";
 import { FaPlus } from "react-icons/fa";
 import SearchBar from "./search";
+import { Button } from "@mui/material";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 function Teams(props) {
   const { token } = useContext(UserContext);
@@ -117,19 +119,32 @@ function Teams(props) {
       <div className="team-container">
         <div>
           <div className="team-header">
+            <h2>Teams</h2>{" "}
+            <div className="add-button-parent">
+              <Button
+                startIcon={<FaPlus />}
+                style={{
+                  fontSize: "1rem",
+                  backgroundColor: "var(--main)",
+                  color: "var(--accent)",
+                }}
+                size="large"
+                variant="contained"
+                sx={{
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                    transition: "0.2s ease-out",
+                  },
+                }}
+                onClick={handleAddTeamOpen}
+              >
+                Add
+              </Button>
+            </div>
             <SearchBar
               searchQuery={searchQuery}
               handleSearchChange={handleSearchChange}
             ></SearchBar>
-            <h2>Team Table</h2>
-
-            <div className="add-button-parent">
-              <FaPlus
-                className="add-team-button action-icon"
-                title="Add Team"
-                onClick={handleAddTeamOpen}
-              />
-            </div>
             <AddTeamPopup
               open={addTeamOpen}
               onClose={handleAddTeamClose}
