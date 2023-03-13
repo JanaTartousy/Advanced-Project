@@ -120,7 +120,7 @@ function Employees() {
             color: "#F6F8FA",
             backgroundColor: "#4caf50",
             "&:hover": {
-              transform: "scale(1.4)",
+              transform: "scale(1.05)",
               transition: "0.3s ease-out",
               color: "#F6F8FA",
               backgroundColor: " #388e3c",
