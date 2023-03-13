@@ -38,7 +38,7 @@ function Projects() {
             marginBottom: "0.5%",
           }}
           size="large"
-          onClick={() => alert("You can now add a project")}
+          // onClick={() => alert("You can now add a project")}
           variant="contained"
         >
           Add
