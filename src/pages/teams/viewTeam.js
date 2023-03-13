@@ -107,6 +107,9 @@ function ViewTeam() {
 
         </>
       )}
+      <div>
+        <AddTeamMember/>
+      </div>
     </div>
   );
 }
