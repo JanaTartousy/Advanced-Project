@@ -7,6 +7,8 @@ import "./viewTeam.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
 import AddProjectButton from "./addProjectButton";
+import AddTeamMember from "./addTeamMember";
+
 
 function ViewTeam() {
   const { teamId } = useParams();
