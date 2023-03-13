@@ -127,6 +127,7 @@ function Teams(props) {
                   fontSize: "1rem",
                   backgroundColor: "var(--main)",
                   color: "var(--accent)",
+                  marginRight: "1rem",
                 }}
                 size="large"
                 variant="contained"
@@ -140,11 +141,11 @@ function Teams(props) {
               >
                 Add
               </Button>
-            </div>
             <SearchBar
               searchQuery={searchQuery}
               handleSearchChange={handleSearchChange}
             ></SearchBar>
+            </div>
             <AddTeamPopup
               open={addTeamOpen}
               onClose={handleAddTeamClose}
