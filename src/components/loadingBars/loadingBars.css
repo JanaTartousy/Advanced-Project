@@ -1,29 +1,12 @@
 .loading-bars {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    margin: 100px auto;
-    position: absolute;
-  }
-  
-  .bar {
-    background-color: var(--accent);
-    width: 20px;
-    height: 20px;
-    margin: 0 5px;
-    border-radius: 3px;
-    animation: loading 1.5s ease-in-out infinite;
-  }
-  
-  @keyframes loading {
-    0% {
-      transform: scaleY(0);
-    }
-    50% {
-      transform: scaleY(1);
-    }
-    100% {
-      transform: scaleY(0);
-    }
-  }
-  
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 100px auto;
+  position: absolute;
+}
+
+.loading-bars svg path,
+.loading-bars svg rect {
+  fill: var(--accent);
+}

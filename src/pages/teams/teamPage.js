@@ -23,7 +23,7 @@ function TeamPage() {
   const { token } = useContext(UserContext);
   useEffect(() => {
     setLoading(true); // set loading to true before making the API call
-
+    
     if (token) {
       fetchData(
         `${process.env.REACT_APP_API_URL}/teams`,
@@ -49,6 +49,9 @@ function TeamPage() {
         })
         .finally(() => setLoading(false)); // set loading to false after the API call completes
     }
+    // setTimeout(() => {
+    
+    // }, 5000);
   }, [currentPage, token, searchQuery, teamAdded]);
 
   const handleSearchChange = (event) => {
@@ -95,6 +98,7 @@ function TeamPage() {
         }
       )
       .then(() => {
+
         setTeamAdded(!teamAdded);
 
         toast.success("Team edited successfully!");
