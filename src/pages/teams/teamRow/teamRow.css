@@ -9,7 +9,6 @@
     color: #4caf50;
   }
   .edit-team-members-icon{
-    color: #1976d2;
   }
 
   
@@ -37,6 +36,6 @@
   }
   .edit-team-icon-name:hover {
     transform: scale(1.2);
-    color: #000000;
+    color: #1976d2;
   }
   

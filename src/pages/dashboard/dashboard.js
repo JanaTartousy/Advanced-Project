@@ -9,7 +9,7 @@ function Dashboard() {
 
     <>
       <Sidebar setIsSidebarOpen={setIsSidebarOpen} />
-      <div className={isSidebarOpen ? 'sidebar-open-content' : 'sidebar-closed-content'}>
+      <div className={`dashboard--main_content ${isSidebarOpen ? 'sidebar-open-content' : 'sidebar-closed-content'}`}>
         <Outlet />
       </div>
     </>

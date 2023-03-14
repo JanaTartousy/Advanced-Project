@@ -12,7 +12,7 @@ import {
 import "./teamRow.css";
 import { useNavigate } from "react-router-dom";
 
-function TeamRow({ team, onDelete, onEdit }) {
+function TeamRow({ team, onDelete, onEdit ,projects,members}) {
   const navigate = useNavigate();
   const [openDelete, setOpenDelete] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
@@ -50,35 +50,29 @@ function TeamRow({ team, onDelete, onEdit }) {
   function viewTeam() {
     navigate(`/teams/${team.id}`);
   }
-  const members = team.employees.length;
-  const projects = team.projects.length;
+
 
   return (
     <>
       <tr>
         <td>
+
+          {team.name}{" "}
+        </td>
+        <td>{team.projects}</td>
+        <td>{team.members}</td>
+        <td>
+          <IconButton onClick={viewTeam}>
+            <FaEye
+              className="action-icon view-team-icon"
+              title="View Team"
+              
+            />
+          </IconButton>
           <IconButton onClick={handleClickOpenEdit}>
             <FaEdit
               className="action-icon edit-team-icon-name"
               title="Edit Team Name"
-            />
-          </IconButton>
-          {team.name}{" "}
-        </td>
-        <td>{projects}</td>
-        <td>{members}</td>
-        <td>
-          <IconButton onClick={() => {}}>
-            <FaEye
-              className="action-icon view-team-icon"
-              title="View Team"
-              onClick={viewTeam}
-            />
-          </IconButton>
-          <IconButton>
-            <FaEdit
-              className="action-icon edit-team-members-icon"
-              title="Edit Team Members and Projects"
             />
           </IconButton>
           <IconButton onClick={handleClickOpenDelete}>

@@ -4,7 +4,12 @@
     transition: var(--tran-05);
 }
 .sidebar-closed-content{
-    margin-left:50px;
+    margin-left:95px;
     width: calc(100vw - 50px);
     transition: var(--tran-05);
+}
+.dashboard--main_content{
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
 }

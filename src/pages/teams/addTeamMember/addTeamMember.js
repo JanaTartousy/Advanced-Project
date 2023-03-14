@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import "./addTeamMember.css"
-import { UserContext } from "../../userContext";
+import { UserContext } from "../../../userContext";
 import { toast } from "react-toastify";
 const AddTeamMember = () => {
   const [employees, setEmployees] = useState([]);
-  const [employeesSelected,setEmployeesSelected] = useState([]);
+  // const [employeesSelected,setEmployeesSelected] = useState([]);
   const { token } = useContext(UserContext);
   useEffect(() => {
     token&&axios
@@ -24,12 +24,12 @@ const AddTeamMember = () => {
       })
       .catch((error) => toast.error("error fetching data from backend"));
   }, [token]);
-  function handleAddMember(id){
-    setEmployeesSelected(...employeesSelected,id)
-  }
-  function saveEmployees(){
-    axios.post(``)
-  }
+  // function handleAddMember(id){
+  //   setEmployeesSelected(...employeesSelected,id)
+  // }
+  // function saveEmployees(){
+  //   axios.post(``)
+  // }
   return (
     <div className="add--team_members-container">
       <h2>Unassigned Employees</h2>
@@ -52,11 +52,11 @@ const AddTeamMember = () => {
                 <td>{employee.first_name}</td>
                 <td>{employee.last_name}</td>
                 <td>
-                  <button onClick={handleAddMember(employee.id)}>Select</button>
+                  <button >Select</button>
                 </td>
               </tr>
             ))}
-            <button onClick={saveEmployees}>Save</button>
+            <button >Save</button>
           </tbody>
         </table>
       )}
