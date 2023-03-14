@@ -1,0 +1,13 @@
+.page-header {
+    background-color: var(--accent);
+    height: 80px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 10px;
+  }
+  .add-button-parent{
+    display: flex;
+  
+  }

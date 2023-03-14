@@ -1,0 +1,12 @@
+.loading-bars {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin: 100px auto;
+  position: absolute;
+}
+
+.loading-bars svg path,
+.loading-bars svg rect {
+  fill: var(--accent);
+}

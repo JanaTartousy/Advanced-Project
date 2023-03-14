@@ -1,11 +1,12 @@
+import { Button } from "@mui/material";
 import React from "react";
 import "./addProjectButton.css";
 
 function AddProjectButton(props) {
   return (
-    <button className="custom-button" onClick={props.onClick}>
+    <Button className="custom-button" onClick={props.onClick}>
       {props.children}
-    </button>
+    </Button>
   );
 }
 

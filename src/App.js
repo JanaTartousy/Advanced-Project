@@ -2,7 +2,6 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Employees from "./pages/employees/employees";
 import Projects from "./pages/projects/projects";
-import Teams from "./pages/teams/teams";
 import Reports from "./pages/reports/reports";
 import Login from "./pages/login/login";
 import { useEffect, useState } from "react";
@@ -11,8 +10,9 @@ import Cookies from "universal-cookie";
 import Dashboard from "./pages/dashboard/dashboard";
 import Home from "./pages/home/home";
 import { ToastContainer } from "react-toastify";
-import ViewTeam from "./pages/teams/viewTeam";
+import ViewTeam from "./pages/teams/viewTeam/viewTeam";
 import EmployeeProfile from "./components/employeeProfile/employeeProfile";
+import TeamPage from "./pages/teams/teamPage";
 const cookie = new Cookies();
 
 function App() {
@@ -35,7 +35,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/employees" element={<Employees />} />
             <Route path="/projects" element={<Projects />} />
-            <Route path="/teams" element={<Teams />} />
+            <Route path="/teams" element={<TeamPage />} />
             <Route path="/teams/:teamId" element={<ViewTeam />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/profile/:id" element={<EmployeeProfile />} />

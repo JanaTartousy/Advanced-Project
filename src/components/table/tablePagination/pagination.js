@@ -1,5 +1,5 @@
 import { Pagination } from "@mui/material";
-
+import "./pagination.css"
 function PaginationContainer({ currentPage, lastPage, onPageChange }) {
     return (
       <div className="pagination-container">

@@ -1,13 +1,13 @@
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { UserContext } from "../../userContext";
-import EmployeeCard from "./employeeCard";
 import "./viewTeam.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
-import AddProjectButton from "./addProjectButton";
-import AddTeamMember from "./addTeamMember";
+import AddProjectButton from "./../addProjectButton/addProjectButton";
+import AddTeamMember from "./../addTeamMember/addTeamMember";
+import EmployeeCard from "./../employeeCard/employeeCard";
+import { UserContext } from "../../../userContext";
 
 
 function ViewTeam() {
@@ -18,7 +18,7 @@ function ViewTeam() {
   const [projects, setProjects] = useState([]);
   const [error, setError] = useState(null);
   const history = useNavigate();
-
+ 
   useEffect(() => {
    token&&axios
       .get(`${process.env.REACT_APP_API_URL}/teams/${teamId}`, {

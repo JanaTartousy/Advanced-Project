@@ -1,0 +1,4 @@
+.table--header th {
+    background-color: var(--accent);
+    color: var(--main);
+  }
