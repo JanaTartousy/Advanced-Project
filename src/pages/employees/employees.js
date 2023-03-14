@@ -1,10 +1,17 @@
 import "./employees.css";
 import React, { useState } from "react";
-import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, TextField } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+// import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EmployeeRow from "./../../components/employeeRow/employeeRow";
-
+import { FaPlus } from "react-icons/fa";
 
 const theme = createTheme({
   palette: {
@@ -27,30 +34,34 @@ function Employees() {
 
   return (
     <div className="container">
-      <Button
-        startIcon={<AddCircleIcon />}
-        style={{
-          fontSize: 12,
-          backgroundColor: "#369fff",
-          color: "white",
-          left: 1250,
-          bottom: 12,
-        }}
-        size="large"
-        variant="contained"
-        sx={{
-          "&:hover": {
-            transform: "scale(1.05)",
-            transition: "0.2s ease-out",
-          },
-        }}
-        onClick={handleClickOpen}
-      >
-        Add
-      </Button>
+      <header className="employee-header">
+        <h2>Employees</h2>
+        <div className="button">
+        <Button
+          startIcon={<FaPlus/>}
+          style={{
+            fontSize: 12,
+            backgroundColor: "#F6F8FA",
+            color: "#369fff",
+          }}
+          size="large"
+          variant="contained"
+          sx={{
+            "&:hover": {
+              transform: "scale(1.05)",
+              transition: "0.2s ease-out",
+            },
+          }}
+          onClick={handleClickOpen}
+        >
+          Add
+        </Button></div>
+      </header>
 
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle style={{ backgroundColor: '#369fff' }}>Add Employee</DialogTitle>
+        <DialogTitle style={{ backgroundColor: "#369fff" }}>
+          Add Employee
+        </DialogTitle>
         <DialogContent>
           <TextField
             autoFocus
@@ -105,35 +116,36 @@ function Employees() {
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={handleClose}
-          sx={{
-            color: "#4caf50",
-            "&:hover": {
-              color: "#c62828",
-              transform: "scale(1.05)",
-              transition: "0.2s ease-out",
-            }
-          }}
-          >Cancel</Button>
-          <Button onClick={handleClose}
-           sx={{
-            color: "#F6F8FA",
-            backgroundColor: "#4caf50",
-            "&:hover": {
-              transform: "scale(1.05)",
-              transition: "0.3s ease-out",
+          <Button
+            onClick={handleClose}
+            sx={{
+              color: "#4caf50",
+              "&:hover": {
+                color: "#c62828",
+                transform: "scale(1.05)",
+                transition: "0.2s ease-out",
+              },
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleClose}
+            sx={{
               color: "#F6F8FA",
-              backgroundColor: " #388e3c",
-            }
-          }}
-          >Save</Button>
+              backgroundColor: "#4caf50",
+              "&:hover": {
+                transform: "scale(1.05)",
+                transition: "0.2s ease-out",
+                color: "#F6F8FA",
+                backgroundColor: " #388e3c",
+              },
+            }}
+          >
+            Save
+          </Button>
         </DialogActions>
       </Dialog>
-
-      <header className="employee-header">
-        <h2>Employees</h2>
-        <div style={{ position: "relative" }} />
-      </header>
       <EmployeeRow />
     </div>
   );

@@ -33,12 +33,12 @@ export default function EmployeeProfile(props) {
 
   return (
     <Box sx={{ backgroundColor: "#f4f9fc", minHeight: "100vh", margin: "5%" }}>
-      <Box sx={{ backgroundColor: "#369fff", py: 3 }}>
+      <Box sx={{ backgroundColor: "#369fff", py: 3}}>
         <Typography variant="h5" align="center" color="white">
           Employee Full Name: {fullName}
         </Typography>
       </Box>
-      <Box className="input" sx={{ py: 3 }}>
+      <Box className="input" sx={{ py: 3}}>
         <Card
           className="card"
           sx={{ maxWidth: 345, backgroundColor: "#F6F8FA" }}
@@ -85,16 +85,16 @@ export default function EmployeeProfile(props) {
 
         <div className="right-section">
           <div>
-            <h3>ID: {props.id}</h3>
-            <h3>First Name: {props.firstName}</h3>
-            <h3>Email: {props.email}</h3>
-            <h3>Phone Number: {props.phoneNumber}</h3>
+            <h4>ID: {props.id}</h4>
+            <h4>First Name: {props.firstName}</h4>
+            <h4>Email: {props.email}</h4>
+            <h4>Phone Number: {props.phoneNumber}</h4>
           </div>
           <div>
-            <h3>Team: {props.team}</h3>
-            <h3>Last Name: {props.lastName}</h3>
-            <h3>Date of Birth: {props.dateOfBirth}</h3>
-            <h3>Latest KPI Evaluation: {props.latestKpiEvaluation}</h3>
+            <h4>Team: {props.team}</h4>
+            <h4>Last Name: {props.lastName}</h4>
+            <h4>Date of Birth: {props.dateOfBirth}</h4>
+            <h4>Latest KPI Evaluation: {props.latestKpiEvaluation}</h4>
           </div>
         </div>
       </Box>
