@@ -2,6 +2,7 @@
     width:90%
 }
 .a--table {
+  position: relative;
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;

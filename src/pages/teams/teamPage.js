@@ -9,17 +9,21 @@ import { UserContext } from "../../userContext";
 import AddTeamPopup from "./addTeamPopup/addTeamPopup";
 import "./teamPage.css";
 import TeamList from "./teamList";
-
+import LoadingBars from "../../components/loadingBars/loadingBars";
 
 function TeamPage() {
   const [addTeamOpen, setAddTeamOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [teamAdded,setTeamAdded] = useState(false)
+  const [teamAdded, setTeamAdded] = useState(false);
   const [lastPage, setLastPage] = useState(1);
   const [teams, setTeams] = useState(null);
+  const [loading, setLoading] = useState(true);
+
   const { token } = useContext(UserContext);
   useEffect(() => {
+    setLoading(true); // set loading to true before making the API call
+
     if (token) {
       fetchData(
         `${process.env.REACT_APP_API_URL}/teams`,
@@ -27,7 +31,7 @@ function TeamPage() {
         { per_page: 12, page: currentPage, search: searchQuery }
       )
         .then((data) => {
-          console.log(data.teams.data);
+          // set teams and lastPage state
           setTeams(
             data.teams.data.map((team) => {
               return {
@@ -42,9 +46,10 @@ function TeamPage() {
         })
         .catch((error) => {
           console.log(error.message);
-        });
+        })
+        .finally(() => setLoading(false)); // set loading to false after the API call completes
     }
-  }, [currentPage, token, searchQuery,teamAdded]);
+  }, [currentPage, token, searchQuery, teamAdded]);
 
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -125,11 +130,11 @@ function TeamPage() {
         <TableHeader
           columns={["Team", "Number of Projects", "Number of Members"]}
         />
-         {teams&&<TeamList
-          rows={teams}
-          onDelete={handleDelete}
-          onEdit={handleEdit}
-        />} 
+        {loading ? (
+          <LoadingBars/>
+        ) : (
+          <TeamList rows={teams} onDelete={handleDelete} onEdit={handleEdit} />
+        )}
       </table>
 
       <AddTeamPopup
