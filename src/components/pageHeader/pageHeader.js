@@ -1,14 +1,15 @@
 import { Button } from "@mui/material";
 import { FaPlus } from "react-icons/fa";
 import SearchBar from "./searchBar";
-import "./pageHeader.css"
+import "./pageHeader.css";
 function PageHeader(props) {
-
-
-    return (
-      <div className="page-header">
-        <h2>{props.pageName}</h2>{" "}
-        <div className="add-button-parent">
+  return (
+    <div className="page-header">
+      <h2 style={{marginRight:"20px"}}>{props.pageName}</h2>{" "}
+      <div className="add-button-parent">
+        {props.hideAdd === true ? (
+          <></>
+        ) : (
           <Button
             startIcon={<FaPlus />}
             style={{
@@ -29,12 +30,13 @@ function PageHeader(props) {
           >
             Add
           </Button>
-          <SearchBar
-            searchQuery={props.searchQuery}
-            handleSearchChange={props.handleSearchChange}
-          ></SearchBar>
-        </div>
+        )}
+        <SearchBar
+          searchQuery={props.searchQuery}
+          handleSearchChange={props.handleSearchChange}
+        ></SearchBar>
       </div>
-    );
-  }
-  export default PageHeader
+    </div>
+  );
+}
+export default PageHeader;

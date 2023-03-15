@@ -3,12 +3,11 @@ import { useContext, useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import "./viewTeam.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft, faPlus } from "@fortawesome/free-solid-svg-icons";
+import { faArrowLeft, faEdit } from "@fortawesome/free-solid-svg-icons";
 import AddProjectButton from "./../addProjectButton/addProjectButton";
-import AddTeamMember from "./../addTeamMember/addTeamMember";
 import EmployeeCard from "./../employeeCard/employeeCard";
 import { UserContext } from "../../../userContext";
-import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
+import EditTeamMemberPopup from "../editTeamMember/editTeamMemberPopup";
 
 
 function ViewTeam() {
@@ -17,7 +16,7 @@ function ViewTeam() {
   const [team, setTeam] = useState(null);
   const [employees, setEmployees] = useState([]);
   const [projects, setProjects] = useState([]);
-  const [openAddProjects, setOpenAddProjects] = useState(false);
+  // const [openAddProjects, setOpenAddProjects] = useState(false);
   const [openAddEmployee, setOpenAddEmployee] = useState(false);
   const [error, setError] = useState(null);
   const history = useNavigate();
@@ -42,7 +41,7 @@ function ViewTeam() {
           setError("An error occurred while fetching the team data");
         }
       });
-  }, [teamId, token]);
+  }, [teamId, token,openAddEmployee]);
 
   const handleBackButtonClick = () => {
     history("/teams");
@@ -86,9 +85,9 @@ function ViewTeam() {
             ))}
             <div className="add-employee-card" onClick={handleAddEmployeeClick}>
               <div className="add-employee-icon">
-                <FontAwesomeIcon icon={faPlus} />
+                <FontAwesomeIcon icon={faEdit} />
               </div>
-              <div className="add-employee-text">Add member</div>
+              <div className="add-employee-text">Edit Members</div>
             </div>
           </div>
           <h3>Projects:</h3>
@@ -116,20 +115,8 @@ function ViewTeam() {
         </>
       )}
 
-      <Dialog open={openAddEmployee} onClose={handleCloseAddEmployee}>
-      <DialogContent>
-
-        <AddTeamMember/>
-      </DialogContent>
-      <DialogActions>
-
-        <Button onClick={handleCloseAddEmployee}>Cancel</Button>
-        {/* <Button onClick={handleSubmit} variant="contained" color="primary">
-          Add Team
-        </Button> */}
-      </DialogActions>
-
-      </Dialog>
+        <EditTeamMemberPopup teamId={parseInt(teamId)} open={openAddEmployee} onClose={handleCloseAddEmployee}/>
+      
     </div>
   );
 }
