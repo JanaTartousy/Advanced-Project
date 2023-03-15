@@ -53,7 +53,7 @@ function TeamPage() {
     
     // }, 5000);
   }, [currentPage, token, searchQuery, teamAdded]);
-
+  //function to delete a team
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
