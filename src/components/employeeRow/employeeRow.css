@@ -1,8 +1,4 @@
-.contain {
-  display: flex;
-  height: 150px;
-  width: 90%;
-}
+
 .employee-delete-icon {
   font-size: 24px;
 }
@@ -13,4 +9,8 @@
 .employee-name {
   color: #f6f8fa;
   margin-top: 63px;
+}
+.css-yrdy0g-MuiDataGrid-columnHeaderRow {
+  background-color: var(--accent);
+  color: var(--main);
 }

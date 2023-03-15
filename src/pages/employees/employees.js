@@ -8,19 +8,10 @@ import {
   DialogTitle,
   TextField,
 } from "@mui/material";
-import { createTheme, ThemeProvider } from "@mui/material/styles";
 import EmployeeRow from "./../../components/employeeRow/employeeRow";
-import { FaPlus } from "react-icons/fa";
+import PageHeader from "../../components/pageHeader/pageHeader";
 
-const theme = createTheme({
-  palette: {
-    white: { main: "#F6F8FA" },
-    accent: { main: "#369fff" },
-    accentderv: { main: "#69B7FF" },
-    gray: { main: "#707070" },
-    black: { main: "#333" },
-  },
-});
+
 
 function Employees() {
   const [open, setOpen] = useState(false);
@@ -33,30 +24,12 @@ function Employees() {
 
   return (
     <div className="container">
-      <header className="employee-header">
-        <h2>Employees</h2>
-        <div className="button">
-          <Button
-            startIcon={<FaPlus />}
-            style={{
-              fontSize: "1rem",
-              backgroundColor: "#F6F8FA",
-              color: "#369fff",
-            }}
-            fontSize="1rem"
-            variant="contained"
-            sx={{
-              "&:hover": {
-                transform: "scale(1.05)",
-                transition: "0.2s ease-out",
-              },
-            }}
-            onClick={handleClickOpen}
-          >
-            Add
-          </Button>
-        </div>
-      </header>
+      <PageHeader
+        pageName={"Employees"}
+        onAddClick={handleClickOpen}
+        // handleSearchChange={handleSearchChange}
+        // searchQuery={searchQuery}
+      />
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle style={{ backgroundColor: "#369fff" }}>

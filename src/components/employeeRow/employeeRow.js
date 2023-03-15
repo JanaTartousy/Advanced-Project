@@ -39,22 +39,27 @@ export default function DataGridDemo({
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID" },
     {
       field: "firstName",
       headerName: "First name",
-      width: 250,
+      width: 400,
     },
     {
       field: "lastName",
       headerName: "Last name",
-      width: 800,
+      width: 400,
+    },    {
+      field: "teamName",
+      headerName: "Team Name",
+      width: 400,
     },
     {
-      field: "view",
-      headerName: "View",
-      width: 100,
+      field: "Actions",
+      headerName: "Action",
+      width:150, 
       renderCell: (params) => (
+        <>
         <Link to={`/profile/${params.row.id}`}>
           <VisibilityIcon
             className="employee-view-icon"
@@ -66,31 +71,25 @@ export default function DataGridDemo({
                 transform: "scale(1.2)",
                 transition: "0.3s ease-out",
                 color: "#388e3c",
+                marginRight:"5px"
               },
             }}
           ></VisibilityIcon>
         </Link>
-      ),
+  <Delete
+  className="employee-delete-icon"
+  onClick={handleClickOpenDelete}
+  name="delete employee"
+  variant="contained"
+  sx={{
+    color: "#f44336",
+    "&:hover": {
+      transform: "scale(1.2)",
+      transition: "0.3s ease-out",
+      color: "#c62828",
     },
-    {
-      field: "delete",
-      headerName: "Delete",
-      width: 100,
-      renderCell: () => (
-        <Delete
-          className="employee-delete-icon"
-          onClick={handleClickOpenDelete}
-          name="delete employee"
-          variant="contained"
-          sx={{
-            color: "#f44336",
-            "&:hover": {
-              transform: "scale(1.2)",
-              transition: "0.3s ease-out",
-              color: "#c62828",
-            },
-          }}
-        ></Delete>
+  }}
+></Delete></>
       ),
     },
   ];
@@ -111,6 +110,7 @@ export default function DataGridDemo({
               id: employee.id,
               firstName: employee.first_name,
               lastName: employee.last_name,
+              teamName:employee.team?.name||"Empty"
             };
           });
           setEmployee(employees);
@@ -135,6 +135,8 @@ export default function DataGridDemo({
         pageSizeOptions={[10]}
         disableRowSelectionOnClick
         sx={{
+          width: "100%",
+          marginTop: "50px",
           backgroundColor: "#f4f9fc",
         }}
       />
