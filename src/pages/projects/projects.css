@@ -8,3 +8,28 @@
   margin: 0 auto;
   width: 90%;
 }
+
+.projectsHeader {
+  height: 80px;
+  display: flex;
+  justify-content: space-between;
+  padding: 0 1rem;
+  align-items: center;
+  background-color: #369fff;
+  color: white;
+}
+.Add-button {
+  background: none;
+  border: none;
+  color: white;
+  text-decoration: none;
+  font-size: 50px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.2s;
+  display: flex;
+  align-items: center;
+}
+.Add-button:hover {
+  transform: scale(1.35);
+}

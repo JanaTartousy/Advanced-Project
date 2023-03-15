@@ -10,7 +10,8 @@ import TableContainer from "@mui/material/TableContainer";
 import Button from "@mui/material/Button";
 import Edit from "@mui/icons-material/Edit";
 import Delete from "@mui/icons-material/Delete";
-import AddCircleIcon from "@mui/icons-material/AddCircle";
+import SearchBar from "../teams/search";
+import { FaPlus } from "react-icons/fa";
 
 function Projects() {
   const projects = [
@@ -28,38 +29,13 @@ function Projects() {
   return (
     <div className="container">
       <TableContainer component={Paper}>
-        <Button
-          startIcon={<AddCircleIcon />}
-          style={{
-            fontSize: 12,
-            backgroundColor: "#369fff",
-            color: "white",
-            left: 1150,
-            marginBottom: "0.5%",
-          }}
-          size="large"
-          // onClick={() => alert("You can now add a project")}
-          variant="contained"
-        >
-          Add
-        </Button>
-        <div
-          className="project-header"
-          style={{
-            position: "relative",
-            width: "100%",
-            height: "80px",
-            backgroundColor: "#369FFF",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            borderBottom: " 1px solid #E0E0E0",
-            color: "white",
-          }}
-        >
-          <h2>Projects</h2>
-          <div />
-        </div>
+        <header className="projectsHeader">
+          <h1>Projects</h1>
+          <SearchBar />
+          <button className="Add-button">
+            <FaPlus />
+          </button>
+        </header>
 
         <Table className="tableall" aria-label="projects table">
           <TableHead>
