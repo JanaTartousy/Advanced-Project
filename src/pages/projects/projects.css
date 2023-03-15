@@ -1,6 +1,7 @@
 .container {
   height: 70vh;
   z-index: 1;
+  margin-top: 1%;
 }
 .tableall {
   background-color: #f4f9fc;
