@@ -40,6 +40,7 @@ export default function DataGridDemo({
 
   const columns = [
     { field: "id", headerName: "ID" },
+
     {
       field: "firstName",
       headerName: "First name",
@@ -57,7 +58,7 @@ export default function DataGridDemo({
     {
       field: "Actions",
       headerName: "Action",
-      width:150, 
+      width:300, 
       renderCell: (params) => (
         <>
         <Link to={`/profile/${params.row.id}`}>
@@ -136,7 +137,7 @@ export default function DataGridDemo({
         disableRowSelectionOnClick
         sx={{
           width: "100%",
-          marginTop: "50px",
+          marginTop: "20px",
           backgroundColor: "#f4f9fc",
         }}
       />

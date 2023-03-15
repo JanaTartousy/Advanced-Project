@@ -12,6 +12,7 @@ import {
 import { PhotoCamera } from "@mui/icons-material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import EmployeeChart from "./../../components/employeeChart/employeeChart";
 // import axios from "axios";
 
 export default function EmployeeProfile(props) {
@@ -153,8 +154,8 @@ export default function EmployeeProfile(props) {
                 style={{ display: "none" }}
                 onChange={handleImageChange}
               />
+              
             </Card>
-
             <div className="right-section-1">
               <label htmlFor="employeeId" className="form-label">
                 ID:
@@ -245,8 +246,10 @@ export default function EmployeeProfile(props) {
               Save
             </Button>
           </Box>
+          <EmployeeChart/> 
         </Box>
       </div>
+     
     </>
   );
 }

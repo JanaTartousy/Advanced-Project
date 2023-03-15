@@ -30,13 +30,17 @@
   margin-top: 10px;
 }
 input {
-  border-radius: 10px;
+  border-radius: 5px;
+  padding: 10px;
   height: 30px;
   border-color: #69b7ff;
 }
 input:hover {
   transform: scale(1.05);
   transition: 0.3s ease-out;
+}
+input:focus{
+  outline: none;
 }
 h4 {
   height: 39px;
