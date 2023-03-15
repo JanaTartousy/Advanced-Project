@@ -1,41 +1,42 @@
 import { Link } from "react-router-dom";
 import * as React from "react";
 import { DataGrid } from "@mui/x-data-grid";
-import Edit from "@mui/icons-material/Edit";
+import VisibilityIcon from "@mui/icons-material/Visibility";
 import Delete from "@mui/icons-material/Delete";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../userContext";
+import {
+  Dialog,
+  DialogTitle,
+  DialogContent,
+  DialogActions,
+  Button,
+} from "@mui/material";
+import "./employeeRow.css";
 
-
-
-export default function DataGridDemo({ firstName, lastName }) {
-  const {token}= useContext(UserContext);
+export default function DataGridDemo({
+  employee,
+  onDelete,
+  firstName,
+  lastName,
+}) {
+  const { token } = useContext(UserContext);
   const [Employee, setEmployee] = useState([]);
- 
-  useEffect(() => {
-    token &&
-      axios
-        .get(
-          `${process.env.REACT_APP_API_URL}/employees`, // include search query in API request
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        )
-        .then((response) => {
-          console.log(response);
-          console.log(response.data);
-          const employees= response.data.employees.map((employee,index)=>{
-            return {id:employee.id,firstName:employee.first_name,lastName:employee.last_name}
-          })
-          setEmployee(employees)
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-  }, [ token]);
+  const [openDelete, setOpenDelete] = useState(false);
+
+  const handleClickOpenDelete = () => {
+    setOpenDelete(true);
+  };
+
+  const handleCloseDelete = () => {
+    setOpenDelete(false);
+  };
+
+  const handleDelete = () => {
+    onDelete(employee.id);
+    setOpenDelete(false);
+  };
 
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
@@ -50,23 +51,24 @@ export default function DataGridDemo({ firstName, lastName }) {
       width: 800,
     },
     {
-      field: "edit",
-      headerName: "Edit",
+      field: "view",
+      headerName: "View",
       width: 100,
       renderCell: (params) => (
         <Link to={`/profile/${params.row.id}`}>
-          <Edit
-            name="edit employee"
+          <VisibilityIcon
+            className="employee-view-icon"
+            name="view employee"
             variant="contained"
             sx={{
-              color: "#333",
+              color: "#4caf50",
               "&:hover": {
-                transform: "scale(1.4)",
+                transform: "scale(1.2)",
                 transition: "0.3s ease-out",
-                color: "#369fff",
+                color: "#388e3c",
               },
             }}
-          ></Edit>
+          ></VisibilityIcon>
         </Link>
       ),
     },
@@ -76,38 +78,99 @@ export default function DataGridDemo({ firstName, lastName }) {
       width: 100,
       renderCell: () => (
         <Delete
+          className="employee-delete-icon"
+          onClick={handleClickOpenDelete}
           name="delete employee"
           variant="contained"
           sx={{
-            color: "rgb(219 28 28)",
+            color: "#f44336",
             "&:hover": {
-              transform: "scale(1.4)",
+              transform: "scale(1.2)",
               transition: "0.3s ease-out",
+              color: "#c62828",
             },
           }}
         ></Delete>
       ),
     },
   ];
-  
- 
+
+  useEffect(() => {
+    token &&
+      axios
+        .get(`${process.env.REACT_APP_API_URL}/employees`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          console.log(response.data);
+          const employees = response.data.employees.map((employee, index) => {
+            return {
+              id: employee.id,
+              firstName: employee.first_name,
+              lastName: employee.last_name,
+            };
+          });
+          setEmployee(employees);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+  }, [token]);
 
   return (
-    <DataGrid
-      rows={Employee}
-      columns={columns.filter((column) => column.field !== "id")}
-      initialState={{
-        pagination: {
-          paginationModel: {
-            pageSize: 10,
+    <>
+      <DataGrid
+        rows={Employee}
+        columns={columns.filter((column) => column.field !== "id")}
+        initialState={{
+          pagination: {
+            paginationModel: {
+              pageSize: 10,
+            },
           },
-        },
-      }}
-      pageSizeOptions={[10]}
-      disableRowSelectionOnClick
-      sx={{
-        backgroundColor: "#f4f9fc",
-      }}
-    />
+        }}
+        pageSizeOptions={[10]}
+        disableRowSelectionOnClick
+        sx={{
+          backgroundColor: "#f4f9fc",
+        }}
+      />
+      <Dialog open={openDelete} onClose={handleCloseDelete}>
+        <DialogTitle sx={{ color: "#f44336" }}>Delete Confirmation</DialogTitle>
+        <DialogContent>
+          Are you sure you want to delete this team?
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleCloseDelete}
+            sx={{
+              "&:hover": {
+                transform: "scale(1.05)",
+                transition: "0.2s ease-out",
+                color: "#388e3c",
+              },
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={handleDelete}
+            variant="contained"
+            color="error"
+            sx={{
+              "&:hover": {
+                transform: "scale(1.05)",
+                transition: "0.2s ease-out",
+              },
+            }}
+          >
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   );
 }

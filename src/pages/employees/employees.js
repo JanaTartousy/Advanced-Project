@@ -9,7 +9,6 @@ import {
   TextField,
 } from "@mui/material";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-// import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EmployeeRow from "./../../components/employeeRow/employeeRow";
 import { FaPlus } from "react-icons/fa";
 
@@ -37,25 +36,26 @@ function Employees() {
       <header className="employee-header">
         <h2>Employees</h2>
         <div className="button">
-        <Button
-          startIcon={<FaPlus/>}
-          style={{
-            fontSize: 12,
-            backgroundColor: "#F6F8FA",
-            color: "#369fff",
-          }}
-          size="large"
-          variant="contained"
-          sx={{
-            "&:hover": {
-              transform: "scale(1.05)",
-              transition: "0.2s ease-out",
-            },
-          }}
-          onClick={handleClickOpen}
-        >
-          Add
-        </Button></div>
+          <Button
+            startIcon={<FaPlus />}
+            style={{
+              fontSize: "1rem",
+              backgroundColor: "#F6F8FA",
+              color: "#369fff",
+            }}
+            fontSize="1rem"
+            variant="contained"
+            sx={{
+              "&:hover": {
+                transform: "scale(1.05)",
+                transition: "0.2s ease-out",
+              },
+            }}
+            onClick={handleClickOpen}
+          >
+            Add
+          </Button>
+        </div>
       </header>
 
       <Dialog open={open} onClose={handleClose}>

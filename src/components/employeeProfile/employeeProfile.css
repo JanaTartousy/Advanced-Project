@@ -1,3 +1,7 @@
+.employee-profile-page {
+  width: 100%;
+  margin: auto;
+}
 .card {
   justify-content: center;
   align-items: center;
@@ -7,9 +11,15 @@
   width: 600px;
   border-radius: 10px;
 }
-.right-section {
+.right-section-1 {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  color: #333;
+  margin: auto;
+}
+.right-section-2 {
+  display: flex;
+  flex-direction: column;
   color: #333;
   margin: auto;
 }
@@ -17,15 +27,49 @@
   display: flex;
   flex-direction: row;
   margin: auto;
+  margin-top: 10px;
+}
+input {
+  border-radius: 10px;
+  height: 30px;
+  border-color: #69b7ff;
+}
+input:hover {
+  transform: scale(1.05);
+  transition: 0.3s ease-out;
 }
 h4 {
-  background-color: #369fff;
   height: 39px;
   width: 300px;
   border-radius: 10px;
-  color: white;
+  color: #f6f8fa;
   margin: 20px;
   display: flex;
   justify-content: center;
   flex-direction: column;
+}
+.backward-button {
+  background-color: var(--accent);
+  color: #f6f8fa;
+  font-size: 1rem;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 0.5rem;
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  cursor: pointer;
+}
+.save-button {
+  height: 30px;
+  text-align: center;
+  position: absolute;
+  top: 300px;
+  right: 150px;
+  bottom: auto;
+}
+.form-label {
+  margin: 6px;
+  color: #f6f8fa;
+  font-weight: 600;
 }
