@@ -56,7 +56,6 @@ const AddTeamMember = () => {
                 </td>
               </tr>
             ))}
-            <button >Save</button>
           </tbody>
         </table>
       )}

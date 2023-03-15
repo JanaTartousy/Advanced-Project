@@ -8,6 +8,7 @@ import AddProjectButton from "./../addProjectButton/addProjectButton";
 import AddTeamMember from "./../addTeamMember/addTeamMember";
 import EmployeeCard from "./../employeeCard/employeeCard";
 import { UserContext } from "../../../userContext";
+import { Button, Dialog, DialogActions, DialogContent } from "@mui/material";
 
 
 function ViewTeam() {
@@ -16,6 +17,8 @@ function ViewTeam() {
   const [team, setTeam] = useState(null);
   const [employees, setEmployees] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [openAddProjects, setOpenAddProjects] = useState(false);
+  const [openAddEmployee, setOpenAddEmployee] = useState(false);
   const [error, setError] = useState(null);
   const history = useNavigate();
  
@@ -47,10 +50,15 @@ function ViewTeam() {
 
   const handleAddEmployeeClick = () => {
     //  employee functionality here
+    setOpenAddEmployee(true)
   };
+  const handleCloseAddEmployee=()=>{
 
+    setOpenAddEmployee(false)
+  }
   const handleAddProjectClick = () => {
     //  project functionality here
+    
   };
 
   return (
@@ -107,9 +115,21 @@ function ViewTeam() {
 
         </>
       )}
-      <div>
+
+      <Dialog open={openAddEmployee} onClose={handleCloseAddEmployee}>
+      <DialogContent>
+
         <AddTeamMember/>
-      </div>
+      </DialogContent>
+      <DialogActions>
+
+        <Button onClick={handleCloseAddEmployee}>Cancel</Button>
+        {/* <Button onClick={handleSubmit} variant="contained" color="primary">
+          Add Team
+        </Button> */}
+      </DialogActions>
+
+      </Dialog>
     </div>
   );
 }
