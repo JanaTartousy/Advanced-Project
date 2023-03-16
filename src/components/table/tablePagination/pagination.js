@@ -8,8 +8,7 @@ function PaginationContainer({ currentPage, lastPage, onPageChange }) {
           page={currentPage}
           onChange={onPageChange}
           variant="outlined"
-          shape="rounded"
-          size="large"
+          size="medium"
           showFirstButton
           showLastButton
           className="pagination"

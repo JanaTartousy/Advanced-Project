@@ -130,6 +130,7 @@ function TeamPage() {
         handleSearchChange={handleSearchChange}
         searchQuery={searchQuery}
       />
+      <div className="table--container">
       <table className="a--table">
         <TableHeader
           columns={["Team", "Number of Projects", "Number of Members"]}
@@ -140,7 +141,7 @@ function TeamPage() {
           <TeamList rows={teams} onDelete={handleDelete} onEdit={handleEdit} />
         )}
       </table>
-
+          </div>
       <AddTeamPopup
         open={addTeamOpen}
         onClose={handleAddTeamClose}

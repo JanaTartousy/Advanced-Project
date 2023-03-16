@@ -13,3 +13,9 @@
     display: flex;
     justify-content: center;
 }
+@media (max-width: 768px) {
+    .sidebar-closed-content{
+    width: calc(100vw - 50px);
+    margin: auto;
+    }
+}

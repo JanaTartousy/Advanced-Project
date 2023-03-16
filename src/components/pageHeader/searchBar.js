@@ -1,5 +1,6 @@
 import { Search } from '@mui/icons-material';
 import React from 'react';
+
 function SearchBar(props) {
   const searchInputRef = React.useRef(null);
 
@@ -21,10 +22,13 @@ function SearchBar(props) {
         backgroundColor: '#f1f3f4',
         borderRadius: '4px',
         padding: '8px',
+        minWidth: '200px',
+        maxWidth: '400px',
+        width: '100%',
       }}
     >
       <Search
-        style={{ color: '#919eab', cursor: 'pointer' }}
+        style={{ color: '#919eab', cursor: 'pointer', marginRight: '8px' }}
         onClick={handleSearchClick}
       />
       <input
@@ -33,10 +37,11 @@ function SearchBar(props) {
           flexGrow: 1,
           border: 'none',
           outline: 'none',
-          marginLeft: '8px',
           fontSize: '1rem',
           backgroundColor: 'transparent',
           color: '#37474f',
+          maxWidth: '400px',
+          width: '100%',
         }}
         type="text"
         placeholder="Search..."

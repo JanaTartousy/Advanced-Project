@@ -205,14 +205,14 @@ body{
     height: 100vh;
     width: calc(100% - 78px);
 }
-@media (max-width: 428px) {
+@media (max-width: 768px) {
  .sidebar.close {
-    width: 0%;
+    display: none;
  }
  .sidebar.close img {
     display: none;
  }
  .sidebar{
-    width: 90%;
+    width: 100vw;
  }
 }

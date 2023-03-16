@@ -4,10 +4,9 @@ import { useParams, useNavigate } from "react-router-dom";
 import "./viewTeam.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft, faEdit } from "@fortawesome/free-solid-svg-icons";
-import AddProjectButton from "./../addProjectButton/addProjectButton";
 import EmployeeCard from "./../employeeCard/employeeCard";
 import { UserContext } from "../../../userContext";
-import EditTeamMemberPopup from "../editTeamMember/editTeamMemberPopup";
+import EditTeamPopup from "../editTeam/editTeamPopup";
 
 
 function ViewTeam() {
@@ -16,7 +15,7 @@ function ViewTeam() {
   const [team, setTeam] = useState(null);
   const [employees, setEmployees] = useState([]);
   const [projects, setProjects] = useState([]);
-  // const [openAddProjects, setOpenAddProjects] = useState(false);
+  const [openAddProjects, setOpenAddProjects] = useState(false);
   const [openAddEmployee, setOpenAddEmployee] = useState(false);
   const [error, setError] = useState(null);
   const history = useNavigate();
@@ -35,13 +34,14 @@ function ViewTeam() {
         setError(null);
       })
       .catch((error) => {
+        console.log(error)
         if (error.response.status === 404) {
           setError("Team not found");
         } else {
           setError("An error occurred while fetching the team data");
         }
       });
-  }, [teamId, token,openAddEmployee]);
+  }, [teamId, token,openAddEmployee,openAddProjects]);
 
   const handleBackButtonClick = () => {
     history("/teams");
@@ -55,8 +55,12 @@ function ViewTeam() {
 
     setOpenAddEmployee(false)
   }
+  const handleCloseAddProjects=()=>{
+
+    setOpenAddProjects(false)
+  }
   const handleAddProjectClick = () => {
-    //  project functionality here
+    setOpenAddProjects(true)
     
   };
 
@@ -97,7 +101,8 @@ function ViewTeam() {
                 <th>Name</th>
                 <th>Description</th>
                 <th className="add-project">
-      <AddProjectButton onClick={handleAddProjectClick}>Add project</AddProjectButton>
+                <FontAwesomeIcon icon={faEdit}  onClick={handleAddProjectClick} style={{fontSize:"2rem"}}/>
+
     </th>
               </tr>
             </thead>
@@ -115,7 +120,8 @@ function ViewTeam() {
         </>
       )}
 
-        <EditTeamMemberPopup teamId={parseInt(teamId)} open={openAddEmployee} onClose={handleCloseAddEmployee}/>
+        <EditTeamPopup type={"employee"} teamId={parseInt(teamId)} open={openAddEmployee} onClose={handleCloseAddEmployee}/>
+        <EditTeamPopup type={"project"} teamId={parseInt(teamId)} open={openAddProjects} onClose={handleCloseAddProjects}/>
       
     </div>
   );

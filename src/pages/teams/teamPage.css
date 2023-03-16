@@ -28,3 +28,14 @@
 .a--table td:nth-child(3) {
   width: 20%;
 }
+.table--container {
+  overflow-x: auto;
+  white-space: nowrap;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .table--container {
+    overflow-x: scroll;
+  }
+}
