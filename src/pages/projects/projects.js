@@ -31,10 +31,11 @@ function Projects() {
       <TableContainer component={Paper}>
         <header className="projectsHeader">
           <h1>Projects</h1>
-          <SearchBar />
+
           <button className="Add-button">
-            <FaPlus />
+            <FaPlus /> ADD
           </button>
+          <SearchBar />
         </header>
 
         <Table className="tableall" aria-label="projects table">
