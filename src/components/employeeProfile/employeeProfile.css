@@ -14,44 +14,24 @@
 .right-section-1 {
   display: flex;
   flex-direction: column;
-  color: #333;
-  margin: auto;
-}
+  /* color: #333; */
+  /* margin: auto; */
+} 
+
 .right-section-2 {
   display: flex;
   flex-direction: column;
-  color: #333;
-  margin: auto;
+  /* color: #333; */
+  /* margin: auto; */
 }
-.input {
+.textfield {
   display: flex;
   flex-direction: row;
   margin: auto;
   margin-top: 10px;
+  justify-content: space-around;
 }
-input {
-  border-radius: 5px;
-  padding: 10px;
-  height: 30px;
-  border-color: #69b7ff;
-}
-input:hover {
-  transform: scale(1.05);
-  transition: 0.3s ease-out;
-}
-input:focus{
-  outline: none;
-}
-h4 {
-  height: 39px;
-  width: 300px;
-  border-radius: 10px;
-  color: #f6f8fa;
-  margin: 20px;
-  display: flex;
-  justify-content: center;
-  flex-direction: column;
-}
+
 .backward-button {
   background-color: var(--accent);
   color: #f6f8fa;
@@ -72,8 +52,23 @@ h4 {
   right: 150px;
   bottom: auto;
 }
-.form-label {
+/* .form-label {
   margin: 6px;
   color: #f6f8fa;
   font-weight: 600;
+} */
+/* .edit-icon{
+  font-size: 32px;
+
+} */
+.header-employee-fullname{
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  
+}
+.editicon-and-fullname{
+  width: 50%;
+  margin: auto;
 }

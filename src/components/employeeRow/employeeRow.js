@@ -6,6 +6,7 @@ import Delete from "@mui/icons-material/Delete";
 import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "../../userContext";
+import { toast } from "react-toastify";
 import {
   Dialog,
   DialogTitle,
@@ -24,20 +25,35 @@ export default function DataGridDemo({
   const { token } = useContext(UserContext);
   const [Employee, setEmployee] = useState([]);
   const [openDelete, setOpenDelete] = useState(false);
+  // const [selectedEmployee, setSelectedEmployee] = useState(null);
+  const [employeeAdded, setEmployeeAdded] = useState(false);
 
-  const handleClickOpenDelete = () => {
+  const handleClickOpenDelete = (employee) => {
+    // setSelectedEmployee(employee);
     setOpenDelete(true);
   };
 
   const handleCloseDelete = () => {
+    // setSelectedEmployee(null);
     setOpenDelete(false);
   };
 
-  const handleDelete = () => {
-    onDelete(employee.id);
-    setOpenDelete(false);
-  };
-
+  function handleDelete() {
+    axios
+      .delete(`${process.env.REACT_APP_API_URL}/employees/${employee?.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => {
+        setEmployeeAdded(!employeeAdded);
+        toast.error("Employee deleted successfully!");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.response.data.error);
+      });}
+  
   const columns = [
     { field: "id", headerName: "ID" },
 
@@ -84,6 +100,7 @@ export default function DataGridDemo({
   variant="contained"
   sx={{
     color: "#f44336",
+    marginLeft: "10px",
     "&:hover": {
       transform: "scale(1.2)",
       transition: "0.3s ease-out",
@@ -120,11 +137,11 @@ export default function DataGridDemo({
           console.log(error);
         });
   }, [token]);
-
+  
   return (
     <>
       <DataGrid
-        rows={Employee}
+        rows={Employee} onDelete={handleDelete}
         columns={columns.filter((column) => column.field !== "id")}
         initialState={{
           pagination: {
@@ -137,6 +154,7 @@ export default function DataGridDemo({
         disableRowSelectionOnClick
         sx={{
           width: "100%",
+          height: "71vh",
           marginTop: "20px",
           backgroundColor: "#f4f9fc",
         }}
@@ -144,7 +162,7 @@ export default function DataGridDemo({
       <Dialog open={openDelete} onClose={handleCloseDelete}>
         <DialogTitle sx={{ color: "#f44336" }}>Delete Confirmation</DialogTitle>
         <DialogContent>
-          Are you sure you want to delete this team?
+          Are you sure you want to delete this employee?
         </DialogContent>
         <DialogActions>
           <Button

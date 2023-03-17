@@ -9,15 +9,16 @@ import {
   ValueAxis,
 } from '@devexpress/dx-react-chart-material-ui';
 import { Animation } from '@devexpress/dx-react-chart';
+// import { toast } from "react-toastify";
 
 const data = [
-  { year: '1950', population: 2.525 },
-  { year: '1960', population: 3.018 },
-  { year: '1970', population: 3.682 },
-  { year: '1980', population: 4.440 },
-  { year: '1990', population: 5.310 },
-  { year: '2000', population: 6.127 },
-  { year: '2010', population: 6.930 },
+  { year: '1950', kpi: 2.525 },
+  { year: '1960', kpi: 3.018 },
+  { year: '1970', kpi: 3.682 },
+  { year: '1980', kpi: 4.440 },
+  { year: '1990', kpi: 5.310 },
+  { year: '2000', kpi: 6.127 },
+  { year: '2010', kpi: 6.930 },
 ];
 
 export default class Demo extends React.PureComponent {
@@ -41,10 +42,10 @@ export default class Demo extends React.PureComponent {
           <ValueAxis max={7} />
 
           <BarSeries
-            valueField="population"
+            valueField="kpi"
             argumentField="year"
           />
-          <Title text="World population" />
+          <Title text="Employee Kpi" />
           <Animation />
         </Chart>
       </Paper>

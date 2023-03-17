@@ -13,6 +13,9 @@ import { PhotoCamera } from "@mui/icons-material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import EmployeeChart from "./../../components/employeeChart/employeeChart";
+import TextField from '@mui/material/TextField';
+import { FaEdit } from "react-icons/fa";
+// import { toast } from "react-toastify";
 // import axios from "axios";
 
 export default function EmployeeProfile(props) {
@@ -70,6 +73,7 @@ export default function EmployeeProfile(props) {
     reader.onloadend = () => {
       setImageUrl(reader.result);
     };
+    
   };
 
   const handleBackButtonClick = () => {
@@ -97,22 +101,28 @@ export default function EmployeeProfile(props) {
       </div>
       <div className="employee-profile-page">
         <Box
-          sx={{ backgroundColor: "#369fff", minHeight: "100vh", margin: "5%" }}
+          sx={{ backgroundColor: "#F6F8FA", minHeight: "100vh", margin: "5%" }}
         >
-          <Box sx={{ backgroundColor: "#369fff", py: 3 }}>
+          <Box className="header-employee-fullname"  sx={{ backgroundColor: "#369fff", py: 3 }}>
             <Typography
+            className="editicon-and-fullname"
               variant="h5"
               align="center"
               color="white"
               sx={{ fontSize: "2rem", fontWeight: "600" }}
             >
               {fullName}
+              <FaEdit sx={{color: "#F6F8FA"}}></FaEdit>
             </Typography>
+          
           </Box>
-          <Box className="input" sx={{ py: 3 }}>
+          <Box className="textfield" sx={{ py: 3,  '& .MuiTextField-root': { m: 1 }, }}  component="form"
+     
+      noValidate
+      autoComplete="off">
             <Card
               className="card"
-              sx={{ maxWidth: 345, backgroundColor: "#F6F8FA" }}
+              sx={{ maxWidth: 345, backgroundColor: "white" }}
             >
               <label htmlFor="file-input">
                 <CardMedia
@@ -142,6 +152,7 @@ export default function EmployeeProfile(props) {
                         backgroundColor: "#388e3c",
                       },
                     }}
+                    onClick={handleImageChange}
                   >
                     Change
                   </Button>
@@ -154,80 +165,72 @@ export default function EmployeeProfile(props) {
                 style={{ display: "none" }}
                 onChange={handleImageChange}
               />
-              
             </Card>
             <div className="right-section-1">
-              <label htmlFor="employeeId" className="form-label">
-                ID:
-              </label>
-              <input type="text" id="employeeId" value={props.id} readOnly />
-              <label htmlFor="firstName" className="form-label">
-                First Name:
-              </label>
-              <input
-                type="text"
-                id="firstName"
-                value={firstName}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="email" className="form-label">
-                Email:
-              </label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="phoneNumber" className="form-label">
-                Phone Number:
-              </label>
-              <input
-                type="tel"
-                id="phoneNumber"
-                value={phoneNumber}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="right-section-2">
-              <label htmlFor="team" className="form-label">
-                Team:
-              </label>
-              <input
-                type="text"
-                id="team"
-                value={team}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="lastName" className="form-label">
-                Last Name:
-              </label>
-              <input
-                type="text"
-                id="lastName"
-                value={lastName}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="dateOfBirth" className="form-label">
-                Date of Birth:
-              </label>
-              <input
-                type="date"
-                id="dateOfBirth"
-                value={dateOfBirth}
-                onChange={handleInputChange}
-              />
-              <label htmlFor="latestKpiEvaluation" className="form-label">
-                Latest KPI Evaluation:
-              </label>
-              <input
-                type="number"
-                id="latestKpiEvaluation"
-                value={latestKpiEvaluation}
-                onChange={handleInputChange}
-              />
-            </div>
-
+        <TextField
+          id="employeeId"
+          label="ID"
+          value={props.id}
+          InputProps={{
+            readOnly: true,
+          }}
+          variant="outlined"
+        />
+        <TextField
+          id="firstName"
+          label="First Name"
+          value={firstName}
+          onChange={handleInputChange}
+          variant="outlined"
+        />
+        <TextField
+          id="email"
+          label="Email"
+          type="email"
+          value={email}
+          onChange={handleInputChange}
+          variant="outlined"
+        />
+        <TextField
+          id="phoneNumber"
+          label="Phone Number"
+          type="tel"
+          value={phoneNumber}
+          onChange={handleInputChange}
+          variant="outlined"
+        />
+      </div>
+      <div className="right-section-2">
+        <TextField
+          id="team"
+          label="Team"
+          value={team}
+          onChange={handleInputChange}
+          variant="outlined"
+        />
+        <TextField
+          id="lastName"
+          label="Last Name"
+          value={lastName}
+          onChange={handleInputChange}
+          variant="outlined"
+        />
+        <TextField
+          id="dateOfBirth"
+          type="date"
+          value={dateOfBirth}
+          onChange={handleInputChange}
+          variant="outlined"
+        />
+        <TextField
+          id="latestKpiEvaluation"
+          label="Latest KPI Evaluation"
+          type="number"
+          value={latestKpiEvaluation}
+          onChange={handleInputChange}
+          variant="outlined"
+        />
+      </div>
             <Button
               className="save-button"
               variant="contained"
@@ -246,10 +249,9 @@ export default function EmployeeProfile(props) {
               Save
             </Button>
           </Box>
-          <EmployeeChart/> 
+          <EmployeeChart />
         </Box>
       </div>
-     
     </>
   );
 }
