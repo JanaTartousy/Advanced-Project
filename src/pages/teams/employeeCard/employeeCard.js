@@ -5,7 +5,7 @@ function EmployeeCard(props) {
   
     return (
       <div className="employee-card">
-        <img src={`${process.env.REACT_APP_PICTURE_URL}/storage/employee_pictures/${employee.picture.split("/").pop()}`} alt="Profile" />
+        <img src={employee.picture} alt="Profile" />
           <h3>{employee.first_name} {employee.last_name}</h3>
       </div>
     );
