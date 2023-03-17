@@ -1,0 +1,53 @@
+.view--projects_container {
+  width: 90%;
+  margin: 20px auto;
+}
+
+.view--projects_container {
+    margin: 2rem auto;
+  }
+  
+  .view--projects_table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  .view--projects_table thead{
+
+    background-color: var(--accent);
+  }
+  .view--projects_table th,
+  .view--projects_table td {
+    padding: 1rem;
+    text-align: left;
+  }
+  
+  .view--projects_table th {
+    background-color: var(--accent);
+    border-bottom: 2px solid #ddd;
+    font-weight: bold;
+  }
+  .edit--employee_role:hover{
+    transform: scale(1.1);
+    opacity: 80%;
+    transition: .2s ease-in-out;
+  }
+  
+
+  
+ 
+  
+  .view--projects_table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .view--projects_table tbody tr:hover {
+    background-color: #ddd;
+  }
+  
+  .view--projects_table select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ddd;
+    border-radius: 0.25rem;
+  }
+  
