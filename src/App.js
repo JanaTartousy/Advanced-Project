@@ -13,6 +13,7 @@ import { ToastContainer } from "react-toastify";
 import ViewTeam from "./pages/teams/viewTeam/viewTeam";
 import EmployeeProfile from "./components/employeeProfile/employeeProfile";
 import TeamPage from "./pages/teams/teamPage";
+import EvaluationPage from "./pages/evaluations/evaluationPage";
 const cookie = new Cookies();
 
 function App() {
@@ -36,6 +37,7 @@ function App() {
             <Route path="/employees" element={<Employees />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/teams" element={<TeamPage />} />
+            <Route path="/evaluations" element={<EvaluationPage />} />
             <Route path="/teams/:teamId" element={<ViewTeam />} />
             <Route path="/reports" element={<Reports />} />
             <Route path="/profile/:id" element={<EmployeeProfile />} />
