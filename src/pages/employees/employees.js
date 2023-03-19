@@ -13,62 +13,54 @@ import { useContext } from "react";
 import { UserContext } from "../../userContext";
 import PageHeader from "../../components/pageHeader/pageHeader";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 function Employees() {
   const [open, setOpen] = useState(false);
   const [employee, setEmployee] = useState([]);
-
+  const [image, setImage] = useState([]);
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = () => {
     setOpen(false);
-  }; 
- 
+  };
+
   const { token } = useContext(UserContext);
 
   const addEmployee = async (e) => {
     e.preventDefault();
-    let formdata = new FormData();
-    formdata.append("first_name", employee.firstName);
-    formdata.append("last_name", employee.lastName);
-    formdata.append("email", employee.email);
-    formdata.append("phone_number", employee.phoneNumber);
-    formdata.append("dob", employee.dob);
-    formdata.append("picture", employee.picture);
+    let formData = new FormData();
+    formData.append("first_name", employee.firstName);
+    formData.append("last_name", employee.lastName);
+    formData.append("email", employee.email);
+    formData.append("phone_number", employee.phoneNumber);
+    formData.append("dob", employee.dob);
+    formData.append("picture", image);
+    try{
     let response = await axios.post(
       `${process.env.REACT_APP_API_URL}/employees`,
-      formdata, 
+      formData,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
     );
-    
-    setEmployee([...employee, response.data]);
+    if(response.data.success===true)
+    toast.success("Added Employee Successfully")
     setOpen(false);
-    try {
-      if (response.data.message === "undefined") alert(response.data.message);
-     
     } catch (error) {
-      console.log(error.response.data);
-     
+      toast.error(error.response.data);
     }
   };
 
-  useEffect(() => {
-
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <div className="container">
-      <PageHeader
-        pageName={"Employees"}
-        onAddClick={handleClickOpen}
-        
-      />
+      <PageHeader pageName={"Employees"} onAddClick={handleClickOpen} />
 
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle style={{ backgroundColor: "#369fff" }}>
@@ -117,7 +109,7 @@ function Employees() {
               type="text"
               fullWidth
               onChange={(event) =>
-                setEmployee({ ...employee, phone: event.target.value })
+                setEmployee({ ...employee, phoneNumber: event.target.value })
               }
             />
             <TextField
@@ -134,17 +126,14 @@ function Employees() {
                 setEmployee({ ...employee, dob: event.target.value })
               }
             />
-            <TextField
-              autoFocus
-              margin="dense"
+            <input
               id="picture"
               label="Picture"
               type="file"
-              fullWidth
-              onChange={(event) =>
-                setEmployee({ ...employee, picture: event.target.value })
-              }
-              
+              onChange={(event) => {
+                setImage(event.target.files[0]);
+                console.log(image);
+              }}
             />
           </form>
         </DialogContent>
@@ -182,10 +171,8 @@ function Employees() {
         </DialogActions>
       </Dialog>
       <EmployeeRow />
-     
     </div>
   );
 }
 
 export default Employees;
-
