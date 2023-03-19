@@ -1,6 +1,6 @@
 import "./employeeProfile.css";
 import * as React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Box,
   Typography,
@@ -13,16 +13,20 @@ import { PhotoCamera } from "@mui/icons-material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import EmployeeChart from "./../../components/employeeChart/employeeChart";
-import TextField from '@mui/material/TextField';
+import TextField from "@mui/material/TextField";
 import { FaEdit } from "react-icons/fa";
+import axios from "axios";
+import { UserContext } from "../../userContext";
 // import { toast } from "react-toastify";
 // import axios from "axios";
 
 export default function EmployeeProfile(props) {
+  const { token } = React.useContext(UserContext);
+  const { id } = useParams();
   const fullName = `${props.firstName} ${props.lastName}`;
   const [imageUrl, setImageUrl] = React.useState("");
   const history = useNavigate();
-
+  const [employee, setEmployee] = React.useState();
   const [firstName, setFirstName] = React.useState(props.firstName);
   const [lastName, setLastName] = React.useState(props.lastName);
   const [email, setEmail] = React.useState(props.email);
@@ -73,19 +77,23 @@ export default function EmployeeProfile(props) {
     reader.onloadend = () => {
       setImageUrl(reader.result);
     };
-    
   };
 
   const handleBackButtonClick = () => {
     history("/employees");
   };
 
-  // React.useEffect(() => {
-  //   axios
-  //     .get(`${process.env.REACT_APP_PICTURE_URL}/storage/employee_pictures/${employee.picture.split("/").pop()}`)
-  //     .then((response) => setImageUrl(response.data.imageUrl))
-  //     .catch((error) => console.log(error));
-  // }, [props.employee, employee.picture]);
+  React.useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/employees/${id}`, {
+        headers: { authorization: `Bearer ${token}` },
+      })
+      .then((response) => {
+        setEmployee(response.data.employee);
+        console.log(response);
+      })
+      .catch((error) => console.log(error));
+  }, [id, token]);
 
   return (
     <>
@@ -103,34 +111,39 @@ export default function EmployeeProfile(props) {
         <Box
           sx={{ backgroundColor: "#F6F8FA", minHeight: "100vh", margin: "5%" }}
         >
-          <Box className="header-employee-fullname"  sx={{ backgroundColor: "#369fff", py: 3 }}>
+          <Box
+            className="header-employee-fullname"
+            sx={{ backgroundColor: "#369fff", py: 3 }}
+          >
             <Typography
-            className="editicon-and-fullname"
+              className="editicon-and-fullname"
               variant="h5"
               align="center"
               color="white"
               sx={{ fontSize: "2rem", fontWeight: "600" }}
             >
-              {fullName}
-              <FaEdit sx={{color: "#F6F8FA"}}></FaEdit>
+              {employee&&`${employee.first_name} ${employee.last_name}`}
+              <FaEdit sx={{ color: "#F6F8FA" }}></FaEdit>
             </Typography>
-          
           </Box>
-          <Box className="textfield" sx={{ py: 3,  '& .MuiTextField-root': { m: 1 }, }}  component="form"
-     
-      noValidate
-      autoComplete="off">
+          <Box
+            className="textfield"
+            sx={{ py: 3, "& .MuiTextField-root": { m: 1 } }}
+            component="form"
+            noValidate
+            autoComplete="off"
+          >
             <Card
               className="card"
               sx={{ maxWidth: 345, backgroundColor: "white" }}
             >
               <label htmlFor="file-input">
-                <CardMedia
+                {employee&&<CardMedia
                   component="img"
                   height="150"
-                  image={imageUrl}
+                  image={employee.picture}
                   alt="Profile Image"
-                />
+                />}
                 <CardContent
                   sx={{
                     display: "flex",
@@ -165,72 +178,71 @@ export default function EmployeeProfile(props) {
                 style={{ display: "none" }}
                 onChange={handleImageChange}
               />
-            </Card>
-            <div className="right-section-1">
-        <TextField
-          id="employeeId"
-          label="ID"
-          value={props.id}
-          InputProps={{
-            readOnly: true,
-          }}
-          variant="outlined"
-        />
-        <TextField
-          id="firstName"
-          label="First Name"
-          value={firstName}
-          onChange={handleInputChange}
-          variant="outlined"
-        />
-        <TextField
-          id="email"
-          label="Email"
-          type="email"
-          value={email}
-          onChange={handleInputChange}
-          variant="outlined"
-        />
-        <TextField
-          id="phoneNumber"
-          label="Phone Number"
-          type="tel"
-          value={phoneNumber}
-          onChange={handleInputChange}
-          variant="outlined"
-        />
-      </div>
-      <div className="right-section-2">
-        <TextField
-          id="team"
-          label="Team"
-          value={team}
-          onChange={handleInputChange}
-          variant="outlined"
-        />
-        <TextField
-          id="lastName"
-          label="Last Name"
-          value={lastName}
-          onChange={handleInputChange}
-          variant="outlined"
-        />
-        <TextField
-          id="dateOfBirth"
-          type="date"
-          value={dateOfBirth}
-          onChange={handleInputChange}
-          variant="outlined"
-        />
-        <TextField
-          id="latestKpiEvaluation"
-          label="Latest KPI Evaluation"
-          type="number"
-          value={latestKpiEvaluation}
-          onChange={handleInputChange}
-          variant="outlined"
-        />
-      </div>
+            </Card>{employee&&<><div className="right-section-1">
+              <TextField
+                id="employeeId"
+                label="ID"
+                value={id}
+                InputProps={{
+                  readOnly: true,
+                }}
+                variant="outlined"
+              />
+              <TextField
+                id="firstName"
+                label="First Name"
+                value={employee.first_name}
+                onChange={handleInputChange}
+                variant="outlined"
+              />
+              <TextField
+                id="email"
+                label="Email"
+                type="email"
+                value={employee.email}
+                onChange={handleInputChange}
+                variant="outlined"
+              />
+              <TextField
+                id="phoneNumber"
+                label="Phone Number"
+                type="tel"
+                value={employee.phone_number}
+                onChange={handleInputChange}
+                variant="outlined"
+              />
+            </div>
+            <div className="right-section-2">
+              <TextField
+                id="team"
+                label="Team"
+                value={employee.team?.name||"Not Assigned"}
+                onChange={handleInputChange}
+                variant="outlined"
+              />
+              <TextField
+                id="lastName"
+                label="Last Name"
+                value={employee.last_name}
+                onChange={handleInputChange}
+                variant="outlined"
+              />
+              <TextField
+                id="dateOfBirth"
+                type="date"
+                value={employee.dob}
+                onChange={handleInputChange}
+                variant="outlined"
+              />
+              <TextField
+                id="latestKpiEvaluation"
+                label="Latest KPI Evaluation"
+                type="number"
+                value={latestKpiEvaluation}
+                onChange={handleInputChange}
+                variant="outlined"
+              />
+            </div></>}
             <Button
               className="save-button"
               variant="contained"
