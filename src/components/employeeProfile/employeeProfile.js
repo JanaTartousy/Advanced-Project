@@ -1,6 +1,8 @@
 import "./employeeProfile.css";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
+import { UserContext } from "../../userContext";
+import { useContext } from "react";
 import {
   Box,
   Typography,
@@ -15,51 +17,32 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
 import EmployeeChart from "./../../components/employeeChart/employeeChart";
 import TextField from '@mui/material/TextField';
 import { FaEdit } from "react-icons/fa";
-// import { toast } from "react-toastify";
-// import axios from "axios";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 export default function EmployeeProfile(props) {
   const fullName = `${props.firstName} ${props.lastName}`;
   const [imageUrl, setImageUrl] = React.useState("");
   const history = useNavigate();
+  const { token } = useContext(UserContext);
 
-  const [firstName, setFirstName] = React.useState(props.firstName);
-  const [lastName, setLastName] = React.useState(props.lastName);
-  const [email, setEmail] = React.useState(props.email);
-  const [phoneNumber, setPhoneNumber] = React.useState(props.phoneNumber);
-  const [team, setTeam] = React.useState(props.team);
-  const [dateOfBirth, setDateOfBirth] = React.useState(props.dateOfBirth);
-  const [latestKpiEvaluation, setLatestKpiEvaluation] = React.useState(
-    props.latestKpiEvaluation
-  );
+  const [employee, setEmployee] = React.useState({
+    id: "",
+    firstName: "",
+    lastName: "",
+    email: "",
+    phoneNumber: "",
+    team: "",
+    dob: "",
+    latestKpiEvaluation: "",
+  });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    switch (name) {
-      case "firstName":
-        setFirstName(value);
-        break;
-      case "lastName":
-        setLastName(value);
-        break;
-      case "email":
-        setEmail(value);
-        break;
-      case "phoneNumber":
-        setPhoneNumber(value);
-        break;
-      case "team":
-        setTeam(value);
-        break;
-      case "dateOfBirth":
-        setDateOfBirth(value);
-        break;
-      case "latestKpiEvaluation":
-        setLatestKpiEvaluation(value);
-        break;
-      default:
-        break;
-    }
+    setEmployee((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleSaveButtonClick = () => {
@@ -73,12 +56,27 @@ export default function EmployeeProfile(props) {
     reader.onloadend = () => {
       setImageUrl(reader.result);
     };
-    
   };
 
   const handleBackButtonClick = () => {
     history("/employees");
   };
+
+  React.useEffect(() => {
+    axios
+      .get(`${process.env.REACT_APP_API_URL}/employees/${props.id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((response) => {
+        setEmployee(response.data);
+        toast.error("Can't found employee!");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error(error.response.data.error);});
+  }, [token, props.id]);
 
   // React.useEffect(() => {
   //   axios
@@ -179,7 +177,7 @@ export default function EmployeeProfile(props) {
         <TextField
           id="firstName"
           label="First Name"
-          value={firstName}
+          value={employee.firstName}
           onChange={handleInputChange}
           variant="outlined"
         />
@@ -187,7 +185,7 @@ export default function EmployeeProfile(props) {
           id="email"
           label="Email"
           type="email"
-          value={email}
+          value={employee.email}
           onChange={handleInputChange}
           variant="outlined"
         />
@@ -195,7 +193,7 @@ export default function EmployeeProfile(props) {
           id="phoneNumber"
           label="Phone Number"
           type="tel"
-          value={phoneNumber}
+          value={employee.phoneNumber}
           onChange={handleInputChange}
           variant="outlined"
         />
@@ -204,21 +202,21 @@ export default function EmployeeProfile(props) {
         <TextField
           id="team"
           label="Team"
-          value={team}
+          value={employee.team}
           onChange={handleInputChange}
           variant="outlined"
         />
         <TextField
           id="lastName"
           label="Last Name"
-          value={lastName}
+          value={employee.lastName}
           onChange={handleInputChange}
           variant="outlined"
         />
         <TextField
-          id="dateOfBirth"
+          id="dob"
           type="date"
-          value={dateOfBirth}
+          value={employee.dob}
           onChange={handleInputChange}
           variant="outlined"
         />
@@ -226,7 +224,7 @@ export default function EmployeeProfile(props) {
           id="latestKpiEvaluation"
           label="Latest KPI Evaluation"
           type="number"
-          value={latestKpiEvaluation}
+          value={employee.latestKpiEvaluation}
           onChange={handleInputChange}
           variant="outlined"
         />

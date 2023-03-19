@@ -15,6 +15,7 @@ import {
   Button,
 } from "@mui/material";
 import "./employeeRow.css";
+// import Employees from "../../pages/employees/employees";
 
 export default function DataGridDemo({
   employee,
@@ -26,7 +27,7 @@ export default function DataGridDemo({
   const [Employee, setEmployee] = useState([]);
   const [openDelete, setOpenDelete] = useState(false);
   // const [selectedEmployee, setSelectedEmployee] = useState(null);
-  const [employeeAdded, setEmployeeAdded] = useState(false);
+  // const [employeeAdded, setEmployeeAdded] = useState(false);
 
   const handleClickOpenDelete = (employee) => {
     // setSelectedEmployee(employee);
@@ -46,11 +47,12 @@ export default function DataGridDemo({
         },
       })
       .then(() => {
-        setEmployeeAdded(!employeeAdded);
+        // setEmployeeAdded(!employeeAdded);
         toast.error("Employee deleted successfully!");
       })
       .catch((error) => {
         console.log(error);
+        // console.log(employee);
         toast.error(error.response.data.error);
       });}
   
@@ -107,7 +109,9 @@ export default function DataGridDemo({
       color: "#c62828",
     },
   }}
-></Delete></>
+>
+  </Delete>
+  </>
       ),
     },
   ];
@@ -121,8 +125,8 @@ export default function DataGridDemo({
           },
         })
         .then((response) => {
-          console.log(response);
-          console.log(response.data);
+          // console.log(response);
+          // console.log(response.data);
           const employees = response.data.employees.map((employee, index) => {
             return {
               id: employee.id,
@@ -132,6 +136,7 @@ export default function DataGridDemo({
             };
           });
           setEmployee(employees);
+          // console.log(response.data.employees[0].id);
         })
         .catch((error) => {
           console.log(error);
@@ -191,6 +196,7 @@ export default function DataGridDemo({
             Delete
           </Button>
         </DialogActions>
+        {/* <Employees/> */}
       </Dialog>
     </>
   );
