@@ -123,7 +123,7 @@ export default function EmployeeProfile(props) {
               sx={{ fontSize: "2rem", fontWeight: "600" }}
             >
               {employee&&`${employee.first_name} ${employee.last_name}`}
-              <FaEdit sx={{ color: "#F6F8FA" }}></FaEdit>
+              {/* <FaEdit sx={{ color: "#F6F8FA" }}></FaEdit> */}
             </Typography>
           </Box>
           <Box
@@ -140,7 +140,7 @@ export default function EmployeeProfile(props) {
               <label htmlFor="file-input">
                 {employee&&<CardMedia
                   component="img"
-                  height="150"
+                  height="210"
                   image={employee.picture}
                   alt="Profile Image"
                 />}
@@ -156,7 +156,7 @@ export default function EmployeeProfile(props) {
                     variant="contained"
                     size="small"
                     sx={{
-                      mt: "9%",
+                      m: "auto",
                       backgroundColor: "#4caf50",
                       color: "#F6F8FA",
                       "&:hover": {
@@ -241,6 +241,9 @@ export default function EmployeeProfile(props) {
                 value={latestKpiEvaluation}
                 onChange={handleInputChange}
                 variant="outlined"
+                InputProps={{
+                  readOnly: true,
+                }}
               />
             </div></>}
             <Button
