@@ -9,17 +9,13 @@ import {
   TextField,
 } from "@mui/material";
 import EmployeeRow from "./../../components/employeeRow/employeeRow";
+import { useContext } from "react";
+import { UserContext } from "../../userContext";
 import PageHeader from "../../components/pageHeader/pageHeader";
 import axios from "axios";
 
 function Employees() {
   const [open, setOpen] = useState(false);
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
-  // const [email, setEmail] = useState("");
-  // const [phoneNumber, setPhoneNumber] = useState("");
-  // const [dateOfBirth, setDateOfBirth] = useState("");
-  // const [picture, setPicture] = useState("");
   const [employee, setEmployee] = useState([]);
 
   const handleClickOpen = () => {
@@ -28,7 +24,9 @@ function Employees() {
 
   const handleClose = () => {
     setOpen(false);
-  };
+  }; 
+ 
+  const { token } = useContext(UserContext);
 
   const addEmployee = async (e) => {
     e.preventDefault();
@@ -41,14 +39,19 @@ function Employees() {
     formdata.append("picture", employee.picture);
     let response = await axios.post(
       `${process.env.REACT_APP_API_URL}/employees`,
-      formdata
+      formdata, 
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
-    // console.log("qwertyuio");
+    
     setEmployee([...employee, response.data]);
     setOpen(false);
     try {
       if (response.data.message === "undefined") alert(response.data.message);
-      // fetchemployees();
+     
     } catch (error) {
       console.log(error.response.data);
      
@@ -56,7 +59,7 @@ function Employees() {
   };
 
   useEffect(() => {
-    // fetchEmployees();
+
   }, []);
 
   return (
@@ -64,8 +67,7 @@ function Employees() {
       <PageHeader
         pageName={"Employees"}
         onAddClick={handleClickOpen}
-        // handleSearchChange={handleSearchChange}
-        // searchQuery={searchQuery}
+        
       />
 
       <Dialog open={open} onClose={handleClose}>
@@ -142,6 +144,7 @@ function Employees() {
               onChange={(event) =>
                 setEmployee({ ...employee, picture: event.target.value })
               }
+              
             />
           </form>
         </DialogContent>
@@ -177,9 +180,9 @@ function Employees() {
             Save
           </Button>
         </DialogActions>
-        {/* </form> */}
       </Dialog>
       <EmployeeRow />
+     
     </div>
   );
 }
