@@ -12,15 +12,15 @@ import SelectMenu from "../SelectOptions/selectMenu";
 import axios from "axios";
 
 function AddEvaluationPopup(props) {
- const [selectedEmployee, setSelectedEmployee] = useState('');
- const [kpiName, setKpiName] = useState("");
+ const [employeeId, setEmployeeId] = useState('');
+ const [kpiId, setKpiId] = useState("");
  const [dateEvaluated, setDateEvaluated] = useState("");
  const [evaluation, setEvaluation] = useState(0);
 const [newEvaluation, setNewEvaluation] = useState({
-  employeeName: "",
-  kpiName: "",
-  dateEvaluated: "",
-  evaluation: "",
+  kpi_id: "",
+  employee_id: "",
+  date_evaluated: "",
+  evaluation: 0,
 })
     const handleNumberInput = (event) => {
     const value = Number(event.target.value);
@@ -34,7 +34,6 @@ const [newEvaluation, setNewEvaluation] = useState({
   };
 
   const handleChange = (e) => {
-    setNewEvaluation({ ...newEvaluation, [e.target.name]: e.target.value });
     console.log(newEvaluation);
   };
 
@@ -63,6 +62,10 @@ const [newEvaluation, setNewEvaluation] = useState({
 
   // Access the selected employee value
 
+  const handleChange2 = (event) => {
+    setNewEvaluation({ ...newEvaluation, [event.target.name]: event.target.value })
+    console.log(newEvaluation);
+  };
 
   return (
     <Dialog open={props.open} onClose={props.onClose}>
@@ -78,25 +81,24 @@ const [newEvaluation, setNewEvaluation] = useState({
           labelName="Employee"
           categorie ={"employeeName"}
           options={props.employeeOption}
-          // onChange={(event) => handleChangeEmployee(setSelectedEmployee)}
           onChange={handleChange}
-          name="employeeName"
+          name="employee_id"
+          handleChange={handleChange2}
         />
         <SelectMenu
           labelName="Kpi"
           categorie ={'kpiName'}
           options={props.kpiOption}
           onChange={handleChange}
-          // onChange={(event) => handleChange(event, 'kpiName')}
-          name="kpiName"
+          name="kpi_id"
+          handleChange={handleChange2}
         />
         <TextField 
           type="date"
           id="date-evaluated"
           label="Date Evaluated"
-          onChange={handleChange}
-          // onChange={(event) => handleChange(event, 'employeeName')}
-          name="dateEvaluated"
+          onChange={handleChange2}
+          name="date_evaluated"
           InputLabelProps={{
             shrink: true,
           }}
@@ -105,8 +107,7 @@ const [newEvaluation, setNewEvaluation] = useState({
         <TextField
           type="number"
           label="Evaluation Value"
-          onChange={handleChange}
-          // onChange={handleChange}
+          onChange={handleChange2}
           name="evaluation"
           InputProps={{
             inputProps: {

@@ -20,7 +20,6 @@ function EvaluationPage() {
   const [evaluationAdded, setEvaluationAdded] = useState(false);
   const [lastPage, setLastPage] = useState(1);
   const [evaluations, setEvaluations] = useState([]);
-  const [employeeId, setEmployeeId] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const { token } = useContext(UserContext);
@@ -34,7 +33,6 @@ function EvaluationPage() {
         { per_page: 12, page: currentPage, search: searchQuery }
       )
         .then((data) => {
-          console.log(data);
           let evaluationData = data.evaluations.data.map((evaluations) => {
             return {
               id: evaluations.id,
@@ -49,25 +47,19 @@ function EvaluationPage() {
           // let employeeData = data.employees.map((employees) => {
           //   return { employeeName: `${employees.first_name} ${employees.last_name}` }
           // })
-          let kpiData = data.kpis.map((kpis) => {
-            return { kpiName: `${kpis.name}`}
+          let kpiData = data.kpis.map((kpi) => {
+            return { kpiName: `${kpi.name}`,id: kpi.id}
           })
           // console.log(employeeData);
           // console.log(kpiData);
-          setEmployeeOption(data.employees.map((employees) => {
-            return { employeeName: `${employees.first_name} ${employees.last_name}` }
+          setEmployeeOption(data.employees.map((employee) => {
+            return { employeeName: `${employee.first_name} ${employee.last_name}`,id:employee.id }
           }));
-          let kpisId = data.kpis.map((kpis) => {
-            return { kpiId: `${kpis.id}`}
-          })
-          let employeeId = data.employees.map((employees) => {
-            return { employeeId: `${employess.id}`}
-          })
+ 
+ 
           setEvaluations(evaluationData);
           setKpiOption(kpiData);
-          console.log(kpiOption)
           setLastPage(data.evaluations.last_page);
-          console.log(employeeOption);
         }).then(console.log('Dataaaaaaaaa', evaluations),)
         .catch((error) => {
           console.log(error.message);
@@ -165,8 +157,6 @@ function EvaluationPage() {
       {employeeOption && kpiOption && <AddEvaluationPopup
         employeeOption={employeeOption}
         kpiOption={kpiOption}
-        employeeId={employeeId}
-        kpiId={kpiId}
         open={addEvaluationOpen}
         onClose={handleAddEvaluationClose}
         onAddEvaluation={handleAddEvaluation}
