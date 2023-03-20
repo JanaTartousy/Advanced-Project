@@ -8,21 +8,21 @@ import {
   TextField,
   Input,
 } from "@mui/material";
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import SelectMenu from "../SelectOptions/selectMenu";
-import dayjs from 'dayjs';
-import zIndex from "@mui/material/styles/zIndex";
+import axios from "axios";
 
 function AddEvaluationPopup(props) {
-  // const [ , setName] = useState("");
-  const [evaluation, setEvaluation] = useState(null);
-  const [value, setValue] = React.useState(dayjs('2022-04-17'));
-  const [employee, setEmployee] = useState("");
-  const [kpi, setKpi] = useState("");
-  // const [name, set] = useState("");
-
-
-  const handleNumberInput = (event) => {
+ const [selectedEmployee, setSelectedEmployee] = useState('');
+ const [kpiName, setKpiName] = useState("");
+ const [dateEvaluated, setDateEvaluated] = useState("");
+ const [evaluation, setEvaluation] = useState(0);
+const [newEvaluation, setNewEvaluation] = useState({
+  employeeName: "",
+  kpiName: "",
+  dateEvaluated: "",
+  evaluation: "",
+})
+    const handleNumberInput = (event) => {
     const value = Number(event.target.value);
   
     // Check if the value is outside the range of 0 to 10
@@ -33,20 +33,40 @@ function AddEvaluationPopup(props) {
     }
   };
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // props.onAddTeam(name);
-    // setName("");
-    props.onClose();
+  const handleChange = (e) => {
+    setNewEvaluation({ ...newEvaluation, [e.target.name]: e.target.value });
+    console.log(newEvaluation);
   };
-  const date = new Date;
 
-  // console.log(props.options);
-  console.log(props.kpiOption);
+  // const handleChangeEmployee = (setSelectedEmployee) => (event) => {
+  //   setSelectedEmployee(event.target.value);
+  //   console.log(selectedEmployee);
+  // }
+  
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // try {
+    //   const response = await axios.post(``, {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json'
+    //     },
+    //     body: JSON.stringify(formData)
+    //   });
+    //   const data = await response.json();
+    //   console.log(data);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+  };
+
+  // Access the selected employee value
+
+
   return (
     <Dialog open={props.open} onClose={props.onClose}>
-      {/* {console.log(props)} */}
-      <DialogTitle sx={{color:"#4caf50", marginBottom: "5px"}}>Add Employee</DialogTitle>
+      <DialogTitle sx={{color:"#4caf50", marginBottom: "5px"}}>New Evaluation</DialogTitle>
       <DialogContent
          sx={{marginTop: "4px", overflow: "visible"}}
       >
@@ -56,19 +76,27 @@ function AddEvaluationPopup(props) {
         >
         <SelectMenu
           labelName="Employee"
-          value ={"employeeName"}
+          categorie ={"employeeName"}
           options={props.employeeOption}
-         
+          // onChange={(event) => handleChangeEmployee(setSelectedEmployee)}
+          onChange={handleChange}
+          name="employeeName"
         />
         <SelectMenu
           labelName="Kpi"
-          value ={'kpiName'}
+          categorie ={'kpiName'}
           options={props.kpiOption}
+          onChange={handleChange}
+          // onChange={(event) => handleChange(event, 'kpiName')}
+          name="kpiName"
         />
         <TextField 
           type="date"
           id="date-evaluated"
           label="Date Evaluated"
+          onChange={handleChange}
+          // onChange={(event) => handleChange(event, 'employeeName')}
+          name="dateEvaluated"
           InputLabelProps={{
             shrink: true,
           }}
@@ -77,12 +105,14 @@ function AddEvaluationPopup(props) {
         <TextField
           type="number"
           label="Evaluation Value"
-          hiddenLabel="Evaluation Value"
+          onChange={handleChange}
+          // onChange={handleChange}
+          name="evaluation"
           InputProps={{
             inputProps: {
               min: 0,
               max: 10,
-              oninput: handleNumberInput
+              onInput: handleNumberInput
             }
           }}
         />

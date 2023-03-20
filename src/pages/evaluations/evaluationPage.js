@@ -20,6 +20,7 @@ function EvaluationPage() {
   const [evaluationAdded, setEvaluationAdded] = useState(false);
   const [lastPage, setLastPage] = useState(1);
   const [evaluations, setEvaluations] = useState([]);
+  const [employeeId, setEmployeeId] = useState([]);
   const [loading, setLoading] = useState(true);
 
   const { token } = useContext(UserContext);
@@ -38,6 +39,7 @@ function EvaluationPage() {
             return {
               id: evaluations.id,
               employeeName: `${evaluations.employees.first_name} ${evaluations.employees.last_name}`,
+              employeeId: evaluations.employees.id,
               dateEvaluated: evaluations.date_evaluated,
               kpiId: evaluations.kpi_id,
               kpiName: evaluations.kpis.name,
@@ -55,6 +57,12 @@ function EvaluationPage() {
           setEmployeeOption(data.employees.map((employees) => {
             return { employeeName: `${employees.first_name} ${employees.last_name}` }
           }));
+          let kpisId = data.kpis.map((kpis) => {
+            return { kpiId: `${kpis.id}`}
+          })
+          let employeeId = data.employees.map((employees) => {
+            return { employeeId: `${employess.id}`}
+          })
           setEvaluations(evaluationData);
           setKpiOption(kpiData);
           console.log(kpiOption)
@@ -71,11 +79,11 @@ function EvaluationPage() {
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
-  function handleAddEvaluation(name) {
+  function handleAddEvaluation(formData) {
     axios
       .post(
         `${process.env.REACT_APP_API_URL}/evaluations`,
-        { name },
+        { formData },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -157,6 +165,8 @@ function EvaluationPage() {
       {employeeOption && kpiOption && <AddEvaluationPopup
         employeeOption={employeeOption}
         kpiOption={kpiOption}
+        employeeId={employeeId}
+        kpiId={kpiId}
         open={addEvaluationOpen}
         onClose={handleAddEvaluationClose}
         onAddEvaluation={handleAddEvaluation}
