@@ -68,7 +68,9 @@ function PageHeader(props) {
               />
             </IconButton>
           )}
-          {isLargeScreen && (
+          {!isLargeScreen || props.hideSearch === true ? (
+            <></>
+          ) : (
             <SearchBar
               searchQuery={props.searchQuery}
               handleSearchChange={props.handleSearchChange}
@@ -76,7 +78,7 @@ function PageHeader(props) {
           )}
         </div>
       </div>
-      {!isLargeScreen && (
+      {isLargeScreen || props.hideSearch===true?<></> :(
         <SearchBar
           searchQuery={props.searchQuery}
           handleSearchChange={props.handleSearchChange}

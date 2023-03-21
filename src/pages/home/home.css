@@ -1,0 +1,31 @@
+.home-page{
+    width:90%;
+    margin-top:17px;
+}
+.home-page-content-peek{
+    display: flex;
+}
+.home-page-content-peek>div{
+    border-radius: 5px;
+    margin: 15px ;
+    flex:33%;
+    overflow: hidden;
+}
+.home-page-content-peek>div:hover{
+    transform: scale(1.05);
+    transition: 0.2s ease-in-out;
+    cursor: pointer;
+}
+.home-page-content-peek .potatoes{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center; 
+    border:2px solid #c9c9c9;
+    height:70px;
+
+}
+
+.home-page-content-peek .potatoes h2{
+    color:var(--accent)
+}

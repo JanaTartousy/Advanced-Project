@@ -52,7 +52,7 @@ function LoginForm(props) {
         setErrorMessage("");
         toast.success("Login successful!");
         // Set the 'auth-token' cookie with an expiration of 1 hour
-        Cookies.set("auth-token", authToken, { expires: 1 / 24 }); // 1 hour = 1/24 day
+        Cookies.set("auth-token", authToken, { expires: 1 }); //1day
       })
       .catch((error) => {
         if (error.response && error.response.status === 401) {
