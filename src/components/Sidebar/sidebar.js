@@ -50,7 +50,7 @@ const Sidebar = (props) => {
               <li className="nav-link">
                 <NavLink to="/">
                   <BiHomeAlt className="icon" />
-                  <span className="text nav-text">Dashboard</span>
+                  <span className="text nav-text">Home</span>
                 </NavLink>
               </li>
 
