@@ -38,21 +38,36 @@ function Employees() {
     formData.append("phone_number", employee.phoneNumber);
     formData.append("dob", employee.dob);
     formData.append("picture", image);
-    try{
-    let response = await axios.post(
-      `${process.env.REACT_APP_API_URL}/employees`,
-      formData,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+
+    try {
+      let response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/employees`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.success === true) {
+        toast.success("Added Employee Successfully");
+        setOpen(false);
+      } else {
+        toast.error("Failed to add employee");
       }
-    );
-    if(response.data.success===true)
-    toast.success("Added Employee Successfully")
-    setOpen(false);
     } catch (error) {
-      toast.error(error.response.data);
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        toast.error(error.response.data);
+      } else if (error.request) {
+        // The request was made but no response was received
+        toast.error("No response received from server");
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        toast.error("An error occurred while sending the request");
+      }
     }
   };
 

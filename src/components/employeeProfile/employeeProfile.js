@@ -17,8 +17,7 @@ import TextField from "@mui/material/TextField";
 import { FaEdit } from "react-icons/fa";
 import axios from "axios";
 import { UserContext } from "../../userContext";
-// import zIndex from "@mui/material/styles/zIndex";
-// import { toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 export default function EmployeeProfile(props) {
   const { token } = React.useContext(UserContext);
@@ -76,7 +75,15 @@ export default function EmployeeProfile(props) {
     axios
       .post(
         `${process.env.REACT_APP_API_URL}/employees/${id}`,
-        { _method: "patch" },
+        {
+          first_name: firstName,
+          last_name: lastName,
+          email: email,
+          phone_number: phoneNumber,
+          team: team,
+          date_of_birth: dateOfBirth,
+          _method: "patch",
+        },
         {
           headers: { authorization: `Bearer ${token}` },
         }
@@ -84,8 +91,25 @@ export default function EmployeeProfile(props) {
       .then((response) => {
         console.log(response.data);
         setIsEditable(false);
+        toast.success("Employee data updated successfully.");
       })
       .catch((error) => {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          const statusCode = error.response.status;
+          const message =
+            statusCode === 404
+              ? "Employee not found."
+              : "An error occurred while updating employee data.";
+          toast.error(message);
+        } else if (error.request) {
+          // The request was made but no response was received
+          toast.error("No response received from the server.");
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          toast.error("An error occurred while updating employee data.");
+        }
         console.log(error);
       });
   };
@@ -303,7 +327,8 @@ export default function EmployeeProfile(props) {
             <Button
               className="save-button"
               variant="contained"
-              onClick={handleSaveButtonClick}
+              onClick={() => handleSaveButtonClick(id)}
+              disabled={!isEditable}
               sx={{
                 color: "#F6F8FA",
                 backgroundColor: "#4caf50",

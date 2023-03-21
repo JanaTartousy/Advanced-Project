@@ -135,6 +135,7 @@ export default function DataGridDemo({
         })
         .catch((error) => {
           console.log(error);
+          toast.error("Error occurred while getting employees.");
         });
   }, [token]);
 
