@@ -15,7 +15,6 @@ import {
   Button,
 } from "@mui/material";
 import "./employeeRow.css";
-// import Employees from "../../pages/employees/employees";
 
 export default function DataGridDemo({
   employee,
@@ -26,36 +25,32 @@ export default function DataGridDemo({
   const { token } = useContext(UserContext);
   const [Employee, setEmployee] = useState([]);
   const [openDelete, setOpenDelete] = useState(false);
-  // const [selectedEmployee, setSelectedEmployee] = useState(null);
-  // const [employeeAdded, setEmployeeAdded] = useState(false);
 
-  const handleClickOpenDelete = (employee) => {
-    // setSelectedEmployee(employee);
-    setOpenDelete(true);
+  const handleClickOpenDelete = (id) => {
+    setOpenDelete(id);
   };
 
   const handleCloseDelete = () => {
-    // setSelectedEmployee(null);
     setOpenDelete(false);
   };
 
-  function handleDelete() {
+  const handleDelete = (id) => {
     axios
-      .delete(`${process.env.REACT_APP_API_URL}/employees/${employee?.id}`, {
+      .delete(`${process.env.REACT_APP_API_URL}/employees/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       })
       .then(() => {
-        // setEmployeeAdded(!employeeAdded);
-        toast.error("Employee deleted successfully!");
+        toast.success("Employee deleted successfully!");
+        handleCloseDelete();
+        // history("/employees");
       })
       .catch((error) => {
         console.log(error);
-        // console.log(employee);
         toast.error(error.response.data.error);
       });
-  }
+  };
 
   const columns = [
     { field: "id", headerName: "ID" },
@@ -99,7 +94,7 @@ export default function DataGridDemo({
           </Link>
           <Delete
             className="employee-delete-icon"
-            onClick={handleClickOpenDelete}
+            onClick={() => handleClickOpenDelete(params.row.id)}
             name="delete employee"
             variant="contained"
             sx={{
@@ -137,7 +132,6 @@ export default function DataGridDemo({
             };
           });
           setEmployee(employees);
-          // console.log(response.data.employees[0].id);
         })
         .catch((error) => {
           console.log(error);
@@ -185,7 +179,7 @@ export default function DataGridDemo({
             Cancel
           </Button>
           <Button
-            onClick={handleDelete}
+            onClick={() => handleDelete(openDelete)}
             variant="contained"
             color="error"
             sx={{
@@ -198,7 +192,6 @@ export default function DataGridDemo({
             Delete
           </Button>
         </DialogActions>
-        {/* <Employees/> */}
       </Dialog>
     </>
   );

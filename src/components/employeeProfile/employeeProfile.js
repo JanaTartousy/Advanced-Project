@@ -17,8 +17,8 @@ import TextField from "@mui/material/TextField";
 import { FaEdit } from "react-icons/fa";
 import axios from "axios";
 import { UserContext } from "../../userContext";
+// import zIndex from "@mui/material/styles/zIndex";
 // import { toast } from "react-toastify";
-// import axios from "axios";
 
 export default function EmployeeProfile(props) {
   const { token } = React.useContext(UserContext);
@@ -36,6 +36,8 @@ export default function EmployeeProfile(props) {
   const [latestKpiEvaluation, setLatestKpiEvaluation] = React.useState(
     props.latestKpiEvaluation
   );
+
+  const [isEditable, setIsEditable] = React.useState(false);
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
@@ -66,8 +68,26 @@ export default function EmployeeProfile(props) {
     }
   };
 
-  const handleSaveButtonClick = () => {
-    // TODO: Save changes
+  const handleEditClick = () => {
+    setIsEditable(true);
+  };
+
+  const handleSaveButtonClick = (id) => {
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}/employees/${id}`,
+        { _method: "patch" },
+        {
+          headers: { authorization: `Bearer ${token}` },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        setIsEditable(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleImageChange = (event) => {
@@ -99,7 +119,7 @@ export default function EmployeeProfile(props) {
     <>
       <div className="back-container">
         <Button
-          className="back-button"
+          className="backward-button"
           onClick={handleBackButtonClick}
           variant="contained"
           sx={{ backgroundColor: "#369fff", color: "#F6F8FA" }}
@@ -109,22 +129,35 @@ export default function EmployeeProfile(props) {
       </div>
       <div className="employee-profile-page">
         <Box
-          sx={{ backgroundColor: "#F6F8FA", minHeight: "100vh", margin: "5%" }}
+          sx={{ backgroundColor: "#e8f2fd", minHeight: "110vh", margin: "5%" }}
         >
           <Box
             className="header-employee-fullname"
-            sx={{ backgroundColor: "#369fff", py: 3 }}
+            sx={{
+              backgroundColor: "#369fff",
+              py: 3,
+              display: "flex",
+              alignItems: "center",
+            }}
           >
+            <div className="first-item-in-the-header"></div>
             <Typography
-              className="editicon-and-fullname"
+              // className="editicon-and-fullname"
               variant="h5"
               align="center"
               color="white"
               sx={{ fontSize: "2rem", fontWeight: "600" }}
             >
-              {employee&&`${employee.first_name} ${employee.last_name}`}
-              {/* <FaEdit sx={{ color: "#F6F8FA" }}></FaEdit> */}
+              {employee && `${employee.first_name} ${employee.last_name}`}
             </Typography>
+            <FaEdit
+              className="employee-editicon"
+              onClick={handleEditClick}
+              color="white"
+              sx={{
+                alignSelf: "flex-end",
+              }}
+            ></FaEdit>
           </Box>
           <Box
             className="textfield"
@@ -135,15 +168,24 @@ export default function EmployeeProfile(props) {
           >
             <Card
               className="card"
-              sx={{ maxWidth: 345, backgroundColor: "white" }}
+              sx={{
+                maxWidth: 360,
+                backgroundColor: "transparent",
+                display: "flex",
+                boxShadow: "none",
+                minHeight: 350,
+              }}
             >
               <label htmlFor="file-input">
-                {employee&&<CardMedia
-                  component="img"
-                  height="210"
-                  image={employee.picture}
-                  alt="Profile Image"
-                />}
+                {employee && (
+                  <CardMedia
+                    component="img"
+                    height="250"
+                    image={employee.picture}
+                    alt="Profile Image"
+                    sx={{ display: "block", margin: "auto" }}
+                  />
+                )}
                 <CardContent
                   sx={{
                     display: "flex",
@@ -152,6 +194,7 @@ export default function EmployeeProfile(props) {
                   }}
                 >
                   <Button
+                    onClick={handleImageChange}
                     endIcon={<PhotoCamera />}
                     variant="contained"
                     size="small"
@@ -165,87 +208,98 @@ export default function EmployeeProfile(props) {
                         backgroundColor: "#388e3c",
                       },
                     }}
-                    onClick={handleImageChange}
                   >
                     Change
                   </Button>
                 </CardContent>
+                <Button></Button>
               </label>
               <input
                 id="file-input"
                 type="file"
                 accept="image/*"
                 style={{ display: "none" }}
-                onChange={handleImageChange}
+                // onChange={handleImageChange}
               />
-            </Card>{employee&&<><div className="right-section-1">
-              <TextField
-                id="employeeId"
-                label="ID"
-                value={id}
-                InputProps={{
-                  readOnly: true,
-                }}
-                variant="outlined"
-              />
-              <TextField
-                id="firstName"
-                label="First Name"
-                value={employee.first_name}
-                onChange={handleInputChange}
-                variant="outlined"
-              />
-              <TextField
-                id="email"
-                label="Email"
-                type="email"
-                value={employee.email}
-                onChange={handleInputChange}
-                variant="outlined"
-              />
-              <TextField
-                id="phoneNumber"
-                label="Phone Number"
-                type="tel"
-                value={employee.phone_number}
-                onChange={handleInputChange}
-                variant="outlined"
-              />
-            </div>
-            <div className="right-section-2">
-              <TextField
-                id="team"
-                label="Team"
-                value={employee.team?.name||"Not Assigned"}
-                onChange={handleInputChange}
-                variant="outlined"
-              />
-              <TextField
-                id="lastName"
-                label="Last Name"
-                value={employee.last_name}
-                onChange={handleInputChange}
-                variant="outlined"
-              />
-              <TextField
-                id="dateOfBirth"
-                type="date"
-                value={employee.dob}
-                onChange={handleInputChange}
-                variant="outlined"
-              />
-              <TextField
-                id="latestKpiEvaluation"
-                label="Latest KPI Evaluation"
-                type="number"
-                value={latestKpiEvaluation}
-                onChange={handleInputChange}
-                variant="outlined"
-                InputProps={{
-                  readOnly: true,
-                }}
-              />
-            </div></>}
+            </Card>
+            {employee && (
+              <>
+                <div className="right-section-1">
+                  <TextField
+                    id="employeeId"
+                    label="ID"
+                    defaultValue={id}
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                    variant="outlined"
+                  />
+                  <TextField
+                    id="firstName"
+                    label="First Name"
+                    defaultValue={employee.first_name}
+                    disabled={!isEditable}
+                    onChange={handleInputChange}
+                    variant="outlined"
+                  />
+                  <TextField
+                    id="email"
+                    label="Email"
+                    type="email"
+                    defaultValue={employee.email}
+                    disabled={!isEditable}
+                    onChange={handleInputChange}
+                    variant="outlined"
+                  />
+                  <TextField
+                    id="phoneNumber"
+                    label="Phone Number"
+                    type="tel"
+                    defaultValue={employee.phone_number}
+                    disabled={!isEditable}
+                    onChange={handleInputChange}
+                    variant="outlined"
+                  />
+                </div>
+                <div className="right-section-2">
+                  <TextField
+                    id="team"
+                    label="Team"
+                    defaultValue={employee.team?.name || "Not Assigned"}
+                    disabled={!isEditable}
+                    onChange={handleInputChange}
+                    variant="outlined"
+                  />
+                  <TextField
+                    id="lastName"
+                    label="Last Name"
+                    defaultValue={employee.last_name}
+                    disabled={!isEditable}
+                    onChange={handleInputChange}
+                    variant="outlined"
+                  />
+                  <TextField
+                    id="dateOfBirth"
+                    type="date"
+                    defaultValue={employee.dob}
+                    disabled={!isEditable}
+                    onChange={handleInputChange}
+                    variant="outlined"
+                  />
+                  <TextField
+                    id="latestKpiEvaluation"
+                    label="Latest KPI Evaluation"
+                    type="number"
+                    defaultValue={latestKpiEvaluation}
+                    onChange={handleInputChange}
+                    variant="outlined"
+                    InputProps={{
+                      readOnly: true,
+                    }}
+                  />
+                </div>
+              </>
+            )}
             <Button
               className="save-button"
               variant="contained"

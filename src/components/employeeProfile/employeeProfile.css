@@ -11,18 +11,15 @@
   width: 600px;
   border-radius: 10px;
 }
+
 .right-section-1 {
   display: flex;
   flex-direction: column;
-  /* color: #333; */
-  /* margin: auto; */
-} 
+}
 
 .right-section-2 {
   display: flex;
   flex-direction: column;
-  /* color: #333; */
-  /* margin: auto; */
 }
 .textfield {
   display: flex;
@@ -48,27 +45,28 @@
   height: 30px;
   text-align: center;
   position: absolute;
-  top: 300px;
-  right: 150px;
+  top: 290px;
+  right: 160px;
   bottom: auto;
 }
-/* .form-label {
-  margin: 6px;
-  color: #f6f8fa;
-  font-weight: 600;
-} */
-/* .edit-icon{
-  font-size: 32px;
 
-} */
-.header-employee-fullname{
+.header-employee-fullname {
   display: flex;
   text-align: center;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
-  
 }
-.editicon-and-fullname{
-  width: 50%;
-  margin: auto;
+
+.employee-editicon {
+  font-size: 28px;
+  margin-right: 7px;
+}
+.employee-editicon:hover{
+  transform: scale(1.2);
+  transition: 0.3s;
+  color: #1976d2;
+}
+.first-item-in-the-header {
+  width: 20px;
+  height: 20px;
 }
