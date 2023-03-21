@@ -18,7 +18,7 @@ function ChartComponent({ data, chartType, selectedMonth, selectedYear }) {
       const date = new Date(curr.evaluation_date);
       const month = format(date, "MMM");
       const year = format(date, "yyyy");
-      const day = format(date, "MMM-dd");
+      const day = format(date, "MM-dd");
       const value = curr.evaluation;
       if (chartType === "yearly") {
         if (selectedYear && year !== selectedYear) return acc;
