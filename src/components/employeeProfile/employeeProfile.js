@@ -38,65 +38,56 @@ export default function EmployeeProfile(props) {
   );
 
   const [isEditable, setIsEditable] = React.useState(false);
-  
+
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     switch (name) {
       case "firstName":
         setFirstName(value);
         break;
-        case "lastName":
-          setLastName(value);
+      case "lastName":
+        setLastName(value);
         break;
       case "email":
         setEmail(value);
         break;
-        case "phoneNumber":
-          setPhoneNumber(value);
-          break;
-          case "team":
-            setTeam(value);
-            break;
-            case "dateOfBirth":
-              setDateOfBirth(value);
-              break;
-              case "latestKpiEvaluation":
-                setLatestKpiEvaluation(value);
-                break;
-                default:
-                  break;
+      case "phoneNumber":
+        setPhoneNumber(value);
+        break;
+      case "team":
+        setTeam(value);
+        break;
+      case "dateOfBirth":
+        setDateOfBirth(value);
+        break;
+      case "latestKpiEvaluation":
+        setLatestKpiEvaluation(value);
+        break;
+      default:
+        break;
     }
   };
-  
-  
+
   const handleEditClick = () => {
     setIsEditable(true);
   };
 
   const handleSaveButtonClick = (id) => {
-      axios
-        .put(
-          `${process.env.REACT_APP_API_URL}/employees/${id}`,
-          {
-            first_name: firstName,
-            last_name: lastName,
-            email: email,
-            phone_number: phoneNumber,
-            team: team,
-            date_of_birth: dateOfBirth,
-          },
-          {
-            headers: { authorization: `Bearer ${token}` },
-          }
-        )
-        .then((response) => {
-          console.log(response.data);
-          setIsEditable(false); 
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-      
+    axios
+      .post(
+        `${process.env.REACT_APP_API_URL}/employees/${id}`,
+        { _method: "patch" },
+        {
+          headers: { authorization: `Bearer ${token}` },
+        }
+      )
+      .then((response) => {
+        console.log(response.data);
+        setIsEditable(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleImageChange = (event) => {
@@ -128,7 +119,7 @@ export default function EmployeeProfile(props) {
     <>
       <div className="back-container">
         <Button
-          className="back-button"
+          className="backward-button"
           onClick={handleBackButtonClick}
           variant="contained"
           sx={{ backgroundColor: "#369fff", color: "#F6F8FA" }}
@@ -142,8 +133,14 @@ export default function EmployeeProfile(props) {
         >
           <Box
             className="header-employee-fullname"
-            sx={{ backgroundColor: "#369fff", py: 3 }}
+            sx={{
+              backgroundColor: "#369fff",
+              py: 3,
+              display: "flex",
+              alignItems: "center",
+            }}
           >
+            <div className="first-item-in-the-header"></div>
             <Typography
               // className="editicon-and-fullname"
               variant="h5"
@@ -153,6 +150,14 @@ export default function EmployeeProfile(props) {
             >
               {employee && `${employee.first_name} ${employee.last_name}`}
             </Typography>
+            <FaEdit
+              className="employee-editicon"
+              onClick={handleEditClick}
+              color="white"
+              sx={{
+                alignSelf: "flex-end",
+              }}
+            ></FaEdit>
           </Box>
           <Box
             className="textfield"
@@ -207,19 +212,7 @@ export default function EmployeeProfile(props) {
                     Change
                   </Button>
                 </CardContent>
-                <Button>
-                  <FaEdit
-                    className="employee-editicon"
-                    onClick={handleEditClick}
-                    color="grey"
-                    sx={{
-                      "&:hover": {
-                        transform: "scale(1.2)",
-                        transition: "0.3s ease-out",
-                      },
-                    }}
-                  ></FaEdit>
-                </Button>
+                <Button></Button>
               </label>
               <input
                 id="file-input"
@@ -235,7 +228,7 @@ export default function EmployeeProfile(props) {
                   <TextField
                     id="employeeId"
                     label="ID"
-                    value={id}
+                    defaultValue={id}
                     InputProps={{
                       readOnly: true,
                     }}
@@ -244,66 +237,60 @@ export default function EmployeeProfile(props) {
                   <TextField
                     id="firstName"
                     label="First Name"
-                    value={employee.first_name}
+                    defaultValue={employee.first_name}
                     disabled={!isEditable}
                     onChange={handleInputChange}
                     variant="outlined"
-                    
                   />
                   <TextField
                     id="email"
                     label="Email"
                     type="email"
-                    value={employee.email}
+                    defaultValue={employee.email}
                     disabled={!isEditable}
                     onChange={handleInputChange}
                     variant="outlined"
-                  
                   />
                   <TextField
                     id="phoneNumber"
                     label="Phone Number"
                     type="tel"
-                    value={employee.phone_number}
+                    defaultValue={employee.phone_number}
                     disabled={!isEditable}
                     onChange={handleInputChange}
                     variant="outlined"
-                   
                   />
                 </div>
                 <div className="right-section-2">
                   <TextField
                     id="team"
                     label="Team"
-                    value={employee.team?.name || "Not Assigned"}
+                    defaultValue={employee.team?.name || "Not Assigned"}
                     disabled={!isEditable}
                     onChange={handleInputChange}
                     variant="outlined"
-                   
                   />
                   <TextField
                     id="lastName"
                     label="Last Name"
-                    value={employee.last_name}
+                    defaultValue={employee.last_name}
                     disabled={!isEditable}
                     onChange={handleInputChange}
                     variant="outlined"
-                   
                   />
                   <TextField
                     id="dateOfBirth"
                     type="date"
-                    value={employee.dob}
+                    defaultValue={employee.dob}
                     disabled={!isEditable}
                     onChange={handleInputChange}
                     variant="outlined"
-                    
                   />
                   <TextField
                     id="latestKpiEvaluation"
                     label="Latest KPI Evaluation"
                     type="number"
-                    value={latestKpiEvaluation}
+                    defaultValue={latestKpiEvaluation}
                     onChange={handleInputChange}
                     variant="outlined"
                     InputProps={{

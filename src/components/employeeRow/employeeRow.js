@@ -26,8 +26,8 @@ export default function DataGridDemo({
   const [Employee, setEmployee] = useState([]);
   const [openDelete, setOpenDelete] = useState(false);
 
-  const handleClickOpenDelete = (employee) => {
-    setOpenDelete(true);
+  const handleClickOpenDelete = (id) => {
+    setOpenDelete(id);
   };
 
   const handleCloseDelete = () => {
@@ -42,13 +42,15 @@ export default function DataGridDemo({
         },
       })
       .then(() => {
-        toast.error("Employee deleted successfully!");
+        toast.success("Employee deleted successfully!");
+        handleCloseDelete();
+        // history("/employees");
       })
       .catch((error) => {
         console.log(error);
         toast.error(error.response.data.error);
       });
-  }
+  };
 
   const columns = [
     { field: "id", headerName: "ID" },
@@ -92,7 +94,7 @@ export default function DataGridDemo({
           </Link>
           <Delete
             className="employee-delete-icon"
-            onClick={handleClickOpenDelete}
+            onClick={() => handleClickOpenDelete(params.row.id)}
             name="delete employee"
             variant="contained"
             sx={{
@@ -177,7 +179,7 @@ export default function DataGridDemo({
             Cancel
           </Button>
           <Button
-            onClick={handleDelete}
+            onClick={() => handleDelete(openDelete)}
             variant="contained"
             color="error"
             sx={{

@@ -23,7 +23,7 @@ function TeamPage() {
   const { token } = useContext(UserContext);
   useEffect(() => {
     setLoading(true); // set loading to true before making the API call
-    
+
     if (token) {
       fetchData(
         `${process.env.REACT_APP_API_URL}/teams`,
@@ -50,9 +50,9 @@ function TeamPage() {
         .finally(() => setLoading(false)); // set loading to false after the API call completes
     }
     // setTimeout(() => {
-    
+
     // }, 5000);
-  }, [currentPage, token, searchQuery, teamAdded,addTeamOpen]);
+  }, [currentPage, token, searchQuery, teamAdded, addTeamOpen]);
   //function to delete a team
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -98,7 +98,6 @@ function TeamPage() {
         }
       )
       .then(() => {
-
         setTeamAdded(!teamAdded);
 
         toast.success("Team edited successfully!");
@@ -131,17 +130,21 @@ function TeamPage() {
         searchQuery={searchQuery}
       />
       <div className="table--container">
-      <table className="a--table">
-        <TableHeader
-          columns={["Team", "Number of Projects", "Number of Members"]}
-        />
-        {loading ? (
-          <LoadingBars/>
-        ) : (
-          <TeamList rows={teams} onDelete={handleDelete} onEdit={handleEdit} />
-        )}
-      </table>
-          </div>
+        <table className="a--table">
+          <TableHeader
+            columns={["Team", "Number of Projects", "Number of Members"]}
+          />
+          {loading ? (
+            <LoadingBars />
+          ) : (
+            <TeamList
+              rows={teams}
+              onDelete={handleDelete}
+              onEdit={handleEdit}
+            />
+          )}
+        </table>
+      </div>
       <AddTeamPopup
         open={addTeamOpen}
         onClose={handleAddTeamClose}
