@@ -106,7 +106,6 @@ function Home(props) {
         })
         .then((response) => {
           setHomeData(response.data);
-          console.log(response);
         })
         .catch((e) => {
           console.log(e);

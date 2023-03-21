@@ -27,6 +27,7 @@ function App() {
       setIsLoggedIn(true);
     }
   }, []);
+
   return (
     <div className="App">
       <UserContext.Provider
