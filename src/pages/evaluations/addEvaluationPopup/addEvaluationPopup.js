@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useContext} from "react";
+import { UserContext } from "../../../userContext";
+
 import {
   Button,
   Dialog,
@@ -8,6 +10,7 @@ import {
   TextField,
   Input,
 } from "@mui/material";
+import { toast } from "react-toastify";
 import SelectMenu from "../SelectOptions/selectMenu";
 import axios from "axios";
 
@@ -16,6 +19,8 @@ function AddEvaluationPopup(props) {
  const [kpiId, setKpiId] = useState("");
  const [dateEvaluated, setDateEvaluated] = useState("");
  const [evaluation, setEvaluation] = useState(0);
+ const { token } = useContext(UserContext);
+ console.log(token);
 const [newEvaluation, setNewEvaluation] = useState({
   kpi_id: "",
   employee_id: "",
@@ -45,19 +50,30 @@ const [newEvaluation, setNewEvaluation] = useState({
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // try {
-    //   const response = await axios.post(``, {
-    //     method: 'POST',
-    //     headers: {
-    //       'Content-Type': 'application/json'
-    //     },
-    //     body: JSON.stringify(formData)
-    //   });
-    //   const data = await response.json();
-    //   console.log(data);
-    // } catch (error) {
-    //   console.error(error);
-    // }
+    try {
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/evaluations `, {
+        kpi_id: newEvaluation.kpi_id,
+        employee_id: newEvaluation.employee_id,
+        date_evaluated: newEvaluation.date_evaluated,
+        evaluation: newEvaluation.evaluation,
+        body: JSON.stringify(newEvaluation)
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        }
+      }).then((response)=>{
+        toast.success("Evaluation added successfully!")
+        props.onClose();
+        console.log(response);
+      })
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      toast.error(error.response.data.message);
+      console.error(error);
+    }
   };
 
   // Access the selected employee value
@@ -81,6 +97,7 @@ const [newEvaluation, setNewEvaluation] = useState({
           labelName="Employee"
           categorie ={"employeeName"}
           options={props.employeeOption}
+          value={newEvaluation.employee_id}
           onChange={handleChange}
           name="employee_id"
           handleChange={handleChange2}
@@ -90,6 +107,7 @@ const [newEvaluation, setNewEvaluation] = useState({
           categorie ={'kpiName'}
           options={props.kpiOption}
           onChange={handleChange}
+          value={newEvaluation.kpi_id}
           name="kpi_id"
           handleChange={handleChange2}
         />
@@ -98,6 +116,7 @@ const [newEvaluation, setNewEvaluation] = useState({
           id="date-evaluated"
           label="Date Evaluated"
           onChange={handleChange2}
+          value={newEvaluation.date_evaluated}
           name="date_evaluated"
           InputLabelProps={{
             shrink: true,
@@ -108,6 +127,7 @@ const [newEvaluation, setNewEvaluation] = useState({
           type="number"
           label="Evaluation Value"
           onChange={handleChange2}
+          value={newEvaluation.evaluation}
           name="evaluation"
           InputProps={{
             inputProps: {
