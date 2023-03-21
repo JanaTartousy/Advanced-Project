@@ -15,15 +15,15 @@ function TeamPage() {
   const [addTeamOpen, setAddTeamOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
-  const [teamAdded, setTeamAdded] = useState(false);
   const [lastPage, setLastPage] = useState(1);
   const [teams, setTeams] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [refresh, setRefresh] = useState(false);
 
   const { token } = useContext(UserContext);
   useEffect(() => {
     setLoading(true); // set loading to true before making the API call
-    
+
     if (token) {
       fetchData(
         `${process.env.REACT_APP_API_URL}/teams`,
@@ -50,9 +50,9 @@ function TeamPage() {
         .finally(() => setLoading(false)); // set loading to false after the API call completes
     }
     // setTimeout(() => {
-    
+
     // }, 5000);
-  }, [currentPage, token, searchQuery, teamAdded,addTeamOpen]);
+  }, [currentPage, token, searchQuery,  refresh]);
   //function to delete a team
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -69,6 +69,7 @@ function TeamPage() {
         }
       )
       .then((response) => {
+        setRefresh(!refresh);
         toast.success("Team added successfully!");
       })
       .catch((e) => {
@@ -98,8 +99,7 @@ function TeamPage() {
         }
       )
       .then(() => {
-
-        setTeamAdded(!teamAdded);
+        setRefresh(!refresh);
 
         toast.success("Team edited successfully!");
       })
@@ -115,7 +115,7 @@ function TeamPage() {
         },
       })
       .then(() => {
-        setTeamAdded(!teamAdded);
+        setRefresh(!refresh);
         toast.error("Team deleted successfully!");
       })
       .catch((error) => {
@@ -131,17 +131,21 @@ function TeamPage() {
         searchQuery={searchQuery}
       />
       <div className="table--container">
-      <table className="a--table">
-        <TableHeader
-          columns={["Team", "Number of Projects", "Number of Members"]}
-        />
-        {loading ? (
-          <LoadingBars/>
-        ) : (
-          <TeamList rows={teams} onDelete={handleDelete} onEdit={handleEdit} />
-        )}
-      </table>
-          </div>
+        <table className="a--table">
+          <TableHeader
+            columns={["Team", "Number of Projects", "Number of Members"]}
+          />
+          {loading ? (
+            <LoadingBars />
+          ) : (
+            <TeamList
+              rows={teams}
+              onDelete={handleDelete}
+              onEdit={handleEdit}
+            />
+          )}
+        </table>
+      </div>
       <AddTeamPopup
         open={addTeamOpen}
         onClose={handleAddTeamClose}

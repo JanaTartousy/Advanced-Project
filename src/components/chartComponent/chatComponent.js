@@ -6,20 +6,19 @@ import {
   ArgumentAxis,
   ValueAxis,
 } from "@devexpress/dx-react-chart-material-ui";
-import { ValueScale, ArgumentScale } from "@devexpress/dx-react-chart";
+import { ArgumentScale } from "@devexpress/dx-react-chart";
 import { scalePoint } from "d3-scale";
 import { format } from "date-fns";
 
 function ChartComponent({ data, chartType, selectedMonth, selectedYear }) {
   const [chartData, setChartData] = useState([]);
-  const [domain, setDomain] = useState([]);
 
   useEffect(() => {
     const formattedData = data.reduce((acc, curr) => {
       const date = new Date(curr.evaluation_date);
       const month = format(date, "MMM");
       const year = format(date, "yyyy");
-      const day = format(date, "yyyy-MM-dd");
+      const day = format(date, "MMM-dd");
       const value = curr.evaluation;
       if (chartType === "yearly") {
         if (selectedYear && year !== selectedYear) return acc;
@@ -42,11 +41,8 @@ function ChartComponent({ data, chartType, selectedMonth, selectedYear }) {
     });
 
     setChartData(chartData);
-    setDomain([0, Math.ceil(Math.max(...chartData.map((d) => d.value)))]);
   }, [data, chartType, selectedMonth, selectedYear]);
 
-  const argumentScale = scalePoint();
-  const valueScale = chartType === "yearly" ? new ValueScale() : undefined;
 
   return (
     <Chart data={chartData}>

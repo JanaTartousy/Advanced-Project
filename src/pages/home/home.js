@@ -150,7 +150,7 @@ function Home(props) {
           </div>
         </div>
       </div>
-      <div>
+      {chartData&&<div>
         <select
           onChange={(e) => {
             setSelectedOption(e.target.value);
@@ -192,7 +192,7 @@ function Home(props) {
           selectedMonth={selectedMonth}
           selectedYear={selectedYear}
         />
-      </div>
+      </div>}
     </div>
   );
 }
