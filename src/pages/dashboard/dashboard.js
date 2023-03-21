@@ -1,10 +1,19 @@
-import { Outlet} from "react-router-dom";
+import { Outlet, useNavigate} from "react-router-dom";
 import Sidebar from "./../../components/Sidebar/sidebar";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./dashboard.css";
+import { UserContext } from "../../userContext";
 
 function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const {isLoggedIn}=useContext(UserContext)
+  const navigate = useNavigate()
+  useEffect(()=>{
+    if(!isLoggedIn){
+      navigate("/login")
+
+    }
+  },[isLoggedIn, navigate])
   return (
 
     <>
@@ -13,7 +22,7 @@ function Dashboard() {
         <Outlet />
       </div>
     </>
-  );
+  )
 }
 
 export default Dashboard;
