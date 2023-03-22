@@ -1,5 +1,5 @@
 .page--container{
-  margin-top: 20px;
+  margin-top: 17px;
     width:90%
 }
 .a--table {
@@ -7,7 +7,10 @@
     width: 100%;
     border-collapse: collapse;
     margin-top: 20px;
-  }
+  border: 1px solid var(--gray);
+  border-radius: 5px;
+  overflow: hidden;
+}
   
   .a--table th,
   .a--table td {

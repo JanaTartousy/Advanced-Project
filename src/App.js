@@ -2,7 +2,7 @@ import "./App.css";
 import { Routes, Route } from "react-router-dom";
 import Employees from "./pages/employees/employees";
 import Projects from "./pages/projects/projects";
-import Reports from "./pages/reports/reports";
+import Kpi from "./pages/reports/reports";
 import Login from "./pages/login/login";
 import { useEffect, useState } from "react";
 import { UserContext } from "./userContext";
@@ -45,6 +45,7 @@ function App() {
             <Route path="/teams/:teamId" element={<ViewTeam />} />
             <Route path="/admins" element={<Admins />} />
             <Route path="/profile/:id" element={<EmployeeProfile />} />
+            <Route path="/kpi" element={<Kpi />} />
           </Route>
           <Route path="/login" element={<Login />} />
         </Routes>

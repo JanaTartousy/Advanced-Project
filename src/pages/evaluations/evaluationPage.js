@@ -43,30 +43,30 @@ function EvaluationPage() {
               kpiName: evaluations.kpis.name,
               evaluation: `${evaluations.evaluation}/10`,
             };
-          })
-          // let employeeData = data.employees.map((employees) => {
-          //   return { employeeName: `${employees.first_name} ${employees.last_name}` }
-          // })
+          });
+
           let kpiData = data.kpis.map((kpi) => {
-            return { kpiName: `${kpi.name}`,id: kpi.id}
-          })
-          // console.log(employeeData);
-          // console.log(kpiData);
-          setEmployeeOption(data.employees.map((employee) => {
-            return { employeeName: `${employee.first_name} ${employee.last_name}`,id:employee.id }
-          }));
- 
- 
+            return { kpiName: `${kpi.name}`, id: kpi.id };
+          });
+
+          setEmployeeOption(
+            data.employees.map((employee) => {
+              return {
+                employeeName: `${employee.first_name} ${employee.last_name}`,
+                id: employee.id,
+              };
+            })
+          );
+
           setEvaluations(evaluationData);
           setKpiOption(kpiData);
           setLastPage(data.evaluations.last_page);
-        }).then(console.log('Dataaaaaaaaa', evaluations),)
+        })
         .catch((error) => {
           console.log(error.message);
         })
         .finally(() => setLoading(false)); // set loading to false after the API call completes
     }
-
   }, [currentPage, token, searchQuery, evaluationAdded]);
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -112,7 +112,6 @@ function EvaluationPage() {
         }
       )
       .then(() => {
-
         setEvaluationAdded(!evaluationAdded);
 
         toast.success("Evaluation edited successfully!");
@@ -148,19 +147,25 @@ function EvaluationPage() {
       <table className="a--table">
         <TableHeader
           columns={["Employee Name", "Kpi", "Evaluation", "Date Evaluated"]}
-        />{
-          evaluations && <EvaluationList rows={evaluations} onDelete={handleDelete} onEdit={handleEdit} />
-        }
+        />
+        {evaluations && (
+          <EvaluationList
+            rows={evaluations}
+            onDelete={handleDelete}
+            onEdit={handleEdit}
+          />
+        )}
       </table>
-        
-      
-      {employeeOption && kpiOption && <AddEvaluationPopup
-        employeeOption={employeeOption}
-        kpiOption={kpiOption}
-        open={addEvaluationOpen}
-        onClose={handleAddEvaluationClose}
-        onAddEvaluation={handleAddEvaluation}
-      />}
+
+      {employeeOption && kpiOption && (
+        <AddEvaluationPopup
+          employeeOption={employeeOption}
+          kpiOption={kpiOption}
+          open={addEvaluationOpen}
+          onClose={handleAddEvaluationClose}
+          onAddEvaluation={handleAddEvaluation}
+        />
+      )}
       <PaginationContainer
         currentPage={currentPage}
         lastPage={lastPage}

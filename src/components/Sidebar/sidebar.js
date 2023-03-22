@@ -88,10 +88,17 @@ const Sidebar = (props) => {
                   <span className="text nav-text">Admins</span>
                 </NavLink>
               </li>
+              
             </ul>
           </div>
 
           <div className="bottom-content">
+          <li className="nav-link">
+                <NavLink to="/Kpi">
+                  <BiBriefcase className="icon" />
+                  <span className="text nav-text">Settings</span>
+                </NavLink>
+              </li>
             <li className="">
               <NavLink to="/login" onClick={logout}>
                 <BiLogOut className="icon" />

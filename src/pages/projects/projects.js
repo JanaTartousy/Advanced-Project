@@ -54,23 +54,23 @@ function Projects() {
               sx={{ backgroundColor: "var(--accent)"}}
             >
               <TableRow>
-                <TableCell className="MuiTableCell-head">
+                <TableCell sx={{color: "var(--main)" }}>
                   Projects Name
                 </TableCell>
                 <TableCell align="center" sx={{color: "var(--main)" }}>
                   Description
                 </TableCell>
 
-                <TableCell align="center" className="MuiTableCell-head">
+                <TableCell align="center"sx={{color: "var(--main)" }}>
                   Finished
                 </TableCell>
-                <TableCell align="center" className="MuiTableCell-head">
+                <TableCell align="center" sx={{color: "var(--main)" }}>
                   Team
                 </TableCell>
-                <TableCell align="center" className="MuiTableCell-head">
+                <TableCell align="center" sx={{color: "var(--main)" }}>
                   Edit
                 </TableCell>
-                <TableCell align="center" className="MuiTableCell-head">
+                <TableCell align="center"sx={{color: "var(--main)" }}>
                   Delete
                 </TableCell>
               </TableRow>

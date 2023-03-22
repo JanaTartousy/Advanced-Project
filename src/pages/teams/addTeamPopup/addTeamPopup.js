@@ -19,8 +19,8 @@ function AddTeamPopup(props) {
   };
 
   return (
-    <Dialog open={props.open} onClose={props.onClose}>
-      <DialogTitle sx={{color:"#4caf50"}}>Add Team</DialogTitle>
+    <Dialog open={props.open} onClose={props.onClose} sx={{ padding: "100px" }}>
+      <DialogTitle sx={{ color: "var(--accent)" }}>Add Team</DialogTitle>
       <DialogContent>
         <form
           style={{ display: "flex", flexDirection: "column", gap: "1rem" }}

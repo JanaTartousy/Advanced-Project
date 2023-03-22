@@ -8,16 +8,20 @@ import {
   TextField,
 } from "@mui/material";
 
-function AddAdminPopup(props) {
+function EditAdminPopup(props) {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    let obj = { name, email, password };
+    let obj = {_method:"PATCH"};
 
-    props.onAddAdmin(obj);
+    if (name) obj.name = name;
+    if (email) obj.email = email;
+    if (password) obj.password = password;
+
+    props.onEditAdmin(props.admin.id, obj);
     setName("");
     props.onClose();
   };
@@ -33,16 +37,15 @@ function AddAdminPopup(props) {
           <TextField
             label="Name"
             variant="outlined"
-            autoFocus={true}
+            defaultValue={props.admin?.name}
             onChange={(event) => setName(event.target.value)}
             required
             sx={{ marginTop: "1rem" }}
           />
-
           <TextField
+            defaultValue={props.admin?.email}
             label="Email"
             variant="outlined"
-            autoComplete="off"
             onChange={(event) => setEmail(event.target.value)}
             required
             sx={{ marginTop: "1rem" }}
@@ -50,8 +53,8 @@ function AddAdminPopup(props) {
           <TextField
             type="password"
             label="Password"
-            autoComplete="new-password"
             variant="outlined"
+            autoComplete="new-password"
             onChange={(event) => setPassword(event.target.value)}
             required
             sx={{ marginTop: "1rem" }}
@@ -68,4 +71,4 @@ function AddAdminPopup(props) {
   );
 }
 
-export default AddAdminPopup;
+export default EditAdminPopup;
