@@ -23,7 +23,7 @@ function Projects() {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
-        console.log(response)
+        console.log(response);
         const data = response.data.projects;
         setProjects(
           data.data.map((project) => {
@@ -31,7 +31,7 @@ function Projects() {
               id: project.id,
               name: project.name,
               description: project.description,
-              team:project.team?.name||"Not Assigned",
+              team: project.team?.name || "Not Assigned",
             };
           })
         );
@@ -40,82 +40,90 @@ function Projects() {
         console.log(error);
       });
   }, [token]);
+  const handleAddProject=() => {
+    
+  }
   return (
     <div className="container">
-        <PageHeader pageName={"Projects"}/>
+      <PageHeader onAddClick={handleAddProject} pageName={"Projects"} />
 
-      <TableContainer sx={{width:"100%"}}component={Paper}>
+      <TableContainer sx={{ width: "100%" }} component={Paper}>
+        {projects && (
+          <Table className="tableall" aria-label="projects table">
+            <TableHead
+              sx={{ backgroundColor: "var(--accent)", color: "var(--main)" }}
+            >
+              <TableRow>
+                <TableCell className="MuiTableCell-head">
+                  Projects Name
+                </TableCell>
+                <TableCell align="center" className="MuiTableCell-head">
+                  Description
+                </TableCell>
 
-        {projects&&<Table className="tableall" aria-label="projects table">
-          <TableHead sx={{backgroundColor:"var(--accent)",color:"var(--main)"}}>
-            <TableRow>
-              <TableCell className="MuiTableCell-head">Projects Name</TableCell>
-              <TableCell align="center" className="MuiTableCell-head">
-                Description
-              </TableCell>
-
-              <TableCell align="center" className="MuiTableCell-head">
-                Finished
-              </TableCell>
-              <TableCell align="center" className="MuiTableCell-head">
-                Team
-              </TableCell>
-              <TableCell align="center" className="MuiTableCell-head">
-                Edit
-              </TableCell>
-              <TableCell align="center" className="MuiTableCell-head">
-                Delete
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {projects.map((project) => (
-              <TableRow key={project.id} className="MuiTableRow-root">
-                <TableCell
-                  component="th"
-                  scope="row"
-                  className="MuiTableCell-root"
-                >
-                  {project.name}
+                <TableCell align="center" className="MuiTableCell-head">
+                  Finished
                 </TableCell>
-                <TableCell align="center" className="MuiTableCell-root">
-                  {project.description}
+                <TableCell align="center" className="MuiTableCell-head">
+                  Team
                 </TableCell>
-                <TableCell align="center" className="MuiTableCell-root">
-                  {project.finished?"YES":"NO"}
+                <TableCell align="center" className="MuiTableCell-head">
+                  Edit
                 </TableCell>
-                <TableCell align="center" className="MuiTableCell-root">
-                  <Button
-                    sx={{
-                      color: "#333",
-                      "&:hover": { color: "darkblue" },
-                    }}
-                  >
-                    {project.team}
-                  </Button>
-                </TableCell>
-                <TableCell align="center" className="MuiTableCell-root">
-                  <Button
-                    sx={{
-                      color: "#1976d2",
-                    }}
-                  >
-                    {<Edit />}
-                  </Button>
-                </TableCell>
-                <TableCell align="center" className="MuiTableCell-root">
-                  <Button
-                    sx={{
-                      color: "red",
-                    }}
-                  >
-                    {<Delete />}
-                  </Button>
+                <TableCell align="center" className="MuiTableCell-head">
+                  Delete
                 </TableCell>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>}
+            </TableHead>
+            <TableBody>
+              {projects.map((project) => (
+                <TableRow key={project.id} className="MuiTableRow-root">
+                  <TableCell
+                    component="th"
+                    scope="row"
+                    className="MuiTableCell-root"
+                  >
+                    {project.name}
+                  </TableCell>
+                  <TableCell align="center" className="MuiTableCell-root">
+                    {project.description}
+                  </TableCell>
+                  <TableCell align="center" className="MuiTableCell-root">
+                    {project.finished ? "YES" : "NO"}
+                  </TableCell>
+                  <TableCell align="center" className="MuiTableCell-root">
+                    <Button
+                      sx={{
+                        color: "#333",
+                        "&:hover": { color: "darkblue" },
+                      }}
+                    >
+                      {project.team}
+                    </Button>
+                  </TableCell>
+                  <TableCell align="center" className="MuiTableCell-root">
+                    <Button
+                      sx={{
+                        color: "#1976d2",
+                      }}
+                    >
+                      {<Edit />}
+                    </Button>
+                  </TableCell>
+                  <TableCell align="center" className="MuiTableCell-root">
+                    <Button
+                      sx={{
+                        color: "red",
+                      }}
+                    >
+                      {<Delete />}
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        )}
       </TableContainer>
     </div>
   );

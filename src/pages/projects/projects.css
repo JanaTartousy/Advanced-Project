@@ -11,3 +11,6 @@ h2 {
 .css-1f8o8r6-MuiPaper-root-MuiTableContainer-root{
   margin-top:20px
 }
+.MuiTableCell-head{
+  color:var(--main)
+}
