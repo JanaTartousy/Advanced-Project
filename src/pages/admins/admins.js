@@ -46,7 +46,7 @@ function Admins() {
 
       <TableContainer sx={{width:"100%"}}component={Paper}>
 
-        {admins&&<Table className="tableall" aria-label="admins table">
+        {admins&&<Table  aria-label="admins table">
           <TableHead sx={{backgroundColor:"var(--accent)",color:"var(--main)"}}>
             <TableRow>
               <TableCell className="MuiTableCell-head">Admins Name</TableCell>
