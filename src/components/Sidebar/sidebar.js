@@ -83,9 +83,9 @@ const Sidebar = (props) => {
               </li>
 
               <li className="nav-link">
-                <NavLink to="/reports">
+                <NavLink to="/admins">
                   <BiFile className="icon" />
-                  <span className="text nav-text">Reports</span>
+                  <span className="text nav-text">Admins</span>
                 </NavLink>
               </li>
             </ul>

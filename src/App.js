@@ -15,6 +15,7 @@ import EmployeeProfile from "./components/employeeProfile/employeeProfile";
 import TeamPage from "./pages/teams/teamPage";
 import ViewProject from "./pages/projects/viewProject/viewProject";
 import EvaluationPage from "./pages/evaluations/evaluationPage";
+import Admins from "./pages/admins/admins";
 const cookie = new Cookies();
 
 function App() {
@@ -42,7 +43,7 @@ function App() {
             <Route path="/teams" element={<TeamPage />} />
             <Route path="/evaluations" element={<EvaluationPage />} />
             <Route path="/teams/:teamId" element={<ViewTeam />} />
-            <Route path="/reports" element={<Reports />} />
+            <Route path="/admins" element={<Admins />} />
             <Route path="/profile/:id" element={<EmployeeProfile />} />
           </Route>
           <Route path="/login" element={<Login />} />

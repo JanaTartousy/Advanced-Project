@@ -1,4 +1,4 @@
-import "./projects.css";
+import "./admins.css";
 import React, { useContext, useEffect, useState } from "react";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -14,24 +14,24 @@ import axios from "axios";
 import { UserContext } from "../../userContext";
 import PageHeader from "../../components/pageHeader/pageHeader";
 
-function Projects() {
-  const [projects, setProjects] = useState([]);
+function Admins() {
+  const [admins, setAdmins] = useState([]);
   const { token } = useContext(UserContext);
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_API_URL}/projects`, {
+      .get(`${process.env.REACT_APP_API_URL}/user`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
         console.log(response)
-        const data = response.data.projects;
-        setProjects(
-          data.data.map((project) => {
+        const data = response.data;
+        setAdmins(
+          data.message.map((admin) => {
             return {
-              id: project.id,
-              name: project.name,
-              description: project.description,
-              team:project.team?.name||"Not Assigned",
+              id: admin.id,
+              name: admin.name,
+              email: admin.email,
+
             };
           })
         );
@@ -42,24 +42,18 @@ function Projects() {
   }, [token]);
   return (
     <div className="container">
-        <PageHeader pageName={"Projects"}/>
+        <PageHeader pageName={"Admins"}/>
 
       <TableContainer sx={{width:"100%"}}component={Paper}>
 
-        {projects&&<Table className="tableall" aria-label="projects table">
+        {admins&&<Table className="tableall" aria-label="admins table">
           <TableHead sx={{backgroundColor:"var(--accent)",color:"var(--main)"}}>
             <TableRow>
-              <TableCell className="MuiTableCell-head">Projects Name</TableCell>
+              <TableCell className="MuiTableCell-head">Admins Name</TableCell>
               <TableCell align="center" className="MuiTableCell-head">
-                Description
+                email
               </TableCell>
 
-              <TableCell align="center" className="MuiTableCell-head">
-                Finished
-              </TableCell>
-              <TableCell align="center" className="MuiTableCell-head">
-                Team
-              </TableCell>
               <TableCell align="center" className="MuiTableCell-head">
                 Edit
               </TableCell>
@@ -69,31 +63,19 @@ function Projects() {
             </TableRow>
           </TableHead>
           <TableBody>
-            {projects.map((project) => (
-              <TableRow key={project.id} className="MuiTableRow-root">
+            {admins.map((admin) => (
+              <TableRow key={admin.id} className="MuiTableRow-root">
                 <TableCell
                   component="th"
                   scope="row"
                   className="MuiTableCell-root"
                 >
-                  {project.name}
+                  {admin.name}
                 </TableCell>
                 <TableCell align="center" className="MuiTableCell-root">
-                  {project.description}
+                  {admin.email}
                 </TableCell>
-                <TableCell align="center" className="MuiTableCell-root">
-                  {project.finished?"YES":"NO"}
-                </TableCell>
-                <TableCell align="center" className="MuiTableCell-root">
-                  <Button
-                    sx={{
-                      color: "#333",
-                      "&:hover": { color: "darkblue" },
-                    }}
-                  >
-                    {project.team}
-                  </Button>
-                </TableCell>
+
                 <TableCell align="center" className="MuiTableCell-root">
                   <Button
                     sx={{
@@ -121,4 +103,4 @@ function Projects() {
   );
 }
 
-export default Projects;
+export default Admins;

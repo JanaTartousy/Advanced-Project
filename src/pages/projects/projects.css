@@ -7,5 +7,7 @@ h2 {
   background-color: #f4f9fc;
   height: 70vh;
   margin: 0 auto;
-  width: 90%;
+}
+.css-1f8o8r6-MuiPaper-root-MuiTableContainer-root{
+  margin-top:20px
 }
