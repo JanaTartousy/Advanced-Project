@@ -5,7 +5,6 @@ import "./home.css";
 import PageHeader from "../../components/pageHeader/pageHeader";
 import { useNavigate } from "react-router-dom";
 import ChartComponent from "../../components/chartComponent/chatComponent";
-import {Select,MenuItem} from "@mui/material"
 
 function Home(props) {
   const yearOptions = Array.from({ length: new Date().getFullYear() - 2000 + 1 }, (_, index) => {
