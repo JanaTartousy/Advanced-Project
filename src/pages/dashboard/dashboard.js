@@ -3,6 +3,7 @@ import Sidebar from "./../../components/Sidebar/sidebar";
 import { useContext, useEffect, useState } from "react";
 import "./dashboard.css";
 import { UserContext } from "../../userContext";
+import { toast } from "react-toastify";
 
 function Dashboard() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -11,6 +12,7 @@ function Dashboard() {
   useEffect(()=>{
     if(!isLoggedIn){
       navigate("/login")
+      toast.error("Not Authorized Please Login")
 
     }
   },[isLoggedIn, navigate])
