@@ -12,7 +12,6 @@ import { format } from "date-fns";
 
 function ChartComponent({ data, chartType, selectedMonth, selectedYear }) {
   const [chartData, setChartData] = useState([]);
-
   useEffect(() => {
     const formattedData = data.reduce((acc, curr) => {
       const date = new Date(curr.evaluation_date);

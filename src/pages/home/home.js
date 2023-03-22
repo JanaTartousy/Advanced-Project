@@ -25,70 +25,70 @@ function Home(props) {
   const { token } = useContext(UserContext);
   const [homeData, setHomeData] = useState(null);
   const [selectedOption, setSelectedOption] = useState("yearly");
-  const [selectedYear, setSelectedYear] = useState(Math.max(...years));
+  const [selectedYear, setSelectedYear] = useState(Math.max(...years).toString());
   const [selectedMonth, setSelectedMonth] = useState(null);
   
   const [chartData, setChartData] = useState([
-    { evaluation: 5, evaluation_date: "2005-05-01" },
-    { evaluation: 3, evaluation_date: "2005-05-02" },
-    { evaluation: 5, evaluation_date: "2005-07-03" },
-    { evaluation: 8, evaluation_date: "2005-06-04" },
-    { evaluation: 1, evaluation_date: "2005-04-05" },
-    { evaluation: 5, evaluation_date: "2005-05-06" },
-    { evaluation: 4, evaluation_date: "2005-07-07" },
-    { evaluation: 5, evaluation_date: "2005-07-08" },
-    { evaluation: 3, evaluation_date: "2005-10-09" },
-    { evaluation: 3, evaluation_date: "2005-01-10" },
-    { evaluation: 5, evaluation_date: "2005-05-11" },
-    { evaluation: 3, evaluation_date: "2005-05-12" },
-    { evaluation: 5, evaluation_date: "2005-07-13" },
-    { evaluation: 8, evaluation_date: "2005-06-14" },
-    { evaluation: 6, evaluation_date: "2005-04-15" },
-    { evaluation: 5, evaluation_date: "2005-05-16" },
-    { evaluation: 4, evaluation_date: "2005-07-17" },
-    { evaluation: 5, evaluation_date: "2005-07-18" },
-    { evaluation: 3, evaluation_date: "2005-10-19" },
-    { evaluation: 3, evaluation_date: "2005-01-20" },
-    { evaluation: 5, evaluation_date: "2005-05-21" },
-    { evaluation: 3, evaluation_date: "2005-05-22" },
-    { evaluation: 5, evaluation_date: "2005-07-23" },
-    { evaluation: 8, evaluation_date: "2005-06-24" },
-    { evaluation: 2, evaluation_date: "2005-04-25" },
-    { evaluation: 5, evaluation_date: "2005-05-26" },
-    { evaluation: 4, evaluation_date: "2005-07-27" },
-    { evaluation: 5, evaluation_date: "2005-07-28" },
-    { evaluation: 3, evaluation_date: "2005-10-29" },
-    { evaluation: 3, evaluation_date: "2005-01-16" },
-    { evaluation: 5, evaluation_date: "2005-05-16" },
-    { evaluation: 3, evaluation_date: "2005-05-16" },
-    { evaluation: 5, evaluation_date: "2005-07-16" },
-    { evaluation: 8, evaluation_date: "2005-06-16" },
-    { evaluation: 2, evaluation_date: "2005-04-16" },
-    { evaluation: 5, evaluation_date: "2005-05-16" },
-    { evaluation: 4, evaluation_date: "2005-07-16" },
-    { evaluation: 5, evaluation_date: "2005-07-16" },
-    { evaluation: 3, evaluation_date: "2005-10-16" },
-    { evaluation: 3, evaluation_date: "2005-01-16" },
-    { evaluation: 5, evaluation_date: "2005-05-16" },
-    { evaluation: 3, evaluation_date: "2005-05-16" },
-    { evaluation: 5, evaluation_date: "2005-07-16" },
-    { evaluation: 8, evaluation_date: "2005-06-16" },
-    { evaluation: 2, evaluation_date: "2005-04-16" },
-    { evaluation: 5, evaluation_date: "2005-05-16" },
-    { evaluation: 4, evaluation_date: "2005-07-16" },
-    { evaluation: 5, evaluation_date: "2005-07-16" },
-    { evaluation: 3, evaluation_date: "2005-10-16" },
-    { evaluation: 3, evaluation_date: "2005-01-16" },
-    { evaluation: 5, evaluation_date: "2005-05-16" },
-    { evaluation: 3, evaluation_date: "2005-05-16" },
-    { evaluation: 5, evaluation_date: "2005-07-16" },
-    { evaluation: 8, evaluation_date: "2005-06-16" },
-    { evaluation: 2, evaluation_date: "2005-04-16" },
-    { evaluation: 5, evaluation_date: "2005-05-16" },
-    { evaluation: 4, evaluation_date: "2005-07-16" },
-    { evaluation: 5, evaluation_date: "2005-07-16" },
-    { evaluation: 3, evaluation_date: "2005-10-16" },
-    { evaluation: 3, evaluation_date: "2005-01-16" },
+    { evaluation: 5, evaluation_date: "2023-05-01" },
+    { evaluation: 3, evaluation_date: "2023-05-02" },
+    { evaluation: 5, evaluation_date: "2023-07-03" },
+    { evaluation: 8, evaluation_date: "2023-06-04" },
+    { evaluation: 1, evaluation_date: "2023-04-05" },
+    { evaluation: 5, evaluation_date: "2023-05-06" },
+    { evaluation: 4, evaluation_date: "2023-07-07" },
+    { evaluation: 5, evaluation_date: "2023-07-08" },
+    { evaluation: 3, evaluation_date: "2023-10-09" },
+    { evaluation: 3, evaluation_date: "2023-01-10" },
+    { evaluation: 5, evaluation_date: "2023-05-11" },
+    { evaluation: 3, evaluation_date: "2023-05-12" },
+    { evaluation: 5, evaluation_date: "2023-07-13" },
+    { evaluation: 8, evaluation_date: "2023-06-14" },
+    { evaluation: 6, evaluation_date: "2023-04-15" },
+    { evaluation: 5, evaluation_date: "2023-05-16" },
+    { evaluation: 4, evaluation_date: "2023-07-17" },
+    { evaluation: 5, evaluation_date: "2023-07-18" },
+    { evaluation: 3, evaluation_date: "2023-10-19" },
+    { evaluation: 3, evaluation_date: "2023-01-20" },
+    { evaluation: 5, evaluation_date: "2023-05-21" },
+    { evaluation: 3, evaluation_date: "2023-05-22" },
+    { evaluation: 5, evaluation_date: "2023-07-23" },
+    { evaluation: 8, evaluation_date: "2023-06-24" },
+    { evaluation: 2, evaluation_date: "2023-04-25" },
+    { evaluation: 5, evaluation_date: "2023-05-26" },
+    { evaluation: 4, evaluation_date: "2023-07-27" },
+    { evaluation: 5, evaluation_date: "2023-07-28" },
+    { evaluation: 3, evaluation_date: "2023-10-29" },
+    { evaluation: 3, evaluation_date: "2023-01-16" },
+    { evaluation: 5, evaluation_date: "2023-05-16" },
+    { evaluation: 3, evaluation_date: "2023-05-16" },
+    { evaluation: 5, evaluation_date: "2023-07-16" },
+    { evaluation: 8, evaluation_date: "2023-06-16" },
+    { evaluation: 2, evaluation_date: "2023-04-16" },
+    { evaluation: 5, evaluation_date: "2023-05-16" },
+    { evaluation: 4, evaluation_date: "2023-07-16" },
+    { evaluation: 5, evaluation_date: "2023-07-16" },
+    { evaluation: 3, evaluation_date: "2023-10-16" },
+    { evaluation: 3, evaluation_date: "2023-01-16" },
+    { evaluation: 5, evaluation_date: "2023-05-16" },
+    { evaluation: 3, evaluation_date: "2023-05-16" },
+    { evaluation: 5, evaluation_date: "2023-07-16" },
+    { evaluation: 8, evaluation_date: "2023-06-16" },
+    { evaluation: 2, evaluation_date: "2023-04-16" },
+    { evaluation: 5, evaluation_date: "2023-05-16" },
+    { evaluation: 4, evaluation_date: "2023-07-16" },
+    { evaluation: 5, evaluation_date: "2023-07-16" },
+    { evaluation: 3, evaluation_date: "2023-10-16" },
+    { evaluation: 3, evaluation_date: "2023-01-16" },
+    { evaluation: 5, evaluation_date: "2023-05-16" },
+    { evaluation: 3, evaluation_date: "2023-05-16" },
+    { evaluation: 5, evaluation_date: "2023-07-16" },
+    { evaluation: 8, evaluation_date: "2023-06-16" },
+    { evaluation: 2, evaluation_date: "2023-04-16" },
+    { evaluation: 5, evaluation_date: "2023-05-16" },
+    { evaluation: 4, evaluation_date: "2023-07-16" },
+    { evaluation: 5, evaluation_date: "2023-07-16" },
+    { evaluation: 3, evaluation_date: "2023-10-16" },
+    { evaluation: 3, evaluation_date: "2023-01-16" },
   ].sort((a, b) => {
     const dateA = new Date(a.evaluation_date);
     const dateB = new Date(b.evaluation_date);
@@ -109,7 +109,7 @@ function Home(props) {
         .catch((e) => {
           console.log(e);
         });
-  }, [token]);
+  }, [token,selectedYear]);
   const handleYearChange = (event) => {
     setSelectedYear(event.target.value);
   };
@@ -185,12 +185,12 @@ function Home(props) {
           </select>
         )}
 
-        <ChartComponent
+        {selectedYear&&<ChartComponent
           data={chartData}
           chartType={selectedOption}
           selectedMonth={selectedMonth}
           selectedYear={selectedYear}
-        />
+        />}
       </div>}
     </div>
   );
