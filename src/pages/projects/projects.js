@@ -41,7 +41,7 @@ function Projects() {
       });
   }, [token]);
   const handleAddProject=() => {
-    
+
   }
   return (
     <div className="container">
@@ -51,13 +51,13 @@ function Projects() {
         {projects && (
           <Table className="tableall" aria-label="projects table">
             <TableHead
-              sx={{ backgroundColor: "var(--accent)", color: "var(--main)" }}
+              sx={{ backgroundColor: "var(--accent)"}}
             >
               <TableRow>
                 <TableCell className="MuiTableCell-head">
                   Projects Name
                 </TableCell>
-                <TableCell align="center" className="MuiTableCell-head">
+                <TableCell align="center" sx={{color: "var(--main)" }}>
                   Description
                 </TableCell>
 

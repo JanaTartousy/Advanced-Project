@@ -13,9 +13,11 @@ import Delete from "@mui/icons-material/Delete";
 import axios from "axios";
 import { UserContext } from "../../userContext";
 import PageHeader from "../../components/pageHeader/pageHeader";
+import AddAdminPopup from "./addAdminPopup/addAdminPopup";
 
 function Admins() {
   const [admins, setAdmins] = useState([]);
+  const [addAdminOpen,setAddAdminOpen] = useState(false)
   const { token } = useContext(UserContext);
   useEffect(() => {
     axios
@@ -40,11 +42,14 @@ function Admins() {
         console.log(error);
       });
   }, [token]);
+  const handleAddTeamClose =()=>{
+    setAddAdminOpen(false)
+  }
   return (
     <div className="container">
-        <PageHeader pageName={"Admins"}/>
+        <PageHeader pageName={"Admins"} onAddClick={()=>{setAddAdminOpen(true)}}/>
 
-      <TableContainer sx={{width:"100%"}}component={Paper}>
+      <TableContainer sx={{width:"100%"}}component={Paper} onAdd>
 
         {admins&&<Table  aria-label="admins table">
           <TableHead sx={{backgroundColor:"var(--accent)",color:"var(--main)"}}>
@@ -99,6 +104,11 @@ function Admins() {
           </TableBody>
         </Table>}
       </TableContainer>
+      <AddAdminPopup
+        open={addAdminOpen}
+        onClose={handleAddTeamClose}
+        // onAddTeam={handleAddTeam}
+      />
     </div>
   );
 }
