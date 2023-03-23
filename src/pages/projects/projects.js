@@ -42,7 +42,6 @@ function Projects() {
         { per_page: 10, page: currentPage, search: searchQuery }
       )
         .then((response) => {
-          console.log(response);
           const data = response.projects;
           setProjects(
             data.data.map((project) => {

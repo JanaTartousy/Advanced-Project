@@ -20,7 +20,6 @@ function AddEvaluationPopup(props) {
  const [dateEvaluated, setDateEvaluated] = useState("");
  const [evaluation, setEvaluation] = useState(0);
  const { token } = useContext(UserContext);
- console.log(token);
 const [newEvaluation, setNewEvaluation] = useState({
   kpi_id: "",
   employee_id: "",
