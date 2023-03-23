@@ -6,13 +6,14 @@ import { UserContext } from "../../userContext";
 import Cookies from "js-cookie";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 function LoginForm(props) {
   const { setToken, setIsLoggedIn } = useContext(UserContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
-
+  const navigate= useNavigate()
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
   };
@@ -50,9 +51,11 @@ function LoginForm(props) {
         setToken(authToken);
         setIsLoggedIn(true);
         setErrorMessage("");
+
         toast.success("Login successful!");
         // Set the 'auth-token' cookie with an expiration of 1 hour
         Cookies.set("auth-token", authToken, { expires: 1 }); //1day
+        navigate("/")
       })
       .catch((error) => {
         if (error.response && error.response.status === 401) {

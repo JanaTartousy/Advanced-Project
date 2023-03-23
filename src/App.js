@@ -1,5 +1,5 @@
 import "./App.css";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Employees from "./pages/employees/employees";
 import Projects from "./pages/projects/projects";
 import Kpi from "./pages/reports/reports";
@@ -9,7 +9,7 @@ import { UserContext } from "./userContext";
 import Cookies from "universal-cookie";
 import Dashboard from "./pages/dashboard/dashboard";
 import Home from "./pages/home/home";
-import { ToastContainer } from "react-toastify";
+import { toast, ToastContainer } from "react-toastify";
 import ViewTeam from "./pages/teams/viewTeam/viewTeam";
 import EmployeeProfile from "./components/employeeProfile/employeeProfile";
 import TeamPage from "./pages/teams/teamPage";
@@ -21,13 +21,22 @@ const cookie = new Cookies();
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [token, setToken] = useState(null);
+  const navigate= useNavigate()
+  const location = useLocation()
   useEffect(() => {
     const authToken = cookie.get("auth-token");
     if (authToken) {
       setToken(authToken);
       setIsLoggedIn(true);
     }
-  }, []);
+    else{
+      console.log(location)
+      if(location.pathname!=="/login"){
+      navigate('/login')
+
+      toast.error("Please login")}
+    }
+  }, [navigate,location]);
 
   return (
     <div className="App">
@@ -35,7 +44,7 @@ function App() {
         value={{ token, isLoggedIn, setToken, setIsLoggedIn }}
       >
         <Routes>
-          <Route path="/" element={<Dashboard />}>
+          {isLoggedIn&&<Route path="/" element={<Dashboard />}>
             <Route path="/" element={<Home />} />
             <Route path="/employees" element={<Employees />} />
             <Route path="/projects" element={<Projects />} />
@@ -46,7 +55,7 @@ function App() {
             <Route path="/admins" element={<Admins />} />
             <Route path="/profile/:id" element={<EmployeeProfile />} />
             <Route path="/kpi" element={<Kpi />} />
-          </Route>
+          </Route>}
           <Route path="/login" element={<Login />} />
         </Routes>
       </UserContext.Provider>

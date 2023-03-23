@@ -125,7 +125,7 @@ function Admins() {
                 </TableCell>
               </TableRow>
             </TableHead>
-            <TableBody>
+            <TableBody sx={{backgroundColor: "#f4f9fc"}}>
               {admins.map((admin) => (
                 <TableRow key={admin.id} className="MuiTableRow-root">
                   <TableCell

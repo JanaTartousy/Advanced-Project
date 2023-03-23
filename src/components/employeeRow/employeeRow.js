@@ -20,7 +20,6 @@ import PaginationContainer from "../table/tablePagination/pagination";
 import fetchData from "../../reUsableFunctions/dataGetter";
 import PageHeader from "../pageHeader/pageHeader";
 
-
 export default function DataGridDemo({
   employee,
   onDelete,
@@ -191,7 +190,8 @@ export default function DataGridDemo({
         .catch((error) => {
           toast.error("Error occurred while getting employees.");
           console.log(error.message);
-        })}
+        });
+    }
   }, [currentPage, searchQuery, token]);
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
@@ -201,7 +201,7 @@ export default function DataGridDemo({
   }
   return (
     <>
-    <PageHeader
+      <PageHeader
         pageName={"Teams"}
         onAddClick={handleClickOpen}
         handleSearchChange={handleSearchChange}
@@ -315,7 +315,7 @@ export default function DataGridDemo({
           </Button>
         </DialogActions>
       </Dialog>
-      <div style={{  width: "100%" }}>
+      <div style={{ width: "100%" }}>
         <DataGrid
           autoHeight
           autoWidth
@@ -331,7 +331,6 @@ export default function DataGridDemo({
           }}
           pagination="false"
         />
-
       </div>
       <PaginationContainer
         currentPage={currentPage}
