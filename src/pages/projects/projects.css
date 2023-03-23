@@ -5,12 +5,21 @@ h2 {
 }
 .tableall {
   background-color: #f4f9fc;
-  height: 70vh;
   margin: 0 auto;
 }
+
 .css-1f8o8r6-MuiPaper-root-MuiTableContainer-root{
   margin-top:20px
 }
 .MuiTableCell-head{
   color:var(--main)
+}
+.tableall th,.tableall td {
+  height: 56px;
+}
+.css-1yhpg23-MuiTableCell-root{
+  padding: 0!important;
+}
+.css-1ex1afd-MuiTableCell-root{
+  padding: 0 16px!important;
 }

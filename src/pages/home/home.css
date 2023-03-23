@@ -7,6 +7,9 @@
   justify-content: space-between;
   align-content: space-between;
 }
+.home-page-content-peek h2{
+font-size: 1.2rem;
+}
 .home-page-content-peek > div {
   border-radius: 5px;
   margin: 15px 5px;

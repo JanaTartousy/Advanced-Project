@@ -13,8 +13,13 @@ import {
   DialogContent,
   DialogActions,
   Button,
+  TextField,
 } from "@mui/material";
 import "./employeeRow.css";
+import PaginationContainer from "../table/tablePagination/pagination";
+import fetchData from "../../reUsableFunctions/dataGetter";
+import PageHeader from "../pageHeader/pageHeader";
+
 
 export default function DataGridDemo({
   employee,
@@ -22,10 +27,63 @@ export default function DataGridDemo({
   firstName,
   lastName,
 }) {
+  const [searchQuery, setSearchQuery] = useState("");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [lastPage, setLastPage] = useState(1);
   const { token } = useContext(UserContext);
   const [Employee, setEmployee] = useState([]);
   const [openDelete, setOpenDelete] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [image, setImage] = useState([]);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const addEmployee = async (e) => {
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append("first_name", employee.firstName);
+    formData.append("last_name", employee.lastName);
+    formData.append("email", employee.email);
+    formData.append("phone_number", employee.phoneNumber);
+    formData.append("dob", employee.dob);
+    formData.append("picture", image);
+
+    try {
+      let response = await axios.post(
+        `${process.env.REACT_APP_API_URL}/employees`,
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+
+      if (response.data.success === true) {
+        toast.success("Added Employee Successfully");
+        setOpen(false);
+      } else {
+        toast.error("Failed to add employee");
+      }
+    } catch (error) {
+      if (error.response) {
+        // The request was made and the server responded with a status code
+        // that falls out of the range of 2xx
+        toast.error(error.response.data);
+      } else if (error.request) {
+        // The request was made but no response was received
+        toast.error("No response received from server");
+      } else {
+        // Something happened in setting up the request that triggered an Error
+        toast.error("An error occurred while sending the request");
+      }
+    }
+  };
   const handleClickOpenDelete = (id) => {
     setOpenDelete(id);
   };
@@ -53,27 +111,25 @@ export default function DataGridDemo({
   };
 
   const columns = [
-    { field: "id", headerName: "ID" },
-
     {
       field: "firstName",
-      headerName: "First name",
-      width: 400,
+      headerName: "First Name",
+      flex: 1,
     },
     {
       field: "lastName",
-      headerName: "Last name",
-      width: 400,
+      headerName: "Last Name",
+      flex: 1,
     },
     {
       field: "teamName",
       headerName: "Team Name",
-      width: 400,
+      flex: 1,
     },
     {
       field: "Actions",
       headerName: "Action",
-      width: 300,
+      flex: 1,
       renderCell: (params) => (
         <>
           <Link to={`/profile/${params.row.id}`}>
@@ -113,17 +169,15 @@ export default function DataGridDemo({
   ];
 
   useEffect(() => {
-    token &&
-      axios
-        .get(`${process.env.REACT_APP_API_URL}/employees`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          // console.log(response);
-          // console.log(response.data);
-          const employees = response.data.employees.map((employee, index) => {
+    if (token) {
+      fetchData(
+        `${process.env.REACT_APP_API_URL}/employees`,
+        { Authorization: `Bearer ${token}` },
+        { per_page: 10, page: currentPage, search: searchQuery }
+      )
+        .then((data) => {
+          // set teams and lastPage state
+          const employees = data.employees.data.map((employee, index) => {
             return {
               id: employee.id,
               firstName: employee.first_name,
@@ -132,34 +186,157 @@ export default function DataGridDemo({
             };
           });
           setEmployee(employees);
+          setLastPage(data.employees.last_page);
         })
         .catch((error) => {
-          console.log(error);
           toast.error("Error occurred while getting employees.");
-        });
-  }, [token]);
-
+          console.log(error.message);
+        })}
+  }, [currentPage, searchQuery, token]);
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+  function handlePageChange(event, value) {
+    setCurrentPage(value);
+  }
   return (
     <>
-      <DataGrid
-        rows={Employee}
-        onDelete={handleDelete}
-        columns={columns.filter((column) => column.field !== "id")}
-        initialState={{
-          pagination: {
-            paginationModel: {
-              pageSize: 10,
-            },
-          },
-        }}
-        pageSizeOptions={[10]}
-        disableRowSelectionOnClick
-        sx={{
-          width: "100%",
-          height: "71vh",
-          marginTop: "20px",
-          backgroundColor: "#f4f9fc",
-        }}
+    <PageHeader
+        pageName={"Teams"}
+        onAddClick={handleClickOpen}
+        handleSearchChange={handleSearchChange}
+        searchQuery={searchQuery}
+      />
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle style={{ backgroundColor: "#369fff" }}>
+          Add Employee
+        </DialogTitle>
+        <DialogContent>
+          <form onSubmit={addEmployee}>
+            <TextField
+              autoFocus
+              margin="dense"
+              id="firstName"
+              label="First Name"
+              type="text"
+              fullWidth
+              onChange={(event) =>
+                setEmployee({ ...employee, firstName: event.target.value })
+              }
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="lastName"
+              label="Last Name"
+              type="text"
+              fullWidth
+              onChange={(event) =>
+                setEmployee({ ...employee, lastName: event.target.value })
+              }
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="email"
+              label="Email"
+              type="email"
+              fullWidth
+              onChange={(event) =>
+                setEmployee({ ...employee, email: event.target.value })
+              }
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="phone"
+              label="Phone Number"
+              type="text"
+              fullWidth
+              onChange={(event) =>
+                setEmployee({ ...employee, phoneNumber: event.target.value })
+              }
+            />
+            <TextField
+              autoFocus
+              margin="dense"
+              id="dob"
+              label="Date of Birth"
+              type="date"
+              fullWidth
+              InputLabelProps={{
+                shrink: true,
+              }}
+              onChange={(event) =>
+                setEmployee({ ...employee, dob: event.target.value })
+              }
+            />
+            <input
+              id="picture"
+              label="Picture"
+              type="file"
+              onChange={(event) => {
+                setImage(event.target.files[0]);
+                console.log(image);
+              }}
+            />
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={handleClose}
+            sx={{
+              color: "#4caf50",
+              "&:hover": {
+                color: "#c62828",
+                transform: "scale(1.05)",
+                transition: "0.2s ease-out",
+              },
+            }}
+          >
+            Cancel
+          </Button>
+          <Button
+            onClick={addEmployee}
+            type="submit"
+            sx={{
+              color: "#F6F8FA",
+              backgroundColor: "#4caf50",
+              "&:hover": {
+                transform: "scale(1.05)",
+                transition: "0.2s ease-out",
+                color: "#F6F8FA",
+                backgroundColor: " #388e3c",
+              },
+            }}
+            onSubmit={handleClose}
+          >
+            Save
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <div style={{  width: "100%" }}>
+        <DataGrid
+          autoHeight
+          autoWidth
+          rows={Employee}
+          onDelete={handleDelete}
+          columns={columns.filter((column) => column.field !== "id")}
+          disableRowSelectionOnClick
+          sx={{
+            width: "100%",
+            height: "71vh",
+            marginTop: "20px",
+            backgroundColor: "#f4f9fc",
+          }}
+          pagination="false"
+        />
+
+      </div>
+      <PaginationContainer
+        currentPage={currentPage}
+        lastPage={lastPage}
+        onPageChange={handlePageChange}
       />
       <Dialog open={openDelete} onClose={handleCloseDelete}>
         <DialogTitle sx={{ color: "#f44336" }}>Delete Confirmation</DialogTitle>

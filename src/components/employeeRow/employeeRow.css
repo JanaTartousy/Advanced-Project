@@ -13,3 +13,12 @@
   background-color: var(--accent);
   color: var(--main);
 }
+.css-rtrcn9-MuiTablePagination-root:last-child{
+  display: none;
+}
+/* .css-14htd3x-MuiDataGrid-root .MuiDataGrid-withBorderColor{
+  display: none;
+} */
+.css-14htd3x-MuiDataGrid-root.MuiDataGrid-autoHeight>div:last-child{
+  display:none
+}

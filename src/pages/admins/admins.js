@@ -105,11 +105,11 @@ function Admins() {
         }}
       />
 
-      <TableContainer sx={{ width: "100%" }} component={Paper} onAdd>
+      <TableContainer sx={{ width: "100%" }} component={Paper} >
         {admins && (
           <Table aria-label="admins table">
             <TableHead
-              sx={{ backgroundColor: "var(--accent)", color: "var(--main)" }}
+              sx={{ backgroundColor: "var(--accent)", color: "var(--main)!important" }}
             >
               <TableRow>
                 <TableCell className="MuiTableCell-head">Admins Name</TableCell>

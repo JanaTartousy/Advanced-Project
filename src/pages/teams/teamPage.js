@@ -28,7 +28,7 @@ function TeamPage() {
       fetchData(
         `${process.env.REACT_APP_API_URL}/teams`,
         { Authorization: `Bearer ${token}` },
-        { per_page: 12, page: currentPage, search: searchQuery }
+        { per_page: 10, page: currentPage, search: searchQuery }
       )
         .then((data) => {
           // set teams and lastPage state
@@ -133,7 +133,7 @@ function TeamPage() {
       <div className="table--container">
         <table className="a--table">
           <TableHeader
-            columns={["Team", "Number of Projects", "Number of Members"]}
+            columns={["Team Name", "Number of Projects", "Number of Members"]}
           />
           {loading ? (
             <LoadingBars />

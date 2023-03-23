@@ -1,11 +1,11 @@
 import { Button, Dialog, DialogActions, DialogContent, DialogTitle } from "@mui/material";
 
-function DeleteAdminPopup(props) {
+function DeleteProjectPopup(props) {
 
     return (      <Dialog open={props.open} onClose={props.onClose}>
         <DialogTitle sx={{ color: "#f44336" }}>Delete Confirmation</DialogTitle>
         <DialogContent>
-          Are you sure you want to delete this admin?
+          Are you sure you want to delete this project?
         </DialogContent>
         <DialogActions>
           <Button onClick={props.onClose}>Cancel</Button>
@@ -16,4 +16,4 @@ function DeleteAdminPopup(props) {
       </Dialog>  );
 }
 
-export default DeleteAdminPopup;
+export default DeleteProjectPopup;

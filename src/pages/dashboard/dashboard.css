@@ -5,7 +5,7 @@
 }
 .sidebar-closed-content{
     margin-left:95px;
-    width: calc(100vw - 50px);
+    width: calc(100vw - 60px);
     transition: var(--tran-05);
 }
 .dashboard--main_content{

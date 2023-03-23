@@ -1,15 +1,16 @@
+import { TableCell, TableHead, TableRow } from "@mui/material";
 import "./tableHeader.css"
 function TableHeader({columns}) {
   return (
-    <thead className="table--header">
-      <tr>
+    <TableHead className="table--header">
+      <TableRow>
         {columns.map((column,index)=>{
-          return <th key={index}>{column}</th>
+          return <TableCell key={index}>{column}</TableCell>
         })}
-        <th>Action</th>
+        <TableCell>Action</TableCell>
         
-      </tr>
-    </thead>
+      </TableRow>
+    </TableHead>
   );
 }
 export default TableHeader
