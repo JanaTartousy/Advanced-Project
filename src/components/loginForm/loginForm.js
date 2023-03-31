@@ -58,7 +58,9 @@ function LoginForm(props) {
         navigate("/")
       })
       .catch((error) => {
+        console.log(error)
         if (error.response && error.response.status === 401) {
+          
           setErrorMessage("Invalid email or password");
         } else {
           setErrorMessage("An error occurred, please try again");

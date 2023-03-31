@@ -20,19 +20,16 @@ import PaginationContainer from "../table/tablePagination/pagination";
 import fetchData from "../../reUsableFunctions/dataGetter";
 import PageHeader from "../pageHeader/pageHeader";
 
-export default function DataGridDemo({
-  employee,
-  onDelete,
-  firstName,
-  lastName,
-}) {
+export default function DataGridDemo() {
   const [searchQuery, setSearchQuery] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [lastPage, setLastPage] = useState(1);
   const { token } = useContext(UserContext);
-  const [Employee, setEmployee] = useState([]);
+  const [employee, setEmployee] = useState(null);
+  const [employees, setEmployees] = useState([]);
   const [openDelete, setOpenDelete] = useState(false);
   const [open, setOpen] = useState(false);
+  const [refresh, setRefresh] = useState(false);
   const [image, setImage] = useState([]);
   const handleClickOpen = () => {
     setOpen(true);
@@ -66,6 +63,7 @@ export default function DataGridDemo({
       if (response.data.success === true) {
         toast.success("Added Employee Successfully");
         setOpen(false);
+        setRefresh(!refresh);
       } else {
         toast.error("Failed to add employee");
       }
@@ -184,7 +182,7 @@ export default function DataGridDemo({
               teamName: employee.team?.name || "Empty",
             };
           });
-          setEmployee(employees);
+          setEmployees(employees);
           setLastPage(data.employees.last_page);
         })
         .catch((error) => {
@@ -192,7 +190,7 @@ export default function DataGridDemo({
           console.log(error.message);
         });
     }
-  }, [currentPage, searchQuery, token]);
+  }, [currentPage, searchQuery, token,refresh]);
   const handleSearchChange = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -202,7 +200,7 @@ export default function DataGridDemo({
   return (
     <>
       <PageHeader
-        pageName={"Teams"}
+        pageName={"Employees"}
         onAddClick={handleClickOpen}
         handleSearchChange={handleSearchChange}
         searchQuery={searchQuery}
@@ -316,10 +314,10 @@ export default function DataGridDemo({
         </DialogActions>
       </Dialog>
       <div style={{ width: "100%" }}>
-        <DataGrid
+        {employees&&<DataGrid
           autoHeight
           autoWidth
-          rows={Employee}
+          rows={employees}
           onDelete={handleDelete}
           columns={columns.filter((column) => column.field !== "id")}
           disableRowSelectionOnClick
@@ -330,7 +328,7 @@ export default function DataGridDemo({
             backgroundColor: "#f4f9fc",
           }}
           pagination="false"
-        />
+        />}
       </div>
       <PaginationContainer
         currentPage={currentPage}
